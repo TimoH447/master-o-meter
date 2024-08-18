@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master-o-meter</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            background: #fff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            padding: 40px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .description {
+            color: #666;
+            font-size: 1.2em;
+            margin-bottom: 40px;
+        }
+
+        .progress-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .progress-item {
+            font-size: 1.8em;
+            color: #333;
+        }
+
+        footer {
+            margin-top: 50px;
+            font-size: 0.9em;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Master-o-meter</h1>
+        <p class="description">
+            Wie läuft's mit der Masterarbeit? Ein Blick auf diese Seite verrät euch, wie es um meine Masterarbeit steht!
+        </p>
+
+        <div class="progress-container">
+            <div class="progress-item">
+                <strong>Word Count:</strong> {{ word_count }} words
+            </div>
+            <div class="progress-item">
+                <strong>Page Count:</strong> {{ page_count }} pages
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

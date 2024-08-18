@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thesis Progress</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .progress-container {
+            text-align: center;
+            margin-top: 50px;
+        }
+        .progress-container h1 {
+            color: #4CAF50;
+        }
+        .progress-item {
+            font-size: 1.5em;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-container">
+        <h1>Thesis Progress Tracker</h1>
+        <div class="progress-item">
+            <strong>Word Count:</strong> {{ word_count }} words
+        </div>
+        <div class="progress-item">
+            <strong>Page Count:</strong> {{ page_count }} pages
+        </div>
+    </div>
+</body>
+</html>
