@@ -68,3 +68,19 @@ def index(request):
 
     # Render the template and pass the context
     return render(request, 'thesis_tracker/index.html', context)
+
+def progress_chart(request):
+    user = User.objects.get(username='timoh')
+    # Get the DailyProgress records for the logged-in user, ordered by date
+    progress_data = DailyProgress.objects.filter(person=user).order_by('date')
+
+    # Extract dates and word counts
+    dates = [progress.date.strftime('%Y-%m-%d') for progress in progress_data]
+    word_counts = [progress.words for progress in progress_data]
+
+    context = {
+        'dates': dates,
+        'word_counts': word_counts,
+    }
+
+    return render(request, 'thesis_tracker/progress_chart.html', context)
