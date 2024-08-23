@@ -8,7 +8,45 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
 from .models import DailyProgress
 
-@csrf_exempt  # Disable CSRF for simplicity (not recommended for production without secure measures)
+from rest_framework.decorators import api_view
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated  
+
+class APITrackProgress(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def get(self,request):
+        content = {"message": "Hello World"}
+        return Response(content)
+
+    def post(self,request):
+        try:
+            data = json.loads(request.body)
+
+            # Get the fields from the JSON request
+            words = data.get('words')
+            pages = data.get('pages')
+            person_username = data.get('username')
+
+            # Validate that word_count and page_count are provided
+            if words is None or pages is None:
+                return Response({'error': 'Word count and page count are required.'}, status=400)
+
+            # Find the user object by username
+            user = User.objects.get(username=person_username)
+            
+            # Create a new DailyProgress entry
+            day = DailyProgress(words= words, pages=pages, person=user)
+            day.save()
+
+            return Response({"user": "dit is jeck"})
+        except User.DoesNotExist:
+            return Response({'error': 'User not found.'}, status=404)
+        except json.JSONDecodeError:
+            return Response({'error': 'Invalid JSON data.'}, status=400)
+
+@api_view(['GET','POST'])
 def api_track_progress(request):
     if request.method == 'POST':
         try:
@@ -16,32 +54,32 @@ def api_track_progress(request):
             data = json.loads(request.body)
 
             # Get the fields from the JSON request
-            word_count = data.get('word_count')
-            page_count = data.get('page_count')
-            person_username = data.get('person')  # Assume the person is identified by username
+            words = data.get('words')
+            pages = data.get('pages')
+            person_username = data.get('username')  # Assume the person is identified by username
 
             # Find the user object by username
-            person = User.objects.get(username=person_username)
+            user = User.objects.get(username=person_username)
 
             # Validate that word_count and page_count are provided
-            if word_count is None or page_count is None:
-                return JsonResponse({'error': 'Word count and page count are required.'}, status=400)
+            if words is None or pages is None:
+                return Response({'error': 'Word count and page count are required.'}, status=400)
 
             # Create a new DailyProgress entry
             DailyProgress.objects.create(
-                word_count=word_count,
-                page_count=page_count,
-                person=person
+                words=words,
+                pages=pages,
+                person=user
             )
 
-            return JsonResponse({'status': 'success', 'message': 'Progress saved successfully.'})
+            return Response({'status': 'success', 'message': 'Progress saved successfully.'})
 
         except User.DoesNotExist:
-            return JsonResponse({'error': 'User not found.'}, status=404)
+            return Response({'error': 'User not found.'}, status=404)
         except json.JSONDecodeError:
-            return JsonResponse({'error': 'Invalid JSON data.'}, status=400)
+            return Response({'error': 'Invalid JSON data.'}, status=400)
 
-    return JsonResponse({'error': 'Invalid request method.'}, status=405)
+    return Response({'error': 'Invalid request method.'}, status=405)
 
 # Create your views here.
 
