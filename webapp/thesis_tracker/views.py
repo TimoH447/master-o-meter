@@ -27,6 +27,9 @@ class APITrackProgress(APIView):
             # Get the fields from the JSON request
             words = data.get('words')
             pages = data.get('pages')
+            figures = data.get('figures')
+            inlines = data.get('inlines')
+            equations = data.get('equations')
             person_username = data.get('username')
 
             # Validate that word_count and page_count are provided
@@ -37,7 +40,7 @@ class APITrackProgress(APIView):
             user = User.objects.get(username=person_username)
             
             # Create a new DailyProgress entry
-            day = DailyProgress(words= words, pages=pages, person=user)
+            day = DailyProgress(words= words, pages=pages,figures=figures,inlines=inlines,equations=equations, person=user)
             day.save()
 
             return Response({"user": "dit is jeck"})
@@ -45,43 +48,6 @@ class APITrackProgress(APIView):
             return Response({'error': 'User not found.'}, status=404)
         except json.JSONDecodeError:
             return Response({'error': 'Invalid JSON data.'}, status=400)
-
-@api_view(['GET','POST'])
-def api_track_progress(request):
-    if request.method == 'POST':
-        try:
-            # Parse the incoming JSON data
-            data = json.loads(request.body)
-
-            # Get the fields from the JSON request
-            words = data.get('words')
-            pages = data.get('pages')
-            person_username = data.get('username')  # Assume the person is identified by username
-
-            # Find the user object by username
-            user = User.objects.get(username=person_username)
-
-            # Validate that word_count and page_count are provided
-            if words is None or pages is None:
-                return Response({'error': 'Word count and page count are required.'}, status=400)
-
-            # Create a new DailyProgress entry
-            DailyProgress.objects.create(
-                words=words,
-                pages=pages,
-                person=user
-            )
-
-            return Response({'status': 'success', 'message': 'Progress saved successfully.'})
-
-        except User.DoesNotExist:
-            return Response({'error': 'User not found.'}, status=404)
-        except json.JSONDecodeError:
-            return Response({'error': 'Invalid JSON data.'}, status=400)
-
-    return Response({'error': 'Invalid request method.'}, status=405)
-
-# Create your views here.
 
 def get_thesis_progress():
     # In a real scenario, you'd calculate or fetch these values from a database or file
