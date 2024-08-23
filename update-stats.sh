@@ -20,6 +20,8 @@ if [ ! -d "$ROOT/" ]; then
     exit 1
 fi
 
+source /home/timoh/projects/master-o-meter/.venv/bin/activate
+
 # Perform a git pull in the specified repository
 echo "Updating repository at '$ROOT'..."
 git -C "$ROOT/" pull
@@ -30,7 +32,7 @@ words=$(grep "Words in text" .tesiscount | cut -d ' ' -f 4)
 figures=$(grep "Number of floats" .tesiscount | cut -d ' ' -f 4)
 inlines=$(grep "math inlines" .tesiscount | cut -d ' ' -f 5)
 equations=$(grep "math displayed" .tesiscount | cut -d ' ' -f 5)
-pages=$(python3 count_pdf_pages.py "$ROOT/main.pdf")
+pages=$(python3 /home/timoh/projects/master-o-meter/count_pdf_pages.py "$ROOT/main.pdf")
 
 echo "words $words" 
 echo "figures $figures" 
