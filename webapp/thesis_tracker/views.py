@@ -50,21 +50,34 @@ class APITrackProgress(APIView):
             return Response({'error': 'Invalid JSON data.'}, status=400)
 
 def get_thesis_progress():
-    # In a real scenario, you'd calculate or fetch these values from a database or file
-    word_count = 12345  # Example: dynamic word count value
-    page_count = 45     # Example: dynamic page count value
-    return word_count, page_count
+    user = User.objects.get(username='timoh')
+    # Get the DailyProgress records for the logged-in user, ordered by date
+    progress_data = DailyProgress.objects.filter(person=user).order_by('date')
+
+    # Extract dates and word counts
+    dates = [progress.date.strftime('%Y-%m-%d') for progress in progress_data]
+    word_counts = [progress.words for progress in progress_data]
+    page_counts = [progress.pages for progress in progress_data]
+    inline_counts = [progress.inlines for progress in progress_data]
+    equation_counts = [progress.equations for progress in progress_data]
+    figure_counts = [progress.figures for progress in progress_data]
+
+
+    context = {
+        'dates': dates,
+        'word_counts': word_counts,
+        'page_counts': page_counts,
+        'inline_counts': inline_counts,
+        'equation_counts': equation_counts,
+        'figure_counts': figure_counts,
+    }
+
+
+    return context
 
 def index(request):
     # Get current progress (this could be fetched from the database or a file)
-    word_count, page_count = get_thesis_progress()
-
-    # Pass data to the template
-    context = {
-        'word_count': word_count,
-        'page_count': page_count,
-        'current_year': datetime.now().year,
-    }
+    context = get_thesis_progress()
 
     # Render the template and pass the context
     return render(request, 'thesis_tracker/index.html', context)
@@ -77,10 +90,19 @@ def progress_chart(request):
     # Extract dates and word counts
     dates = [progress.date.strftime('%Y-%m-%d') for progress in progress_data]
     word_counts = [progress.words for progress in progress_data]
+    page_counts = [progress.pages for progress in progress_data]
+    inline_counts = [progress.inlines for progress in progress_data]
+    equation_counts = [progress.equations for progress in progress_data]
+    figure_counts = [progress.figures for progress in progress_data]
+
 
     context = {
         'dates': dates,
         'word_counts': word_counts,
+        'page_counts': page_counts,
+        'inline_counts': inline_counts,
+        'equation_counts': equation_counts,
+        'figure_counts': figure_counts,
     }
 
     return render(request, 'thesis_tracker/progress_chart.html', context)

@@ -7,22 +7,24 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #434040; /* Softer gray background for better eye comfort */
+            background-color: #434040;
             margin: 0;
             padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 60vh;
+            min-height: 100vh;
+            flex-direction: column;
         }
 
         .container {
             max-width: 800px;
             background: #fff;
-            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.5);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             border-radius: 8px;
             padding: 40px;
             text-align: center;
+            margin-bottom: 20px;
         }
 
         h1 {
@@ -38,15 +40,7 @@
         }
 
         .progress-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
             margin-bottom: 30px;
-        }
-
-        .progress-item {
-            font-size: 1.8em;
-            color: #333;
         }
 
         footer {
@@ -55,6 +49,7 @@
             color: #888;
         }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
@@ -65,15 +60,88 @@
         </p>
 
         <div class="progress-container">
-            <div class="progress-item">
-                <strong>Word Count:</strong> {{ word_count }} words
-            </div>
-            <div class="progress-item">
-                <strong>Page Count:</strong> {{ page_count }} pages
-            </div>
+            <canvas id="wordCountChart" width="400" height="200"></canvas>
         </div>
 
+        <div class="progress-container">
+            <canvas id="pageCountChart" width="400" height="200"></canvas>
+        </div>
+
+        <footer>
+            &copy; 2024 - Mein Fortschritt der Masterarbeit auf einen Blick
+        </footer>
     </div>
 
+    <script>
+        const dates = {{ dates|safe }};
+        const wordCounts = {{ word_counts|safe }};
+        const pageCounts = {{ page_counts|safe }};
+
+        // Word Count Chart
+        const wordCountCtx = document.getElementById('wordCountChart').getContext('2d');
+        const wordCountChart = new Chart(wordCountCtx, {
+            type: 'line',
+            data: {
+                labels: dates,
+                datasets: [{
+                    label: 'Word Count',
+                    data: wordCounts,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 2,
+                    fill: false
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Date'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Word Count'
+                        },
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Page Count Chart
+        const pageCountCtx = document.getElementById('pageCountChart').getContext('2d');
+        const pageCountChart = new Chart(pageCountCtx, {
+            type: 'line',
+            data: {
+                labels: dates,
+                datasets: [{
+                    label: 'Page Count',
+                    data: pageCounts,
+                    borderColor: 'rgba(153, 102, 255, 1)',
+                    borderWidth: 2,
+                    fill: false
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Date'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Page Count'
+                        },
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
 </body>
 </html>
