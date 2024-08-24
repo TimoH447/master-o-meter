@@ -82,6 +82,9 @@ def index(request):
     # Render the template and pass the context
     return render(request, 'thesis_tracker/index.html', context)
 
+def mehr_infos(request):
+    return render(request, 'thesis_tracker/mehr-infos.html')
+
 def progress_chart(request):
     user = User.objects.get(username='timoh')
     # Get the DailyProgress records for the logged-in user, ordered by date
