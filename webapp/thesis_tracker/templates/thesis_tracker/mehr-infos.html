@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Mehr Infos</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -43,8 +44,133 @@
         <p>
             Mehr Infos zur Erstellung zur Idee und Erstellung 
             dieser Seite auf <a href="https://github.com/TimoH447/master-o-meter">GitHub <i class="fa fa-github" style="font-size:24px"></i></a>.
+            <br><br>
+            Vorläufiger Titel "On Jacobi algebras and knot theory". Es gibt keine genauen Vorgaben für den Umfang,
+            aber mit 30-40 Seiten für die Arbeit kann man rechnen. 
+            <br><br> 
+            Zurück zur <a href="{% url 'index' %}">Startseite</a>.
+
+            <br><br>
+            Probiere auch <a href="http://narr.us.to">diese Seite</a> mal aus!
+
+            <h2>Weitere Masterarbeits Stats:</h2>
+
+            <h3>Eingebettete Formeln</h3>
+            <canvas id="inlineCountChart" width="400" height="200"></canvas>
+            <h3>Formeln (nicht eingebettet)</h3>
+            <canvas id="equationCountChart" width="400" height="200"></canvas>
+            <h3>Abbildungen</h3>
+            <canvas id="figureCountChart" width="400" height="200"></canvas>
+
 
         </p>
     </div>
+
+    <script>
+        const dates = {{ dates|safe }};
+        const inlines = {{ inline_counts|safe }};
+        const equations = {{ equation_counts|safe }};
+        const figures = {{ figure_counts|safe }};
+
+        // inline Count Chart
+        const inlineCountCtx = document.getElementById('inlineCountChart').getContext('2d');
+        const inlineCountChart = new Chart(inlineCountCtx, {
+            type: 'line',
+            data: {
+                labels: dates,
+                datasets: [{
+                    label: 'Eingebettete Anzahl',
+                    data: inlines,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 2,
+                    fill: false
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Date'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Eingebettete Anzahl'
+                        },
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+    //equations Count Chart
+        const equationCountCtx = document.getElementById('equationCountChart').getContext('2d');
+        const equationCountChart = new Chart(equationCountCtx, {
+            type: 'line',
+            data: {
+                labels: dates,
+                datasets: [{
+                    label: 'Formel Anzahl',
+                    data: equations,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 2,
+                    fill: false
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Date'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Formeln Anzahl'
+                        },
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+     //equations Count Chart
+        const figureCountCtx = document.getElementById('figureCountChart').getContext('2d');
+        const figureCountChart = new Chart(figureCountCtx, {
+            type: 'line',
+            data: {
+                labels: dates,
+                datasets: [{
+                    label: 'Abbildungen Anzahl',
+                    data: figures,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 2,
+                    fill: false
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Date'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Abbildungen Anzahl'
+                        },
+                        beginAtZero: true
+                    }
+                }
+            }
+        });   
+
+    </script>
 </body>
 </html>

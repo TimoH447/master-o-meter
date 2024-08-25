@@ -16,7 +16,7 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Path to the .env file
-env_file_path = os.path.join(BASE_DIR, "../.env")
+env_file_path = os.path.join(BASE_DIR, "../.env2")
 
 # Function to read and parse the .env file
 def read_env_file(file_path):

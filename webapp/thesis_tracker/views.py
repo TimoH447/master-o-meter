@@ -83,7 +83,8 @@ def index(request):
     return render(request, 'thesis_tracker/index.html', context)
 
 def mehr_infos(request):
-    return render(request, 'thesis_tracker/mehr-infos.html')
+    context = get_thesis_progress()
+    return render(request, 'thesis_tracker/mehr-infos.html', context)
 
 def progress_chart(request):
     user = User.objects.get(username='timoh')
