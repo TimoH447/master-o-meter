@@ -1,4 +1,5 @@
 .venv/
-.ENV
+.env
+.env2
 .notes
 .post_out

@@ -3,9 +3,13 @@
 # copied from https://github.com/joapaspe/tesismometro/blob/master/client/scripts/tesismometro.sh
 
 ROOT=/home/timoh/projects/ma
+PROJ_ROOT=/home/timoh/projects/master-o-meter
 USER=timoh
-TOKEN=Token 799b4f00dc601f1d4183bb0f701a1deeb78ae539
+API_TOKEN=$(grep "^API_TOKEN=" $PROJ_ROOT/.env2 | cut -d '=' -f2)
+TOKEN="Token $API_TOKEN"
 SERVER=https://trackmythesis.dynv6.net  
+
+echo $TOKEN
 
 if [ -z "$USER" ]
 then
@@ -41,5 +45,5 @@ echo "equations $equations"
 echo "pages $pages"
 
 echo "#Uploading server"
-echo "curl -X POST -d "{\"username\": \"$USER\",\"words\": $words, \"figures\": $figures, \"inlines\": $inlines, \"equations\": $equations, \"pages\": $pages}" $SERVER/api/track-progress/ -H 'Authorization: Token 799b4f00dc601f1d4183bb0f701a1deeb78ae539' -o .post_out"
-curl -X POST -d "{\"username\": \"$USER\",\"words\": $words, \"figures\": $figures, \"inlines\": $inlines, \"equations\": $equations, \"pages\": $pages}" $SERVER/api/track-progress/ -H 'Authorization: Token 799b4f00dc601f1d4183bb0f701a1deeb78ae539' -o .post_out
+echo "curl -X POST -d "{\"username\": \"$USER\",\"words\": $words, \"figures\": $figures, \"inlines\": $inlines, \"equations\": $equations, \"pages\": $pages}" $SERVER/api/track-progress/ -H 'Authorization: $TOKEN' -o .post_out"
+curl -X POST -d "{\"username\": \"$USER\",\"words\": $words, \"figures\": $figures, \"inlines\": $inlines, \"equations\": $equations, \"pages\": $pages}" $SERVER/api/track-progress/ -H "Authorization: $TOKEN" -o $PROJ_ROOT/.post_out
