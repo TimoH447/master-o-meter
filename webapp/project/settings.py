@@ -48,6 +48,7 @@ ALLOWED_HOSTS = ["192.168.178.32","127.0.0.1","trackmythesis.dynv6.net"]
 
 INSTALLED_APPS = [
     'thesis_tracker.apps.ThesisTrackerConfig',
+    'pomo',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
