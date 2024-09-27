@@ -13,13 +13,13 @@ def pomodoro_timer(request):
   form = PomodoroForm()
   
   if len(timers) == 0:
-      return render(request, 'pomodromo_timer.html', {
+      return render(request, 'pomo/pomodromo_timer.html', {
           'form': form,
           'editable': False,
           'timers': None,
       })
   
-  return render(request, 'pomodromo_timer.html', {
+  return render(request, 'pomo/pomodromo_timer.html', {
       'form': form,
       'editable': False,
       'timers': timers,
@@ -42,7 +42,7 @@ def login(request):
             messages.info(request, "Invalid email or password")
             return redirect('login')
     else:
-        return render(request, 'login.html')
+        return render(request, 'pomo/login.html')
 
 
 def signup(request):
@@ -65,7 +65,7 @@ def signup(request):
             user.save()
             return redirect('login')
     else:
-        return render(request, 'signup.html')
+        return render(request, 'pomo/signup.html')
 
 def logout(request):
     auth.logout(request)
@@ -84,7 +84,7 @@ def add(request,id):
     else:
         form = PomodoroForm()
         timers = Timers.objects.all()
-        return render(request, 'pomodromo_timer.html', {
+        return render(request, 'pomo/pomodromo_timer.html', {
             'form': form,
             "editable": editable,
             'timers': timers
@@ -98,12 +98,12 @@ def delete(request, id):
     timers = Timers.objects.all()
     form = PomodoroForm()
     if len(timers) == 0:
-        return render(request, 'pomodromo_timer.html', {
+        return render(request, 'pomo/pomodromo_timer.html', {
             'form': form,
             "editable": False,
             'timers': None
         })
-    return render(request, 'pomodromo_timer.html', {
+    return render(request, 'pomo/pomodromo_timer.html', {
         'form': form,
         "editable": False,
         'timers': timers
