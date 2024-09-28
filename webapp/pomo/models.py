@@ -1,11 +1,12 @@
 from django.db import models
+from django.contrib.auth.models import User
+from django.utils import timezone
 
-# Create your models here.
 class Timers(models.Model):
-    title = models.CharField(max_length=100)
-    hours = models.IntegerField(default=0)
-    minutes = models.IntegerField(default=25)
-    seconds = models.IntegerField(default=0)
-    category = models.CharField(max_length=50)  # Add this line
-    uuid = models.IntegerField(default=0)
-    priority = models.IntegerField(default=0)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    duration = models.IntegerField(default=1)  # 1 for 25 min, 2 for 50 min
+    date_completed = models.DateField(default=timezone.now)  # Date when the timer was completed
+    time_completed = models.TimeField(auto_now_add=True, null=True,blank=True)  # Time when the timer was completed
+
+    def __str__(self):
+        return f"{self.user.username} - {self.duration} pomodoro(s) on {self.date_completed}"

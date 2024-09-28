@@ -1,36 +1,29 @@
 {% load static %}
 <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Bootstrap demo</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-              rel="stylesheet"
-              integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-              crossorigin="anonymous">
-      <link rel='stylesheet' href="{% static 'pomo/style.css'%}">
-      <script src="{% static 'pomo/app.js' %}"></script>
-
-    </head>
-    <body>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pomodoro Timer</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+          rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'pomo/style.css' %}">
+    <script src="{% static 'pomo/app.js' %}"></script>
+</head>
+<body>
     <section class="navbar--section fw-bold">
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">Pomodoro Timer</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarNavAltMarkup"
-                        aria-controls="navbarNavAltMarkup" aria-expanded="false" 
-                        aria-label="Toggle navigation">
+                        data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
+                        aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
                         {% if user.is_authenticated %}
-                        <a class="nav-link mx-3" href="{% url 'add'  user.id %}">
-                          <img width="30" src="https://img.icons8.com/ios/50/add--v1.png" 
-                               alt="add--v1"/>
-                        </a>
                         <a class="btn btn-primary p-2 fw-bold" href="{% url 'logout' %}">Logout</a>
                         {% else %}
                         <a class="nav-link" href="{% url 'login' %}">Login/SignUp</a>
@@ -44,105 +37,38 @@
     <section class="timer--section">
         <div class="container">
             <div class="row">
-
                 <div class="col-lg-12 mt-5 h4 text-center">
-                    <p class="h2 text-center">Pomodoro</p>
-                    <div class="timer ">
-                        <span id="hours">00</span>:<span id="minutes">25</span>:<span 
-                                                          id="seconds">00</span>
+                    <p class="h2 text-center">Pomodoro {{ user.username }}</p>
+                    <div class="timer">
+                        <span id="hours">00</span>:<span id="minutes">25</span>:<span id="seconds">00</span>
                     </div>
 
-                    <button class="btn btn-primary" onclick="startMainTimer()">Start</button>
+                    <!-- Button for 25-minute timer -->
+                    <button class="btn btn-primary" onclick="startMainTimer(25, 1)">Start 25 Min Timer</button>
+
+                    <!-- Button for 50-minute timer -->
+                    <button class="btn btn-primary" onclick="startMainTimer(50, 2)">Start 50 Min Timer</button>
+
                     <button class="btn btn-primary" onclick="pauseTimer()">Pause</button>
                     <button class="btn btn-primary" onclick="resetTimer()">Reset</button>
                 </div>
             </div>
         </div>
     </section>
-      
-    <section class="custom--time">
+
+    <section class="pomodoro-stats">
         <div class="container">
-            <p class=" h3">Your Tasks By Categories</p>
-            {% if user.is_authenticated%}
-
-
             <div class="row">
-                {% if editable %}
-                <form id="pomodoroForm" method="POST" action="{% url 'add' user.id %}">
-                    {% csrf_token %}
-                    <div class="h5 col-lg-12  mt-5 editable--form">
-                        {{form}}
-                        <div class="editable--form--btn text-center">
-                            <button class=" btn btn-primary " type="submit">Save</button>
-                        </div>
-                    </div>
-                </form>
-                {% else %}
-
-                {% if timers is None %}
-                <div class="h5 col-lg-12 mt-5 text-center">
-                    <p class="h4 text-center">No timer is set</p>
-                </div>
-
-                {% else %}
-
-                {% for timer in timers %}
-                  {% if timer.uuid == user.id %}
-
-              <div class="container mt-5 p-5  bg-opacity-10 rounded ">
-                <div class="row text-center">
-                    <div class="col ">
-                        <p class="fw-bolder text-center fs-3">Category : {{ timer.category }}</p>
-                        <p class="fw-bolder text-center">Title : {{ timer.title }}</p>
-                    </div>
-                    <div class="col d-flex align-items-center justify-content-center timer">
-                      <span id="hours{{ timer.id }}">{{ timer.hours }}</span>:
-                      <span id="minutes{{ timer.id }}">{{ timer.minutes }}</span>:
-                      <span id="seconds{{ timer.id }}">{{ timer.seconds }}</span>
-
-                      <button class="btn btn-primary m-2" 
-                              onclick="startITimer('{{ timer.id }}')">Start</button>
-                      <button class="btn btn-primary m-2" 
-                              onclick="pauseITimer('{{ timer.id }}')">Pause</button>
-                      <button class="btn btn-primary m-2" 
-                              onclick="resetITimer('{{ timer.id }}')">Reset</button>
-                            <a class="btn btn-danger m-2"  
-                               href="/delete/{{ timer.id }}">Delete</a>
-                        <span id="initialMinutes{{ timer.id }}" 
-                              style="display: none;">{{ timer.minutes }}</span>
-                        <span id="initialSeconds{{ timer.id }}" 
-                              style="display: none;">{{ timer.seconds }}</span>
-
-                          <!-- Add an additional hidden input field to store the timer ID -->
-                          <input type="hidden" class="timerId" value="{{ timer.id }}">
-                    </div>
-                </div>
-
-                <div class="round-time-bar" data-style="smooth" style="--duration: 150;">
-                    <div id="progressBar{{ timer.id }}"></div>
-                </div>
-    
-                  </div>
-              {%endif%}
-                {% endfor %}
-                {% endif %}
-                {% endif %}
-            </div>
-            {% else %}
-            <div class="row">
-
-                <div class="col-lg-12 p-5 mt-5 text-center">
-
-                    <p class="h3">Please <a href="{% url 'login' %}" 
-                       class="btn btn-primary">Login</a> to see your custom timers</p>
+                <div class="col-lg-12 mt-5 h4 text-center">
+                    <p class="h4">Pomodoros completed today: {{ total_pomodoros_today }}</p>
+                    <p class="h4">Pomodoros completed alltime: {{ total_pomos_alltime }}</p>
                 </div>
             </div>
-            {% endif %}
-      </div>
+        </div>
     </section>
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 
-            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" 
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
             crossorigin="anonymous"></script>
-  </body>
+</body>
 </html>

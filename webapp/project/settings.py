@@ -39,7 +39,7 @@ env_vars = read_env_file(env_file_path)
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env_vars.get("DJANGO_SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env_vars.get("DEBUG", "False") == "True"
+DEBUG = True#env_vars.get("DEBUG", "False") == "True"
 
 ALLOWED_HOSTS = ["192.168.178.32","127.0.0.1","trackmythesis.dynv6.net"]
 
