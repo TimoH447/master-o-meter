@@ -5,7 +5,7 @@ let mainMinutes = 24;
 let mainHours = 0;
 let mainIsTimerRunning = false;
 
-const audio = new Audio('static/media/audio/Airtel Mp3 - Airtel Song.mp3');
+const audio = new Audio('static/pomo/audio/alarm1.mp3');
 
 function startMainTimer(minutes, pomodoroCount) {
     mainMinutes = minutes;
@@ -88,12 +88,12 @@ function getCookie(name) {
 
 function timerComplete(pomodoroCount) {
     // Play a sound
-    const audio1 = new Audio('/static/media/audio/Airtel Mp3 - Airtel Song.mp3');
+    const audio1 = new Audio('/static/pomo/audio/alarm1.mp3');
     console.log("Played...");
     audio1.play();
 
     // Send the completion data to the Django view
-    fetch('/timer-complete/', {
+    fetch('/pomo/timer-complete/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

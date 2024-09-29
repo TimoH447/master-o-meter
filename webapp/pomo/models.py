@@ -10,3 +10,4 @@ class Timers(models.Model):
 
     def __str__(self):
         return f"{self.user.username} - {self.duration} pomodoro(s) on {self.date_completed}"
+
