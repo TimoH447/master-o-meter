@@ -1,17 +1,18 @@
 import json
 
 from django.shortcuts import render, redirect
-from .models import Timers
 from django.contrib.auth.models import User
 from django.contrib import auth
 from django.contrib import messages
 from django.db.models import Sum, F, ExpressionWrapper, fields
 from django.db import models
-
-# views.py
 from django.http import JsonResponse
 from django.utils import timezone
 
+from .models import Timers
+from .streak import calculate_streak
+
+# views.py
 def timer_complete(request):
     if request.method == "POST":
         data = json.loads(request.body)
@@ -51,11 +52,15 @@ def pomodoro_timer(request):
     # Sum the total number of Pomodoros completed all-time
     total_pomodoros_alltime = timers_alltime.aggregate(total=models.Sum('duration'))['total'] or 0
     
+    # Calculate the user's streak
+    streak = calculate_streak(user)
+
     # Render the template with the number of Pomodoros completed today
     return render(request, 'pomo/pomodoro.html', {
         'total_pomos_alltime': total_pomodoros_alltime,
         'username': user.username,
-        'total_pomodoros_today': total_pomodoros_today
+        'total_pomodoros_today': total_pomodoros_today,
+        'streak': streak,
     })
 
 def login(request):
