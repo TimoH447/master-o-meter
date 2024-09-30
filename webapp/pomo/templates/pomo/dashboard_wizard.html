@@ -1,0 +1,77 @@
+<!-- dashboard_wizard.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thesis Quest - Wizard Journey</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard_wizard.css' %}">
+</head>
+<body class="wizard-theme">
+    <div class="container">
+        <!-- Journey Map Section -->
+        <section class="journey-map">
+            <h2>Your Magical Thesis Quest</h2>
+            <div class="map-scroll">
+                <div class="map-path">
+                    {% for stage in progress.current_stage.stage_set.all %}
+                        <div class="stage {% if stage.is_complete %}complete{% endif %}">
+                            <div class="stage-icon">
+                                <!-- Spell Book or Magical Artifact Icon -->
+                                <img src="{% static 'images/magic_artifact.png' %}" alt="{{ stage.name }}">
+                            </div>
+                            <div class="stage-name">{{ stage.name }}</div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+
+        <!-- Quest Log Section -->
+        <section class="quest-log">
+            <h3>Your Quest Log</h3>
+            <div class="quest-list">
+                {% for quest in progress.current_stage.quests.all %}
+                    <div class="quest {% if quest.is_complete %}complete{% endif %}">
+                        <div class="quest-details">
+                            <p>{{ quest.name }} (Goal: {{ quest.word_count_goal }} words)</p>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: {{ progress.word_count / quest.word_count_goal * 100 }}%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <!-- Magical Inventory Section -->
+        <section class="magical-inventory">
+            <h3>Magical Inventory</h3>
+            <div class="inventory">
+                <p>As you progress, unlock magical tools:</p>
+                <ul>
+                    {% for item in progress.magical_items.all %}
+                        <li>{{ item.name }} - {{ item.description }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </section>
+
+        <!-- Archives of Knowledge Section -->
+        <section class="archives">
+            <h3>Archives of Knowledge</h3>
+            <div class="archives-list">
+                <p>Unlock ancient knowledge by completing research quests:</p>
+                {% for archive in progress.archives.all %}
+                    <div class="archive {% if archive.is_unlocked %}unlocked{% endif %}">
+                        <div class="archive-details">
+                            <p>{{ archive.name }} - Status: {% if archive.is_unlocked %}Unlocked{% else %}Locked{% endif %}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+    </div>
+</body>
+</html>

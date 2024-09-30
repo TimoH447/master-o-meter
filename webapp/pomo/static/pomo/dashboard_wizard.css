@@ -1,0 +1,78 @@
+/* dashboard_wizard.css */
+
+body.wizard-theme {
+    background-color: #2e294e;
+    color: #f8f8f2;
+    font-family: 'Garamond', serif;
+}
+
+.container {
+    padding: 20px;
+}
+
+.journey-map {
+    margin-bottom: 50px;
+}
+
+.map-scroll {
+    background: url('../images/parchment_texture.jpg') no-repeat center;
+    background-size: cover;
+    padding: 20px;
+    border: 5px solid #cfa072;
+    border-radius: 10px;
+}
+
+.map-path {
+    display: flex;
+    justify-content: space-around;
+}
+
+.stage {
+    text-align: center;
+    opacity: 0.5;
+}
+
+.stage.complete {
+    opacity: 1;
+}
+
+.quest-log .quest {
+    margin-bottom: 20px;
+}
+
+.quest-log .progress-bar {
+    width: 100%;
+    background-color: #555;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.quest-log .progress {
+    height: 20px;
+    background-color: #8bcdcd;
+}
+
+.magical-inventory {
+    margin-top: 50px;
+}
+
+.magical-inventory ul {
+    list-style-type: none;
+}
+
+.magical-inventory ul li {
+    margin-bottom: 10px;
+}
+
+.archives {
+    margin-top: 50px;
+}
+
+.archives-list .archive {
+    margin-bottom: 20px;
+    opacity: 0.5;
+}
+
+.archives-list .archive.unlocked {
+    opacity: 1;
+}
