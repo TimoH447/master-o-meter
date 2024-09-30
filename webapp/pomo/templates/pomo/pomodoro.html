@@ -33,6 +33,7 @@
             
             <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
                 <div class="navbar-nav align-items-center">
+                    <a class="btn btn-secondary p-2 fw-bold me-2" href="{% url 'index' %}">Main Page</a>
                     {% if user.is_authenticated %}
                     <a class="btn btn-primary p-2 fw-bold" href="{% url 'logout' %}">Logout</a>
                     {% else %}
@@ -75,6 +76,13 @@
                     <p class="h4">Pomodoros completed alltime: {{ total_pomos_alltime }}</p>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-lg-12 mt-5 h4 text-center">
+                    <button class="btn btn-primary" onclick="playMusic()">Play Music</button>
+                    <audio id="music" src="/static/pomo/audio/deep-xethrocc.mp3"></audio>
+                </div>
+            </div>
+
         </div>
     </section>
 
