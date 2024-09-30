@@ -16,14 +16,14 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function playMusic() {
-    const music = document.getElementById('music');
+    const musicold = document.getElementById('music');
     
-    if (music.paused) {
-        music.volume = 0.2;  // Set volume (adjust as needed)
-        music.play();
+    if (musicold.paused) {
+        musicold.volume = 0.2;  // Set volume (adjust as needed)
+        musicold.play();
     } else {
-        music.pause();
-        music.currentTime = 0;  // Optional: reset the music to the start
+        musicold.pause();
+        musicold.currentTime = 0;  // Optional: reset the music to the start
     }
 }
 

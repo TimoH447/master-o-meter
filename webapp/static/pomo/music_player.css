@@ -1,0 +1,50 @@
+.music-player {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    padding: 10px 20px;
+    color: white;
+    border-radius: 10px;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 400px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.music-info {
+    flex: 1;
+    text-align: left;
+}
+
+.music-controls {
+    display: flex;
+    flex-direction: column; /* Stack the buttons and the volume control vertically */
+    align-items: flex-end; /* Align everything to the right */
+}
+
+.music-controls-buttons {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 5px; /* Space between buttons and volume control */
+}
+
+.music-controls-buttons button {
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 20px;
+    margin: 0 0px; /* Reduced margin for tighter buttons */
+    cursor: pointer;
+    padding: 0; /* Remove padding */
+    width: auto; /* Allow the width to adjust to the content */
+    height: auto; /* Allow the height to adjust to the content */
+}
+
+#volume-control {
+    width: 80px;
+}
