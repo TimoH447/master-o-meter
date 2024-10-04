@@ -4,6 +4,9 @@ const songs = [
     { title: 'Summer rain', artist: 'Xethrocc', file: '/static/pomo/audio/summer-rain-xethrocc.m4a' },
     { title: 'Deep', artist: 'Xethrocc', file: '/static/pomo/audio/deep-xethrocc.mp3' },
     { title: 'For a dream', artist: 'Xethrocc', file: '/static/pomo/audio/for-a-dream-xethrocc.m4a' },
+    { title: 'Forest guitar', artist: 'Xethrocc', file: '/static/pomo/audio/forest-guitar-xethrocc.m4a' },
+    { title: 'Power of the wind', artist: 'Xethrocc', file: '/static/pomo/audio/power-of-the-wind-xethrocc.m4a' },
+    { title: 'Ways of the wizard', artist: 'Geoffharvey', file: '/static/pomo/audio/ways-of-the-wizard-geoffharvey.m4a' },
     // Add more songs here
 ];
 const music = new Audio(songs[currentSongIndex].file);
@@ -47,8 +50,19 @@ function setVolume(value) {
     music.volume = value;
 }
 
+function collapseMusicBar() {
+    document.getElementById('music-bar').style.display = 'none'; // Hide the music bar
+    document.getElementById('expand-button').style.display = 'block'; // Show the expand button
+}
+
+function expandMusicBar() {
+    document.getElementById('music-bar').style.display = 'flex'; // Show the music bar
+    document.getElementById('expand-button').style.display = 'none'; // Hide the expand button
+}
+
 // Initialize song info when the page loads
 
 document.addEventListener('DOMContentLoaded', function() {
     updateSongInfo();  // Update song info when the page loads
 });
+music.addEventListener('ended', nextSong);

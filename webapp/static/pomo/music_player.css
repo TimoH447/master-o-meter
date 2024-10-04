@@ -40,11 +40,35 @@
     font-size: 20px;
     margin: 0 0px; /* Reduced margin for tighter buttons */
     cursor: pointer;
-    padding: 0; /* Remove padding */
+    padding: 1px; /* Remove padding */
     width: auto; /* Allow the width to adjust to the content */
     height: auto; /* Allow the height to adjust to the content */
 }
 
 #volume-control {
     width: 80px;
+}
+
+#expand-button {
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    z-index: 10000;
+}
+
+#collapse-button {
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 16px;
+    margin-top: -35px;    /* Moves the button closer to the top */
+    margin-left: -30px;  /* Moves the button closer to the left */
+    cursor: pointer;
 }
