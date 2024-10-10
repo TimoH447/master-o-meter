@@ -8,14 +8,6 @@ let selectedPomodoroCount = 1;  // 1 for 25 min, 2 for 50 min
 
 const audio = new Audio('static/pomo/audio/alarm1.mp3');
 
-function showStoryBox() {
-    document.getElementById('story-box').style.display = 'block';
-}
-
-function closeStoryBox() {
-    document.getElementById('story-box').style.display = 'none';
-}
-
 
 document.addEventListener('DOMContentLoaded', function () {
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
