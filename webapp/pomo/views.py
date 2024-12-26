@@ -8,14 +8,17 @@ from django.db.models import Sum, F, ExpressionWrapper, fields
 from django.db import models
 from django.http import JsonResponse
 from django.utils import timezone
+from django.shortcuts import get_object_or_404
 
 from .models import Timers
 from .streak import calculate_streak
 
 from django.contrib.auth.decorators import login_required
 from .models import PlayerState, Location, Event
+from .models import PlayerState, Reward, Balance
 
-#views
+
+@login_required 
 def trophy_room(request):
     try:
         # Fetch the player's state (this assumes a PlayerState model linked to the user)
@@ -23,18 +26,70 @@ def trophy_room(request):
 
         # Extract relevant stats
         current_streak = player_state.get_streak()
+        pomodoros_today = player_state.get_total_pomos_today()
+        total_pomodoros = player_state.get_total_pomos()
 
-        # Pass the stats to the template for display
-        context = {
-            'pomodoros_today': player_state.get_total_pomos_today(),
-            'total_pomodoros': player_state.get_total_pomos(),
-            'current_streak': current_streak,
+        stats_context = {
+            'pomodoros_today': pomodoros_today,
+            'total_pomodoros': total_pomodoros,
+            'streak': current_streak,
         }
-        return render(request, 'pomo/trophy_room.html', context)
-
     except PlayerState.DoesNotExist:
-        # Handle the case where the player's state doesn't exist yet
-        return render(request, 'pomo/trophy_room.html', {'error': 'Player state not found.'})
+        # Handle missing player state with default values
+        stats_context = {
+            'pomodoros_today': 0,
+            'total_pomodoros': 0,
+            'streak': 0,
+        }
+
+    try:
+        # Fetch user's balance, if it doesn't exist, create a new one
+        balance = Balance.objects.get(player=request.user)
+
+    except Balance.DoesNotExist:
+        # Create a new balance for the user with 0 points
+        balance = Balance.objects.create(player=request.user, points=0)
+
+    # Fetch rewards associated with the player
+    unclaimed_rewards = Reward.objects.filter(player=request.user, claimed=False)
+    claimed_rewards = Reward.objects.filter(player=request.user, claimed=True)
+
+    rewards_context = {
+        'balance': balance,
+        'unclaimed_rewards': unclaimed_rewards,
+        'claimed_rewards': claimed_rewards,
+    }
+
+    # Merge both contexts
+    context = {**stats_context, **rewards_context}
+    return render(request, 'pomo/trophy_room.html', context)
+
+@login_required
+def claim_reward(request, reward_id):
+    if request.method == "POST":
+        # Get the reward object, or return a 404 if not found
+        reward = get_object_or_404(Reward, id=reward_id)
+
+        # Get the user's balance
+        balance = get_object_or_404(Balance, player=request.user)
+
+        # Check if the user has enough points to claim the reward
+        if balance.points < reward.cost:
+            return JsonResponse({'success': False, 'error': 'Insufficient points to claim this reward.'})
+
+        # Deduct the cost of the reward from the user's balance
+        balance.points -= reward.cost
+        balance.save()
+
+        # Mark the reward as claimed
+        reward.claimed = True  # Uncomment if you add this field
+        reward.save()
+
+        # Optionally, you could log this action or send a notification
+
+        return JsonResponse({'success': True, 'message': 'Reward claimed successfully!'})
+
+    return JsonResponse({'success': False, 'error': 'Invalid request method.'}, status=400)
 
 def generate_story(location, player_state,events):
     # Filter the events based on whether they can be triggered
@@ -117,7 +172,24 @@ def timer_complete(request):
             date_completed=timezone.now().date(),  # Save the current date
         )
 
-        return JsonResponse({'status': 'success', 'message': f'Timer completed: {duration} pomodoro(s)'})
+        # Check if the user has a balance, if not, create one
+        try:
+            balance = Balance.objects.get(player=request.user)
+        except Balance.DoesNotExist:
+            balance = Balance.objects.create(player=request.user, points=0)
+
+        # Check if this is the first Pomodoro of the day
+        today = timezone.now().date()
+        is_first_pomodoro_today = not Timers.objects.filter(user=request.user, date_completed=today).exists()
+
+        # Points logic: If it's the first Pomodoro of the day, give 2 points, else give 1 point
+        points_to_add = 2 if is_first_pomodoro_today else 1
+
+        # Update the user's balance
+        balance.points += points_to_add
+        balance.save()
+
+        return JsonResponse({'status': 'success', 'message': f'Timer completed: {duration} pomodoro(s)', 'points_added': points_to_add})
 
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=400)
 

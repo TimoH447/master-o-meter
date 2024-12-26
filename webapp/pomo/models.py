@@ -141,9 +141,35 @@ class PlayerState(models.Model):
         total_pomodoros_alltime = timers_alltime.aggregate(total=models.Sum('duration'))['total'] or 0
         return total_pomodoros_alltime
 
-class Currency(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+class Achievement(models.Model):
+    name = models.CharField(max_length=255)
+    description = models.TextField()
+    streak_required = models.IntegerField(null=True, blank=True)  # For streak-based achievements
+    pomodoros_required = models.IntegerField(null=True, blank=True)  # For Pomodoro-based achievements
+    page_count_required = models.IntegerField(null=True, blank=True)  # For page count milestones
+    hours_a_day_required = models.IntegerField(null=True, blank=True)
+
+    def __str__(self):
+        return self.name
+
+class AchievementCompletion(models.Model):
+    player = models.ForeignKey(User, on_delete=models.CASCADE)
+    achievement = models.ForeignKey(Achievement, on_delete=models.CASCADE)
+    time_completed = models.TimeField(auto_now_add=True, null=True,blank=True)  # Time when the timer was completed
+
+class Reward(models.Model):
+    name = models.CharField(max_length=255)
+    description = models.TextField()
+    cost = models.IntegerField()  # Cost in points
+    player = models.ForeignKey(User, on_delete=models.CASCADE)
+    claimed = models.BooleanField(default=False)
+    
+    def __str__(self):
+        return self.name
+
+class Balance(models.Model):
+    player = models.OneToOneField(User, on_delete=models.CASCADE)
     points = models.IntegerField(default=0)
 
     def __str__(self):
-        return f"{self.user}'s Points"
+        return f"{self.player}'s Points"
