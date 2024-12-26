@@ -20,3 +20,4 @@ Configuring https is easy with certbot. See here https://upcloud.com/resources/t
 Texcount, crontab
 
 ### Django Apache Setup
+Restarting the server after changes: sudo systemctl restart apache2
