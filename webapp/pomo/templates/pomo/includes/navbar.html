@@ -9,6 +9,10 @@
             title="Current Streak: {{ streak }} days">
             {{ streak }} 🔥
         </span>
+        <span class="navbar-text me-3" data-bs-toggle="tooltip" data-bs-placement="bottom"
+            title="Today: {{ total_pomodoros_today }} Pomodoros">
+            {{ total_pomodoros_today }} 📅
+        </span>
         {% endif %}
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
