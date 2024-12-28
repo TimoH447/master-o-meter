@@ -5,12 +5,12 @@
 
         <!-- Always Visible Streak with Tooltip -->
         {% if user.is_authenticated %}
-        <span class="navbar-text me-3" data-bs-toggle="tooltip" data-bs-placement="bottom"
-            title="Current Streak: {{ streak }} days">
+        <span id="streak" class="navbar-text me-3" data-bs-toggle="tooltip" data-bs-placement="bottom"
+            title="Current Streak">
             {{ streak }} 🔥
         </span>
-        <span class="navbar-text me-3" data-bs-toggle="tooltip" data-bs-placement="bottom"
-            title="Today: {{ total_pomodoros_today }} Pomodoros">
+        <span id="daily-pomos" class="navbar-text me-3" data-bs-toggle="tooltip" data-bs-placement="bottom"
+            title="Number of Pomodoros Completed Today">
             {{ total_pomodoros_today }} 📅
         </span>
         {% endif %}

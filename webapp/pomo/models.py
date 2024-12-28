@@ -34,10 +34,15 @@ class Event(models.Model):
     # Basic Info
     name = models.CharField(max_length=255)
     description = models.TextField()  # Story text
+    info_box_btn_name = models.CharField(max_length=255, blank=True, null=True)
     location = models.ForeignKey(Location, on_delete=models.CASCADE)  # Location name
+
+    pre_timer_text = models.TextField(blank=True, null=True)
+    post_timer_text = models.TextField(blank=True, null=True)
     
     #Event is completed direct or after a timer
     completion_type = models.CharField(max_length=50, blank=True, null=True, choices=[('direct','direct'),('25','25')], default='direct')
+    repeatable = models.BooleanField(default=False)
     
     # Conditions
     related_events_completed = models.ManyToManyField(
@@ -56,6 +61,7 @@ class Event(models.Model):
     
     # Outcomes
     unlock_event_id = models.IntegerField(null=True, blank=True)  # ID of an event to unlock
+
     
     # Meta
 
@@ -70,8 +76,8 @@ class Event(models.Model):
         :return: Boolean indicating if the event can be triggered
         """
         # Check if the event has been completed by the player
-        #if self in player_state.completed_events.all():
-        #    return False
+        if not self.repeatable and self in player_state.completed_events.all():
+            return False
         
         # Check if the related events have been completed by the player
         if self.related_events_completed.exists():

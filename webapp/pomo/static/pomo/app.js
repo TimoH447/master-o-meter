@@ -161,6 +161,16 @@ function timerComplete(pomodoroCount) {
     .then(response => response.json())
     .then(data => {
         console.log('Success:', data);
+        // Update the daily pomo count and streak in the navbar
+        document.getElementById('daily-pomos').textContent = `${data.total_pomodoros_today} 📅`;
+        document.getElementById('streak').textContent = `${data.streak} 🔥`;
+
+        // Check if post_timer_description exists and set it to visible
+        const postTimerDescription = document.getElementById('post-timer-text');
+        if (postTimerDescription) {
+            postTimerDescription.style.display = 'block';
+        }
+
     })
     .catch((error) => {
         console.error('Error:', error);

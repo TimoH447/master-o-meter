@@ -30,14 +30,14 @@ def trophy_room(request):
         total_pomodoros = player_state.get_total_pomos()
 
         stats_context = {
-            'pomodoros_today': pomodoros_today,
+            'total_pomodoros_today': pomodoros_today,
             'total_pomodoros': total_pomodoros,
             'streak': current_streak,
         }
     except PlayerState.DoesNotExist:
         # Handle missing player state with default values
         stats_context = {
-            'pomodoros_today': 0,
+            'total_pomodoros_today': 0,
             'total_pomodoros': 0,
             'streak': 0,
         }
@@ -91,30 +91,24 @@ def claim_reward(request, reward_id):
 
     return JsonResponse({'success': False, 'error': 'Invalid request method.'}, status=400)
 
-def generate_story(location, player_state,events):
-    # Filter the events based on whether they can be triggered
+def generate_location_info(location, player_state, events):
     valid_events = [event for event in events if event.can_be_triggered(player_state)]
     
-    # Return the last valid event, if any
-    if valid_events:
-        selected_event = valid_events[-1]  # Example: picking the last valid event
-        event_data = {
-            'id': selected_event.id,
-            'name': selected_event.name,
-            'description': selected_event.description,
-            'completion_type': selected_event.completion_type
-        }
-    else:
-        event_data = None
-    storyBox = {
+    events_data = [{
+        'id': event.id,
+        'info_box_btn_name': event.info_box_btn_name,
+        'info_box_description': event.description
+    } for event in valid_events]
+    
+    locationInfoBox = {
         'location': location.title,
-        'story_content': event_data['description'] if event_data else "Nothing interesting happens here.",
-        'event': event_data,
+        'location_description': location.description,
+        'events': events_data
     }
-    return storyBox
+    return locationInfoBox
 
 @login_required
-def get_location_story(request, location_name):
+def get_location_info(request, location_name):
     try:
         # Get the location
         location = Location.objects.get(name=location_name)
@@ -125,8 +119,8 @@ def get_location_story(request, location_name):
         # Get all events for this location
         events = Event.objects.filter(location=location)
         
-        storyBox = generate_story(location, player_state, events)
-        return JsonResponse(storyBox)
+        locationInfoBox = generate_location_info(location, player_state, events)
+        return JsonResponse(locationInfoBox)
 
     except Location.DoesNotExist:
         return JsonResponse({'error': 'Location not found'}, status=404)
@@ -165,6 +159,10 @@ def timer_complete(request):
         data = json.loads(request.body)
         duration = data.get('duration')
 
+        # Get the current user and today's date
+        user = request.user
+        today = timezone.now().date()
+
         # Save the timer completion in the database
         Timers.objects.create(
             user=request.user,
@@ -189,7 +187,17 @@ def timer_complete(request):
         balance.points += points_to_add
         balance.save()
 
-        return JsonResponse({'status': 'success', 'message': f'Timer completed: {duration} pomodoro(s)', 'points_added': points_to_add})
+        # Calculate the total pomodoros today
+        total_pomodoros_today = Timers.objects.filter(user=user, date_completed=today).count()
+        # Calculate the user's streak
+        streak = calculate_streak(user)
+        
+        return JsonResponse({
+            'status': 'success',
+            'message': f'Timer completed: {duration} pomodoro(s)',
+            'points_added': points_to_add,
+            'total_pomodoros_today': total_pomodoros_today,
+            'streak': streak,})
 
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=400)
 
@@ -244,6 +252,26 @@ def game(request):
     # Render the template with the number of Pomodoros completed today
     return render(request, 'pomo/start.html', context)
 
+def get_pomo_stats(user):
+    # Get the current date
+    today = timezone.now().date()
+    # Get all Pomodoros completed by the user today
+    timers_today = Timers.objects.filter(user=user, date_completed=today)
+    # Count how many Pomodoros have been completed today
+    total_pomodoros_today = timers_today.aggregate(total=models.Sum('duration'))['total'] or 0
+
+    # Get all Pomodoros completed by the user (no date filter for all-time total)
+    timers_alltime = Timers.objects.filter(user=user)
+    # Sum the total number of Pomodoros completed all-time
+    total_pomodoros_alltime = timers_alltime.aggregate(total=models.Sum('duration'))['total'] or 0
+    # Calculate the user's streak
+    streak = calculate_streak(user)
+
+    return {
+        "total_pomos_alltime": total_pomodoros_alltime,
+        "total_pomodoros_today": total_pomodoros_today,
+        "streak": streak,
+    }
 
 def pomodoro_timer(request):
     # Check if the user is authenticated
@@ -278,6 +306,23 @@ def pomodoro_timer(request):
         'total_pomodoros_today': total_pomodoros_today,
         'streak': streak,
     })
+
+def event_timer(request, event_id):
+    event = get_object_or_404(Event, id=event_id)
+
+    context  = {
+        'location': event.location.title,
+        'pre_timer_text': event.pre_timer_text,
+        'post_timer_text': event.post_timer_text,
+        'repeatable': event.repeatable,
+    }
+
+    if request.user.is_authenticated:
+        stats = get_pomo_stats(request.user)
+        context = {**context, **stats}
+
+    return render(request, 'pomo/event_timer.html', 
+                  context)
 
 def login(request):
     if request.method == "POST":

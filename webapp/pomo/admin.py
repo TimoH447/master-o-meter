@@ -7,7 +7,9 @@ class TimersAdmin(admin.ModelAdmin):
     readonly_fields = ('time_completed',)
 
 class EventAdmin(admin.ModelAdmin):
-    readonly_fields = ('id',)
+    list_display = ('name', 'location', 'completion_type', 'repeatable')
+    search_fields = ('name', 'description')
+    list_filter = ('location', 'completion_type', 'repeatable')
 
 
 # Register your models here.
