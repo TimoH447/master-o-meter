@@ -165,14 +165,60 @@ function timerComplete(pomodoroCount) {
         document.getElementById('daily-pomos').textContent = `${data.total_pomodoros_today} 📅`;
         document.getElementById('streak').textContent = `${data.streak} 🔥`;
 
+        // Text to display when timer is finished
+        const timerContainer = document.getElementById('timer-container');
+        timerContainer.innerHTML = '<p>Finished</p>';
+
         // Check if post_timer_description exists and set it to visible
         const postTimerDescription = document.getElementById('post-timer-text');
         if (postTimerDescription) {
             postTimerDescription.style.display = 'block';
+
+            // Start break timer
+            startBreakTimer();
         }
+
+        
 
     })
     .catch((error) => {
         console.error('Error:', error);
     });
+}
+
+function startBreakTimer() {
+    let timeLeft = 300; // 5 minutes in seconds
+    const breakTimerText = document.getElementById('break-timer');
+    const interval = setInterval(() => {
+        if (timeLeft <= 0) {
+            clearInterval(interval);
+            breakComplete();
+        } else {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            breakTimerText.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+            timeLeft--;
+        }
+    }, 1000);
+
+    // Store the interval ID so it can be cleared later
+    breakTimerText.dataset.intervalId = interval;
+}
+
+function stopBreakTimer() {
+    const breakTimerText = document.getElementById('break-timer');
+    const intervalId = breakTimerText.dataset.intervalId;
+    clearInterval(intervalId);
+    breakTimerText.textContent = 'Break Stopped';
+}
+
+function breakComplete() {
+    // Play a sound
+    const audio2 = new Audio('/static/pomo/audio/alarm2.mp3');
+    console.log("Break finished...");
+    audio2.play();
+
+    // Update the break timer text
+    const breakTimerText = document.getElementById('break-timer');
+    breakTimerText.textContent = 'Break Finished';
 }
