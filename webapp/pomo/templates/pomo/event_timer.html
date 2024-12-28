@@ -35,15 +35,15 @@
     </div>
 </section>
 
-<div id="post_timer_description" style="display: none;">
-    <p>{{ event.post_timer_text }}</p>
+<div id="post-timer-text" style="display: none;">
+    <p>{{ post_timer_text }}</p>
     <div id="break-timer-container">
-        <p id="break-timer">5:00</p>
+        <span id="break-minutes">5</span>:<span id="break-seconds">00</span>
         <button id="stop-break-btn" onclick="stopBreakTimer()">Stop Break</button>
     </div>
-    <a id="return-to-map-link" href="{% url 'game' %}">Return to Map</a>
+    
 </div>
-
+<a id="return-to-map-link" href="{% url 'game' %}">Return to Map</a>
 
 
 
