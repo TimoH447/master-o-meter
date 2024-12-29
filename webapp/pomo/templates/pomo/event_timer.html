@@ -11,41 +11,18 @@
     <link rel="stylesheet" href="{% static 'pomo/style.css' %}">
     <link rel="stylesheet" href="{% static 'pomo/music_player.css' %}">
     <script src="{% static 'pomo/app.js' %}"></script>
+    <script src="{% static 'pomo/js/timer.js' %}"></script>
 </head>
 <body>
     {% include 'pomo/includes/navbar.html' %}
 
     <h1>{{ location }}</h1>
     <p>{{ pre_timer_text }}</p>
-    <section class="timer--section">
-    <div class="container" id="timer-container">
-        <div class="row">
-            <div class="col-lg-12 mt-5 h4 text-center">
-
-                <div class="timer">
-                    <span id="hours">00</span>:<span id="minutes">25</span>:<span id="seconds">00</span>
-                </div>
-
-                <!-- Pause/Start Button (changes dynamically) -->
-                <button id="startPauseBtn" class="btn btn-primary" onclick="toggleTimer()">Start</button>
-
-                <button class="btn btn-primary" onclick="resetTimer()">Reset</button>
-
-                {% if is_developer %}
-                    <!-- Developer features for tester users -->
-                    <button class="btn btn-warning" onclick="timerComplete(1)">Complete Timer Now/button>
-                {% endif %}
-            </div>
-        </div>
-    </div>
-    </section>
+    
+    {% include 'pomo/includes/timer.html' %}
 
     <div id="post-timer-text" style="display: none;">
         <p>{{ post_timer_text }}</p>
-        <div id="break-timer">
-            <span id="break-minutes">5</span>:<span id="break-seconds">00</span>
-            <button id="stop-break-btn" onclick="stopBreakTimer()">Stop Break</button>
-        </div>
         
     </div>
     <a id="return-to-map-link" href="{% url 'game' %}">Return to Map</a>
