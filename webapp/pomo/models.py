@@ -11,6 +11,11 @@ from django.dispatch import receiver
 def create_player_state(sender, instance, created, **kwargs):
     if created:
         PlayerState.objects.create(player=instance)
+        Profile.objects.create(user=instance)
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    is_developer = models.BooleanField(default=False)
 
 class Timers(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)

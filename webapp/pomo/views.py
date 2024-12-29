@@ -273,6 +273,23 @@ def get_pomo_stats(user):
         "streak": streak,
     }
 
+def get_context_navbar(user):
+    """
+    get the context for the base template 
+    """
+    stats = get_pomo_stats(user)
+    return stats
+
+def get_timer_context(user):
+    """
+    get the context for the timer template
+    """
+    is_developer = user.profile.is_developer
+    stats = {
+        "is_developer": is_developer }    
+    return stats
+
+
 def pomodoro_timer(request):
     # Check if the user is authenticated
     if not request.user.is_authenticated:
@@ -319,7 +336,8 @@ def event_timer(request, event_id):
 
     if request.user.is_authenticated:
         stats = get_pomo_stats(request.user)
-        context = {**context, **stats}
+        timer = get_timer_context(request.user)
+        context = {**context, **stats, **timer}
 
     return render(request, 'pomo/event_timer.html', 
                   context)

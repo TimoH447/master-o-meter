@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Timers, Location, PlayerState, Event
+from .models import Timers, Location, PlayerState, Event, Profile
 from .models import Reward, Balance
 
 
@@ -19,3 +19,4 @@ admin.site.register(PlayerState)
 admin.site.register(Event, EventAdmin)
 admin.site.register(Reward)
 admin.site.register(Balance)
+admin.site.register(Profile)
