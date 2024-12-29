@@ -4,4 +4,5 @@
 .notes
 .post_out
 static/
-pomo/static/
+pomo/static/pomo/audio/
+pomo/static/pomo/img/

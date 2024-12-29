@@ -12,6 +12,26 @@ let breakMinutes = 5;
 
 const audio = new Audio('static/pomo/audio/alarm1.mp3');
 
+function updateElementText(elementId, text) {
+    const element = document.getElementById(elementId);
+    if (element) {
+        element.textContent = text;
+    }
+}
+
+function showElement(elementId) {
+    const element = document.getElementById(elementId);
+    if (element) {
+        element.style.display = 'block';
+    }
+}
+
+function hideElement(elementId) {
+    const element = document.getElementById(elementId);
+    if (element) {
+        element.style.display = 'none';
+    }
+}
 
 document.addEventListener('DOMContentLoaded', function () {
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
@@ -44,6 +64,57 @@ function setTimer(minutes, pomodoroCount) {
 
 }
 
+function startBreakTimer() {
+    const element = document.getElementById('break-timer');
+    if (element){
+        breakTimer = setInterval(() => updateBreakTimer(), 1000);
+        breakIsTimerRunning = true;
+    }
+}
+
+function updateBreakTimer() {
+    breakSeconds--;
+
+    if (breakSeconds < 0) {
+        breakSeconds = 59;
+        breakMinutes--;
+
+        if (breakMinutes < 0) {
+            clearInterval(breakTimer);
+            breakComplete();
+            return;
+        }
+    }
+
+    updateBreakTimerDisplay();
+}
+
+function updateBreakTimerDisplay() {
+    const formattedBreakMinutes = padTime(breakMinutes);
+    const formattedBreakSeconds = padTime(breakSeconds);
+
+    document.getElementById('break-minutes').innerText = formattedBreakMinutes;
+    document.getElementById('break-seconds').innerText = formattedBreakSeconds;
+}
+
+function stopBreakTimer() {
+    const breakTimerText = document.getElementById('break-timer');
+    const intervalId = breakTimerText.dataset.intervalId;
+    clearInterval(intervalId);
+    breakTimerText.textContent = 'Break Stopped';
+}
+
+function breakComplete() {
+    // Play a sound
+    const audio2 = new Audio('/static/pomo/audio/alarm1.mp3');
+    console.log("Break finished...");
+    audio2.play();
+
+    // Update the break timer text
+    const breakTimerText = document.getElementById('break-timer');
+    breakTimerText.textContent = 'Break Finished';
+}
+
 // Toggle between start and pause
 function toggleTimer() {
     if (mainIsTimerRunning) {
@@ -62,28 +133,6 @@ function startMainTimer() {
         document.getElementById('startPauseBtn').textContent = 'Pause';
 
     }
-}
-
-function startBreakTimer() {
-    mainTimer = setInterval(() => updateBreakTimer(), 1000);
-        breakIsTimerRunning = true;
-}
-
-function updateBreakTimer() {
-    mainSeconds--;
-
-    if (mainSeconds < 0) {
-        mainSeconds = 59;
-        mainMinutes--;
-
-        if (mainMinutes < 0) {
-            clearInterval(breakTimer);
-            breakComplete();
-            return;
-        }
-    }
-
-    updateBreakTimerDisplay();
 }
 
 function updateMainTimer(pomodoroCount) {
@@ -108,7 +157,6 @@ function updateMainTimer(pomodoroCount) {
     updateMainTimerDisplay();
 }
 
-
 function updateMainTimerDisplay() {
     const formattedMainHours = padTime(mainHours);
     const formattedMainMinutes = padTime(mainMinutes);
@@ -118,15 +166,6 @@ function updateMainTimerDisplay() {
     document.getElementById('minutes').innerText = formattedMainMinutes;
     document.getElementById('seconds').innerText = formattedMainSeconds;
 }
-
-function updateBreakTimerDisplay() {
-    const formattedMainMinutes = padTime(mainMinutes);
-    const formattedMainSeconds = padTime(mainSeconds);
-
-    document.getElementById('break-minutes').innerText = formattedMainMinutes;
-    document.getElementById('break-seconds').innerText = formattedMainSeconds;
-}
-
 
 function pauseTimer() {
     clearInterval(mainTimer);
@@ -179,17 +218,9 @@ function timerComplete(pomodoroCount) {
     audio1.play();
 
     // Text to display when timer is finished
-    const timerContainer = document.getElementById('timer-container');
-    timerContainer.innerHTML = '<p>Finished</p>';
-
-    // Check if post_timer_description exists and set it to visible
-    const postTimerDescription = document.getElementById('post-timer-text');
-    if (postTimerDescription) {
-        postTimerDescription.style.display = 'block';
-
-        // Start break timer
-        startBreakTimer();
-    }
+    updateElementText('timer-container', 'Finished!');
+    showElement('post-timer-text');
+    startBreakTimer();
 
     // Send the completion data to the Django view
     fetch('/pomo/timer-complete/', {
@@ -212,22 +243,4 @@ function timerComplete(pomodoroCount) {
     .catch((error) => {
         console.error('Error:', error);
     });
-}
-
-function stopBreakTimer() {
-    const breakTimerText = document.getElementById('break-timer');
-    const intervalId = breakTimerText.dataset.intervalId;
-    clearInterval(intervalId);
-    breakTimerText.textContent = 'Break Stopped';
-}
-
-function breakComplete() {
-    // Play a sound
-    const audio2 = new Audio('/static/pomo/audio/alarm1.mp3');
-    console.log("Break finished...");
-    audio2.play();
-
-    // Update the break timer text
-    const breakTimerText = document.getElementById('break-timer');
-    breakTimerText.textContent = 'Break Finished';
 }

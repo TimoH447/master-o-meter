@@ -4,6 +4,13 @@ from django.utils import timezone
 #from django.contrib.postgres.fields import ArrayField
 from datetime import timedelta
 from django.utils import timezone
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+@receiver(post_save, sender=User)
+def create_player_state(sender, instance, created, **kwargs):
+    if created:
+        PlayerState.objects.create(player=instance)
 
 class Timers(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
