@@ -31,6 +31,8 @@
     <div id="location-info-box" class="location-info-box" style="display: none;">
         <h2 id="location-name"></h2>
         <p id="location-description"></p>
+        <div id="extra-links"></div> 
+        <h3>Events</h3>
         <div id="events-container"></div>
         <button onclick="closeLocationInfoBox()">Close</button>
     </div>
@@ -46,7 +48,7 @@
         <area target="" alt="astronomy_tower" title="astronomy_tower" onclick="handleLocationClick('astronomy_tower')" href="#" coords="186,340,354,411" shape="rect"></area>
         <area target="" alt="headmasters_office" title="headmasters_office" onclick="handleLocationClick('headmaster_office')" href="#" coords="705,339,874,411" shape="rect"></area>
         <area target="" alt="great_hall" title="great_hall" onclick="handleLocationClick('great_hall')" href="#" coords="438,426,634,469" shape="rect"></area>
-        <area target="" alt="trophy_rooms" title="trophy_rooms" href="{% url 'trophy_room' %}" coords="52,503,176,590" shape="rect"></area>
+        <area target="" alt="trophy_rooms" title="trophy_rooms" onclick="handleLocationClick('trophy_rooms')" href="#" coords="52,503,176,590" shape="rect"></area>
         <area target="" alt="council" title="council" href="#" onclick="handleLocationClick('council')" coords="857,488,985,576" shape="rect"></area>
         <area target="" alt="library" title="library" href="#" onclick="handleLocationClick('library')" coords="856,615,984,703" shape="rect"></area>
         <area target="" alt="gardens" title="gardens" href="#" onclick="handleLocationClick('gardens')" coords="893,743,1021,819" shape="rect"></area>
@@ -66,7 +68,7 @@
         <area target="" alt="astronomy_tower" title="astronomy_tower" onclick="handleLocationClick('astronomy_tower')" href="#" coords="74,171,142,204" shape="rect">
         <area target="" alt="headmasters_office" title="headmasters_office" onclick="handleLocationClick('headmaster_office')" href="#" coords="282,169,351,206" shape="rect">
         <area target="" alt="great_hall" title="great_hall" href="#" onclick="handleLocationClick('great_hall')" coords="176,213,255,234" shape="rect">
-        <area target="" alt="trophy_rooms" title="trophy_rooms" href="{% url 'trophy_room' %}" coords="21,250,72,293" shape="rect">
+        <area target="" alt="trophy_rooms" title="trophy_rooms" onclick="handleLocationClick('trophy_rooms')" href="#" coords="21,250,72,293" shape="rect">
         <area target="" alt="council" title="council" onclick="handleLocationClick('council')" href="#" coords="344,243,395,287" shape="rect">
         <area target="" alt="library" title="library" onclick="handleLocationClick('library')" href="#" coords="345,307,394,351" shape="rect">
         <area target="" alt="gardens" title="gardens" onclick="handleLocationClick('gardens')" href="#" coords="359,370,413,409" shape="rect">

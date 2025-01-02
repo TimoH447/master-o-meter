@@ -144,6 +144,7 @@ def generate_location_info(location, player_state, events):
     } for event in valid_events]
     
     locationInfoBox = {
+        'location_name': location.name,
         'location': location.title,
         'location_description': location.description,
         'events': events_data
@@ -249,7 +250,7 @@ def game(request):
     # Check if the user is authenticated
     if not request.user.is_authenticated:
         # Handle unauthenticated user, e.g., redirect to login or show a message
-        return render(request, 'pomo/start.html', {
+        return render(request, 'pomo/map.html', {
             'total_pomos_alltime': 0,
             'username': 'Guest',  # or provide an empty string
             'total_pomodoros_today': 0
@@ -294,7 +295,7 @@ def game(request):
         'total_pomodoros_today': total_pomodoros_today,
         }
     # Render the template with the number of Pomodoros completed today
-    return render(request, 'pomo/start.html', context)
+    return render(request, 'pomo/map.html', context)
 
 def get_pomo_stats(user):
     # Get the current date
@@ -444,7 +445,7 @@ def signup(request):
             print(user)
             print("User registered Successfully")
             user.save()
-            return redirect('login')
+            return redirect('intro')
     else:
         return render(request, 'pomo/signup.html')
 

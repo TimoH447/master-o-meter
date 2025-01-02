@@ -25,6 +25,8 @@
         </div>
         <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
             <div class="navbar-nav align-items-center">
+                <a class="nav-link" href="{% url 'game' %}">Map</a>
+                <a class="nav-link" href="{% url 'common_rooms' %}">Common Rooms</a>
                 <a class="nav-link" href="{% url 'pomodoro_timer' %}">Library</a>
                 <a class="nav-link" href="{% url 'trophy_room' %}">Stats and Rewards</a>
                 {% if user.is_authenticated %}
