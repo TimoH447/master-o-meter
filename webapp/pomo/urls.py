@@ -1,7 +1,10 @@
 from django.urls import path
-from .views import pomodoro_timer, login, signup, logout, timer_complete, game,get_location_info, update_player_state, trophy_room, claim_reward,event_timer, intro
+from .views import pomodoro_timer, login, signup, logout, timer_complete, game,get_location_info, update_player_state, trophy_room, claim_reward,event_timer, intro, accept_friend_request, send_friend_request, common_rooms
 
 urlpatterns = [
+    path('send_friend_request/<str:username>/', send_friend_request, name='send_friend_request'),
+    path('accept_friend_request/<int:request_id>/', accept_friend_request, name='accept_friend_request'),
+    path('common_rooms/', common_rooms, name='common_rooms'),
     path('timer/', pomodoro_timer, name='pomodoro_timer'),
     path('', game, name="game"),
     path('event/<int:event_id>/', event_timer, name='event_detail'),

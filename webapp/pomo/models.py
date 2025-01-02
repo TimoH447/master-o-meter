@@ -16,6 +16,19 @@ def create_player_state(sender, instance, created, **kwargs):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     is_developer = models.BooleanField(default=False)
+    friends = models.ManyToManyField('self', symmetrical=False, related_name='friend_set', blank=True)
+
+    def __str__(self):
+        return self.user.username
+
+class FriendRequest(models.Model):
+    from_user = models.ForeignKey(User, related_name='sent_requests', on_delete=models.CASCADE)
+    to_user = models.ForeignKey(User, related_name='received_requests', on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.from_user.username} -> {self.to_user.username}"
+
 
 class Timers(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)

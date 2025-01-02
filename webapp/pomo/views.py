@@ -15,7 +15,50 @@ from .streak import calculate_streak
 
 from django.contrib.auth.decorators import login_required
 from .models import PlayerState, Location, Event
-from .models import PlayerState, Reward, Balance
+from .models import Reward, Balance
+from .models import Profile, FriendRequest
+from django.db.models import Q
+
+@login_required
+def send_friend_request(request, username):
+    user = get_object_or_404(User, username=username)
+    friend_request, created = FriendRequest.objects.get_or_create(from_user=request.user, to_user=user)
+    return redirect('common_rooms')
+
+@login_required
+def accept_friend_request(request, request_id):
+    friend_request = get_object_or_404(FriendRequest, id=request_id)
+    if friend_request.to_user == request.user:
+        friend_request.to_user.profile.friends.add(friend_request.from_user.profile)
+        friend_request.from_user.profile.friends.add(friend_request.to_user.profile)
+        friend_request.delete()
+    return redirect('common_rooms')
+
+@login_required
+def common_rooms(request):
+    friends = request.user.profile.friends.all()
+    friend_requests = FriendRequest.objects.filter(to_user=request.user)
+
+    friends_info = []
+    for friend in friends:
+        player_state = PlayerState.objects.get(player=friend.user)
+        friends_info.append({
+            'username': friend.user.username,
+            'streak': player_state.get_streak(),
+            'pomodoros_today': player_state.get_total_pomos_today(),
+        })
+    query = request.GET.get('q')
+    if query:
+        users = User.objects.filter(Q(username__icontains=query)).exclude(username=request.user.username)
+    else:
+        users = User.objects.none()
+    
+    return render(request, 'pomo/common_rooms.html', {
+        'friends_info': friends_info,
+        'friend_requests': friend_requests,
+        'users': users,
+        'query': query,
+    })
 
 
 @login_required 
