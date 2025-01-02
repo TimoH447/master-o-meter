@@ -17,10 +17,10 @@
 <body>
     {% include 'pomo/includes/navbar.html' %}
 
-    <h1>{{ location }}</h1>
+    <h1>{{ location }} - {{ event_name }}</h1>
     <p>{{ pre_timer_text }}</p>
     
-    {% include 'pomo/includes/timer.html' %}
+    {% include 'pomo/includes/event_timer.html' %}
 
     <div id="post-timer-text" style="display: none;">
         <p>{{ post_timer_text }}</p>
@@ -48,6 +48,7 @@
 
     {% include 'pomo/includes/footer.html' %}
 
+    <p id="event-id" style="display: none;">{{ event_id }}</p>
     <script>
     fetch("{% static 'pomo/version.txt' %}")
         .then(response => response.text())
@@ -55,8 +56,6 @@
             document.getElementById('version-number').textContent = text;
         });
     </script>
-
- 
     <!-- Include your JS file before closing the body tag -->
     <script src="{% static 'pomo/js/music_player.js' %}"></script>
 

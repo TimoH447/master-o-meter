@@ -329,7 +329,9 @@ def event_timer(request, event_id):
     event = get_object_or_404(Event, id=event_id)
 
     context  = {
+        'event_id': event_id,
         'location': event.location.title,
+        'event_name': event.name,
         'pre_timer_text': event.pre_timer_text,
         'post_timer_text': event.post_timer_text,
         'repeatable': event.repeatable,
@@ -340,7 +342,7 @@ def event_timer(request, event_id):
         timer = get_timer_context(request.user)
         context = {**context, **stats, **timer}
 
-    return render(request, 'pomo/event_timer.html', 
+    return render(request, 'pomo/event.html', 
                   context)
 
 def login(request):
@@ -362,6 +364,24 @@ def login(request):
     else:
         return render(request, 'pomo/login.html')
 
+def intro(request):
+    if request.method == "POST":
+        email = request.POST['email']
+        password = request.POST['password']
+        if User.objects.filter(username=email).exists():
+            user = auth.authenticate(username=email, password=password)
+            print(user)
+            if user is not None:
+                auth.login(request, user)
+                return redirect('game')
+            else:
+                messages.error(request, 'Invalid credentials')
+                return redirect("intro")
+        else:
+            messages.info(request, "Invalid email or password")
+            return redirect('intro')
+    else:
+        return render(request, 'pomo/intro.html')
 
 def signup(request):
     if request.method == 'POST':

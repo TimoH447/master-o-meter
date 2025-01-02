@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import pomodoro_timer, login, signup, logout, timer_complete, game,get_location_info, update_player_state, trophy_room, claim_reward,event_timer
+from .views import pomodoro_timer, login, signup, logout, timer_complete, game,get_location_info, update_player_state, trophy_room, claim_reward,event_timer, intro
 
 urlpatterns = [
     path('timer/', pomodoro_timer, name='pomodoro_timer'),
@@ -7,6 +7,7 @@ urlpatterns = [
     path('event/<int:event_id>/', event_timer, name='event_detail'),
     path('trophy-room/', trophy_room, name="trophy_room"),
     path('login/', login, name='login'),
+    path('intro/', intro, name='intro'),
     path('signup/', signup, name='signup'),
     path('logout/', logout, name='logout'),
     path('timer-complete/', timer_complete, name='timer_complete'),
