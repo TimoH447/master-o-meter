@@ -17,7 +17,19 @@
       {% endfor %}
     </div>
     <div class="container mt-5 mx-auto w-50">
-        <h1 class="h2 mb-3">SignUp Page</h1>
+        <h1 class="h2 mb-3">Welcome, Apprentice!</h1>
+<p>
+  You’ve been chosen to train at Arcadia, a magical school where your focus shapes your destiny. 
+  This website combines the Pomodoro technique with an immersive wizarding story. 
+  As you explore enchanted locations and complete tasks, you’ll unlock new chapters of the story while staying productive in the real world. 
+  Master your studies, uncover secrets, and embark on an adventure where magic and focus go hand in hand. Your journey starts now!
+</p>
+<p>
+  In order to save and track your progress, you have to signup for an account.
+  You don't need to use an email address, you can write anything 
+  in the email field since it is only required for the login. 
+  Without an email address, you cannot recover your password if you forget it.
+</p>
         <form action="{% url 'signup' %}" method="POST">
           {% csrf_token %}
           <div class="form-group lh-lg">
@@ -39,5 +51,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 
             integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" 
             crossorigin="anonymous"></script>
+   
   </body>
 </html>

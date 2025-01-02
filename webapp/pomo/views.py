@@ -201,6 +201,7 @@ def timer_complete(request):
 
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=400)
 
+@login_required
 def game(request):
     # Check if the user is authenticated
     if not request.user.is_authenticated:
