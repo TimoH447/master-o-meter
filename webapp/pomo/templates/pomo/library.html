@@ -25,6 +25,25 @@
         Here, you can always immerse yourself in focused study using the Pomodoro technique, 
         even without a specific event to guide you.</p>
 
+<div id="settings" class="location-info-box" style="display: none;">
+    <h2>Settings</h2>
+    <div class="row">
+        <div>
+            <label for="pomodoro-length">Pomodoro Length (minutes):</label>
+            <input type="number" id="pomodoro-length" value="25" min="1" max="300">
+        </div>
+        <div>
+            <label for="break-length">Break Length (minutes):</label>
+            <input type="number" id="break-length" value="5" min="1" max="300">
+        </div>
+        <div>
+            <button onclick="saveSettings()">Save</button>
+            <button onclick="closeSettings()">Close</button>
+        </div>
+    </div>
+    
+</div>
+
 <section class="timer--section">
     <div class="container" id="timer-container">
         <div class="row">
@@ -40,7 +59,10 @@
                 </div>
 
                 <!-- Pause/Start Button (changes dynamically) -->
-                <button id="startPauseBtn" class="btn btn-primary" onclick="toggleTimer()">Start</button>
+                <div class="column"> 
+                    <button id="startPauseBtn" class="btn btn-primary" onclick="toggleTimer()">Start</button>
+                    <button id="settingsBtn" class="btn btn-primary" onclick="openSettings()">⚙️</button>
+                </div>
 
                 {% if is_developer %}
                     <!-- Developer features for tester users -->
