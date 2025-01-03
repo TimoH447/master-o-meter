@@ -303,12 +303,12 @@ def get_pomo_stats(user):
     # Get all Pomodoros completed by the user today
     timers_today = Timers.objects.filter(user=user, date_completed=today)
     # Count how many Pomodoros have been completed today
-    total_pomodoros_today = timers_today.aggregate(total=models.Sum('duration'))['total'] or 0
+    total_pomodoros_today = len(timers_today)
 
     # Get all Pomodoros completed by the user (no date filter for all-time total)
     timers_alltime = Timers.objects.filter(user=user)
     # Sum the total number of Pomodoros completed all-time
-    total_pomodoros_alltime = timers_alltime.aggregate(total=models.Sum('duration'))['total'] or 0
+    total_pomodoros_alltime = len(timers_alltime)
     # Calculate the user's streak
     streak = calculate_streak(user)
 
