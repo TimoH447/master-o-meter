@@ -342,32 +342,18 @@ def pomodoro_timer(request):
         return render(request, 'pomo/library.html', {
             'total_pomos_alltime': 0,
             'username': 'Guest',  # or provide an empty string
-            'total_pomodoros_today': 0
+            'total_pomodoros_today': 0,
+            'is_developer': False
         })
 
-    user = request.user
-    # Get the current date
-    today = timezone.now().date()
-    # Get all Pomodoros completed by the user today
-    timers_today = Timers.objects.filter(user=user, date_completed=today)
-    # Count how many Pomodoros have been completed today
-    total_pomodoros_today = timers_today.aggregate(total=models.Sum('duration'))['total'] or 0
+    if request.user.is_authenticated:
+        stats = get_pomo_stats(request.user)
+        timer = get_timer_context(request.user)
+        context = {**stats, **timer}
 
-    # Get all Pomodoros completed by the user (no date filter for all-time total)
-    timers_alltime = Timers.objects.filter(user=user)
-    # Sum the total number of Pomodoros completed all-time
-    total_pomodoros_alltime = timers_alltime.aggregate(total=models.Sum('duration'))['total'] or 0
-
-    # Calculate the user's streak
-    streak = calculate_streak(user)
 
     # Render the template with the number of Pomodoros completed today
-    return render(request, 'pomo/library.html', {
-        'total_pomos_alltime': total_pomodoros_alltime,
-        'username': user.username,
-        'total_pomodoros_today': total_pomodoros_today,
-        'streak': streak,
-    })
+    return render(request, 'pomo/library.html', context)
 
 def event_timer(request, event_id):
     event = get_object_or_404(Event, id=event_id)
