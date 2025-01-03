@@ -68,15 +68,8 @@ def trophy_room(request):
         player_state = PlayerState.objects.get(player=request.user)
 
         # Extract relevant stats
-        current_streak = player_state.get_streak()
-        pomodoros_today = player_state.get_total_pomos_today()
-        total_pomodoros = player_state.get_total_pomos()
+        stats  = get_pomo_stats(request.user)
 
-        stats_context = {
-            'total_pomodoros_today': pomodoros_today,
-            'total_pomodoros': total_pomodoros,
-            'streak': current_streak,
-        }
     except PlayerState.DoesNotExist:
         # Handle missing player state with default values
         stats_context = {
@@ -104,7 +97,7 @@ def trophy_room(request):
     }
 
     # Merge both contexts
-    context = {**stats_context, **rewards_context}
+    context = {**stats, **rewards_context}
     return render(request, 'pomo/trophy_room.html', context)
 
 @login_required
@@ -224,8 +217,14 @@ def timer_complete(request):
         today = timezone.now().date()
         is_first_pomodoro_today = not Timers.objects.filter(user=request.user, date_completed=today).exists()
 
-        # Points logic: If it's the first Pomodoro of the day, give 2 points, else give 1 point
-        points_to_add = 2 if is_first_pomodoro_today else 1
+        # Points logic: If it's the first Pomodoro of the day, give 2 points regardless of duration,
+        # if the Pomodoro is 25 minutes or longer, give 1 point, if it's less than 25 minutes, give 0 points
+        if is_first_pomodoro_today:
+            points_to_add = 2
+        elif duration >= 25 * 60:
+            points_to_add = 1
+        else:
+            points_to_add = 0
 
         # Update the user's balance
         balance.points += points_to_add
@@ -258,42 +257,11 @@ def game(request):
 
     user = request.user
 
-    """
-    player_state= PlayerState.objects.get(player=user)
-    location_states = LocationState.objects.filter(player=user)
+    if request.user.is_authenticated:
+        stats = get_pomo_stats(request.user)
+        timer = get_timer_context(request.user)
+        context = {**stats, **timer, 'username': user.username}
 
-    # Serialize player and location states to JSON
-    player_state_json = json.dumps({
-        'intelligence': player_state.intelligence,
-        'retrieved_scroll': player_state.retrieved_scroll,
-        'relationship_with_arlin': player_state.relationship_with_arlin,
-        # Add more fields as needed
-    })
-
-    location_states_json = json.dumps(list(location_states.values()))
-    """
-
-    # Get the current date
-    # Get all Pomodoros completed by the user today
-    # Count how many Pomodoros have been completed today
-    today = timezone.now().date()
-    timers_today = Timers.objects.filter(user=user, date_completed=today)
-    total_pomodoros_today = timers_today.aggregate(total=models.Sum('duration'))['total'] or 0
-
-    timers_alltime = Timers.objects.filter(user=user)
-    total_pomodoros_alltime = timers_alltime.aggregate(total=models.Sum('duration'))['total'] or 0
-    # Calculate the user's streak
-    streak = calculate_streak(user)
-
-    # Pass serialized states to the template
-    context = {
-        #'player_state_json': player_state_json,
-        #'location_states_json': location_states_json, 
-        'total_pomos_alltime': total_pomodoros_alltime,
-        'username': user.username,
-        'streak': streak,
-        'total_pomodoros_today': total_pomodoros_today,
-        }
     # Render the template with the number of Pomodoros completed today
     return render(request, 'pomo/map.html', context)
 
