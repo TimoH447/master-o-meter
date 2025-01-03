@@ -339,7 +339,7 @@ def pomodoro_timer(request):
     # Check if the user is authenticated
     if not request.user.is_authenticated:
         # Handle unauthenticated user, e.g., redirect to login or show a message
-        return render(request, 'pomo/pomodoro.html', {
+        return render(request, 'pomo/library.html', {
             'total_pomos_alltime': 0,
             'username': 'Guest',  # or provide an empty string
             'total_pomodoros_today': 0
@@ -362,7 +362,7 @@ def pomodoro_timer(request):
     streak = calculate_streak(user)
 
     # Render the template with the number of Pomodoros completed today
-    return render(request, 'pomo/pomodoro.html', {
+    return render(request, 'pomo/library.html', {
         'total_pomos_alltime': total_pomodoros_alltime,
         'username': user.username,
         'total_pomodoros_today': total_pomodoros_today,
