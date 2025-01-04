@@ -55,9 +55,11 @@ def common_rooms(request):
         users = User.objects.none()
 
     stats = get_pomo_stats(request.user)
+    location_description  = Location.objects.get(name='common_rooms').description
     
     return render(request, 'pomo/common_rooms.html', {
         **stats,
+        'location_description': location_description,
         'friends_info': friends_info,
         'friend_requests': friend_requests,
         'users': users,

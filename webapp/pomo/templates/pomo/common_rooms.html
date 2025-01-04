@@ -12,18 +12,19 @@
     {% include "pomo/includes/navbar.html" %}
 
     <h1>Common Rooms</h1>
-    <h2>All Friends</h2>
+    <p>{{ location_description }}</p>
+    <h2>Your Friends</h2>
     <ul>
         {% for friend in friends_info %}
             <li>
                 {{ friend.username }}
-                <span> (Friend) </span>
                 <span> - Streak: {{ friend.streak }} </span>
                 <span> - Today's Pomodoros: {{ friend.pomodoros_today }} </span>
             </li>
         {% endfor %}
     </ul>
 
+{% if friend_requests %}
     <h2>Friend Requests</h2>
     <ul>
         {% for friend_request in friend_requests %}
@@ -36,6 +37,7 @@
             </li>
         {% endfor %}
     </ul>
+{% endif %}
 
     <h2>Search Users</h2>
     <form method="get" action="{% url 'common_rooms' %}">
@@ -43,6 +45,7 @@
         <button type="submit">Search</button>
     </form>
 
+{% if users %}
     <h2>Search Results</h2>
     <ul>
         {% for user in users %}
@@ -55,5 +58,6 @@
             </li>
         {% endfor %}
     </ul>
+{% endif %}
 </body>
 </html>
