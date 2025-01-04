@@ -12,13 +12,18 @@
     <link rel="stylesheet" href="{% static 'pomo/css/trophy_room.css' %}">
     <link rel="stylesheet" href="{% static 'pomo/css/base.css' %}">
     <link rel="stylesheet" href="{% static 'pomo/style.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     {% include "pomo/includes/navbar.html" %}
 
     <div class="trophy-room-container">
         <h1>Trophy Room</h1>
-
+        <!-- Activity Graph Section -->
+        <div class="stats-card">
+            <h2>Activity in Last 7 days</h2>
+            <canvas id="activityGraph"></canvas>
+        </div>
         <!-- Stats Section -->
         <div class="stats-card">
             <h2>Today's Stats</h2>
@@ -88,6 +93,32 @@
     </div>
     
     <script src="{% static 'pomo/js/rewards.js' %}"></script>
+    <script>
+        const ctx = document.getElementById('activityGraph').getContext('2d');
+        const studyHours = {{ study_hours_last_seven_days|safe }};
+        const labels = ['Today', 'Yesterday', '2 days ago', '3 days ago', '4 days ago', '5 days ago', '6 days ago'];
+
+        const activityGraph = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Hours Studied',
+                    data: studyHours,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
 
 </body>
 </html>

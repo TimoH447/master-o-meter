@@ -1,4 +1,5 @@
 import json
+from datetime import timedelta
 
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
@@ -52,8 +53,11 @@ def common_rooms(request):
         users = User.objects.filter(Q(username__icontains=query)).exclude(username=request.user.username)
     else:
         users = User.objects.none()
+
+    stats = get_pomo_stats(request.user)
     
     return render(request, 'pomo/common_rooms.html', {
+        **stats,
         'friends_info': friends_info,
         'friend_requests': friend_requests,
         'users': users,
@@ -68,7 +72,7 @@ def trophy_room(request):
         player_state = PlayerState.objects.get(player=request.user)
 
         # Extract relevant stats
-        stats  = get_pomo_stats(request.user)
+        stats  = get_pomo_stats_detailed(request.user)
 
     except PlayerState.DoesNotExist:
         # Handle missing player state with default values
@@ -285,6 +289,24 @@ def get_pomo_stats(user):
         "total_pomodoros_today": total_pomodoros_today,
         "streak": streak,
     }
+
+def get_pomo_stats_detailed(user):
+    today = timezone.now().date()
+    # Collect study hours for the last seven days
+    study_hours_last_seven_days = []
+    for i in range(7):
+        day = today - timedelta(days=i)
+        timers_day = Timers.objects.filter(user=user, date_completed=day)
+        total_seconds = sum(timer.duration for timer in timers_day)
+        total_minutes = total_seconds // 60
+        # the amount studied is including the break times, for each 25min one 5min break is added
+        total_minutes += (total_seconds // 1500) * 5
+        study_hours_last_seven_days.append(total_minutes/60)
+
+    stats = get_pomo_stats(user)
+    return {**stats, 'study_hours_last_seven_days': study_hours_last_seven_days}
+
+
 
 def get_context_navbar(user):
     """
