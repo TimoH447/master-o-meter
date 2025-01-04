@@ -162,14 +162,14 @@ class PlayerState(models.Model):
         # Get all Pomodoros completed by the user today
         timers_today = Timers.objects.filter(user=self.player, date_completed=today)
         # Count how many Pomodoros have been completed today
-        total_pomodoros_today = timers_today.aggregate(total=models.Sum('duration'))['total'] or 0
+        total_pomodoros_today = len(timers_today)
         return total_pomodoros_today
 
     def get_total_pomos(self): 
         # Get all Pomodoros completed by the user (no date filter for all-time total)
         timers_alltime = Timers.objects.filter(user=self.player)
         # Sum the total number of Pomodoros completed all-time
-        total_pomodoros_alltime = timers_alltime.aggregate(total=models.Sum('duration'))['total'] or 0
+        total_pomodoros_alltime = len(timers_alltime)
         return total_pomodoros_alltime
 
 class Achievement(models.Model):
