@@ -17,7 +17,7 @@ from .streak import calculate_streak
 from django.contrib.auth.decorators import login_required
 from .models import PlayerState, Location, Event
 from .models import Reward, Balance
-from .models import Profile, FriendRequest
+from .models import Profile, FriendRequest, PartnerQuest, PartnerQuestRequest
 from django.db.models import Q
 
 @login_required
@@ -35,8 +35,37 @@ def accept_friend_request(request, request_id):
         friend_request.delete()
     return redirect('common_rooms')
 
+def get_context_partner_quests(user):
+    """
+    get the context for the partner quests
+    """
+    partner_quests = PartnerQuest.objects.filter(models.Q(partner1=user) | models.Q(partner2=user))
+    partner_quests_requests = PartnerQuestRequest.objects.filter(models.Q(from_user=user) | models.Q(to_user=user))
+    partner_quest_list=[]
+    for quest in partner_quests:
+        partner_quest_list.append({
+            'partner1': quest.partner1.username,
+            'partner2': quest.partner2.username,
+            'start_time': quest.start_time,
+            'end_time': quest.end_time,
+            'size': quest.size //60,
+            'progress_partner1': quest.partner1_progress //60,
+            'progress_partner2': quest.partner2_progress //60,
+            'is_open': quest.is_open(),
+        })
+    request_list = []
+    for request in partner_quests_requests:
+        request_list.append({
+            'from_user': request.from_user.username,
+            'to_user': request.to_user.username,
+            'timestamp': request.timestamp,
+            'size': request.size //60,
+        })
+    return {'partner_quests': partner_quest_list, 'partner_quests_requests': request_list}
+
 @login_required
 def common_rooms(request):
+    partner_quest_context = get_context_partner_quests(request.user)
     friends = request.user.profile.friends.all()
     friend_requests = FriendRequest.objects.filter(to_user=request.user)
 
@@ -58,7 +87,7 @@ def common_rooms(request):
     location_description  = Location.objects.get(name='common_rooms').description
     
     return render(request, 'pomo/common_rooms.html', {
-        **stats,
+        **stats, **partner_quest_context,
         'location_description': location_description,
         'friends_info': friends_info,
         'friend_requests': friend_requests,
@@ -200,7 +229,7 @@ def update_player_state(request):
 def timer_complete(request):
     if request.method == "POST":
         data = json.loads(request.body)
-        duration = data.get('duration')
+        duration_in_seconds = data.get('duration')
 
         # Get the current user and today's date
         user = request.user
@@ -209,7 +238,7 @@ def timer_complete(request):
         # Save the timer completion in the database
         Timers.objects.create(
             user=request.user,
-            duration=duration,
+            duration=duration_in_seconds,
             date_completed=timezone.now().date(),  # Save the current date
         )
 
@@ -227,7 +256,7 @@ def timer_complete(request):
         # if the Pomodoro is 25 minutes or longer, give 1 point, if it's less than 25 minutes, give 0 points
         if is_first_pomodoro_today:
             points_to_add = 2
-        elif duration >= 25 * 60:
+        elif duration_in_seconds >= 25 * 60:
             points_to_add = 1
         else:
             points_to_add = 0
@@ -236,6 +265,15 @@ def timer_complete(request):
         balance.points += points_to_add
         balance.save()
 
+        # Update partner quest progress
+        partner_quests = PartnerQuest.objects.filter(
+            models.Q(partner1=user) | models.Q(partner2=user),
+            end_time__gte=timezone.now()
+        )
+        for quest in partner_quests:
+            if quest.is_open():
+                quest.add_progress(user, duration_in_seconds)
+
         # Calculate the total pomodoros today
         total_pomodoros_today = Timers.objects.filter(user=user, date_completed=today).count()
         # Calculate the user's streak
@@ -243,7 +281,7 @@ def timer_complete(request):
         
         return JsonResponse({
             'status': 'success',
-            'message': f'Timer completed: {duration} pomodoro(s)',
+            'message': f'Timer completed: {duration_in_seconds} pomodoro(s)',
             'points_added': points_to_add,
             'total_pomodoros_today': total_pomodoros_today,
             'streak': streak,})

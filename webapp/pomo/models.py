@@ -21,6 +21,46 @@ class Profile(models.Model):
     def __str__(self):
         return self.user.username
 
+class PartnerQuest(models.Model):
+    partner1 = models.ForeignKey(User, related_name='partner1', on_delete=models.CASCADE)
+    partner2 = models.ForeignKey(User, related_name='partner2', on_delete=models.CASCADE)
+    start_time = models.DateTimeField(auto_now_add=True)
+    end_time = models.DateTimeField(null=True, blank=True)
+    size = models.IntegerField(default=10*25*60) # 10 pomodoros
+    partner1_progress = models.IntegerField(default=0)  # Progress in seconds
+    partner2_progress = models.IntegerField(default=0)  # Progress in seconds
+
+    is_completed = models.BooleanField(default=False)
+
+    def add_progress(self, user, seconds):
+        if user == self.partner1:
+            self.partner1_progress += seconds
+        elif user == self.partner2:
+            self.partner2_progress += seconds
+        if self.partner1_progress + self.partner2_progress >= self.size:
+            self.is_completed = True
+        self.save()
+
+    def is_open(self):
+        return not self.is_completed and timezone.now() < self.end_time
+
+    def save(self, *args, **kwargs):
+        if not self.end_time:
+            self.end_time = self.start_time + timedelta(hours=72)
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.partner1.username} + {self.partner2.username} Partner Quest"
+    
+class PartnerQuestRequest(models.Model):
+    from_user = models.ForeignKey(User, related_name='sent_partner_requests', on_delete=models.CASCADE)
+    to_user = models.ForeignKey(User, related_name='received_partner_requests', on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    size = models.IntegerField(default=10*25*60) # 10 pomodoros
+
+    def __str__(self):
+        return f"{self.from_user.username} -> {self.to_user.username}"
+
 class FriendRequest(models.Model):
     from_user = models.ForeignKey(User, related_name='sent_requests', on_delete=models.CASCADE)
     to_user = models.ForeignKey(User, related_name='received_requests', on_delete=models.CASCADE)

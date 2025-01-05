@@ -13,6 +13,39 @@
 
     <h1>Common Rooms</h1>
     <p>{{ location_description }}</p>
+
+    <div class="container">
+         {% if partner_quests %}
+         <h2>Your Partner Quests</h2>
+            <ul>
+                {% for quest in partner_quests %}
+                    <li>
+                        <p>Partner 1: {{ quest.partner1 }}</p>
+                        <p>Partner 2: {{ quest.partner2 }}</p>
+                        <p>Quest Size: {{ quest.size }} minutes</p>
+                        <p>Partner 1 Progress: {{ quest.partner1_progress }} minutes</p>
+                        <p>Partner 2 Progress: {{ quest.partner2_progress }} minutes</p>
+                        <p>End Time: {{ quest.end_time }}</p>
+                        <p>Status: {% if quest.is_completed %}Completed{% else %}In Progress{% endif %}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        {% if partner_quests_requests %}
+            <h2>Partner Quest Requests</h2>
+            <ul>
+                {% for request in partner_quests_requests %}
+                    <li>
+                        <p>From: {{ request.from_user }}</p>
+                        <p>To: {{ request.to_user }}</p>
+                        <p>Quest Size: {{ request.size }} minutes</p>
+                        <p>Requested On: {{ request.timestamp }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
     <h2>Your Friends</h2>
     <ul>
         {% for friend in friends_info %}
