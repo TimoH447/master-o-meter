@@ -43,6 +43,17 @@ def accept_friend_request(request, request_id):
 def accept_partner_quest(request, request_id):
     partner_quest_request = get_object_or_404(PartnerQuestRequest, id=request_id)
     if partner_quest_request.to_user == request.user:
+        # Check if either user has an active PartnerQuest
+        active_quests = PartnerQuest.objects.filter(
+            (Q(partner1=partner_quest_request.from_user) | Q(partner2=partner_quest_request.from_user) |
+             Q(partner1=partner_quest_request.to_user) | Q(partner2=partner_quest_request.to_user)) &
+            Q(is_completed=False)
+        )
+
+        if any(quest.is_active() for quest in active_quests):
+            messages.error(request, "Both users must finish their current partner quests before starting a new one.")
+            return redirect('common_rooms')
+
         try:
             PartnerQuest.objects.create(
                 partner1=partner_quest_request.from_user,
@@ -52,7 +63,8 @@ def accept_partner_quest(request, request_id):
             partner_quest_request.delete()
         except Exception as e:
             logger.error(f"Error creating PartnerQuest: {e}")
-            return redirect('common_rooms', error="Could not create PartnerQuest")
+            messages.error(request, "Could not create PartnerQuest.")
+            return redirect('common_rooms')
     return redirect('common_rooms')
 
 @login_required

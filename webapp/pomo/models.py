@@ -44,6 +44,9 @@ class PartnerQuest(models.Model):
     def is_open(self):
         return not self.is_completed and timezone.now() < self.end_time
 
+    def is_active(self):
+        return timezone.now() < self.end_time
+
     def save(self, *args, **kwargs):
         if not self.start_time:
             self.start_time = timezone.now()

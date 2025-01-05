@@ -71,6 +71,13 @@
         {% endif %}
         {% if partner_quests_requests %}
             <h3>Partner Quest Requests</h3>
+            {% if messages %}
+                <div class="alert alert-danger">
+                    {% for message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
             <ul>
                 {% for request in partner_quests_requests %}
                     <li>
