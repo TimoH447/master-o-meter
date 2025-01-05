@@ -32,8 +32,45 @@
             </ul>
         {% endif %}
 
+        
+    </div>
+
+    <div class="friends-container"> 
+        <h2>Your Friends</h2>
+        <ul>
+            {% for friend in friends_info %}
+                <li>
+                    {{ friend.username }}
+                    <span> - Streak: {{ friend.streak }} </span>
+                    <span> - Today's Pomodoros: {{ friend.pomodoros_today }} </span>
+                    <form action="{% url 'send_partner_quest_request' friend.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit">Send Partner Quest Request</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+<div class="requests-container">
+    {% if friend_requests or partner_quests_requests %}
+        <h2>Requests</h2>
+        {% if friend_requests %}
+            <h3>Friend Requests</h3>
+            <ul>
+                {% for friend_request in friend_requests %}
+                    <li>
+                        {{ friend_request.from_user.username }}
+                        <form action="{% url 'accept_friend_request' friend_request.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit">Accept</button>
+                        </form>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
         {% if partner_quests_requests %}
-            <h2>Partner Quest Requests</h2>
+            <h3>Partner Quest Requests</h3>
             <ul>
                 {% for request in partner_quests_requests %}
                     <li>
@@ -41,36 +78,23 @@
                         <p>To: {{ request.to_user }}</p>
                         <p>Quest Size: {{ request.size }} minutes</p>
                         <p>Requested On: {{ request.timestamp }}</p>
+                        {% if request.is_receiver %}
+                            <form action="{% url 'accept_partner_quest' request.id %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit">Accept</button>
+                            </form>
+                            <form action="{% url 'decline_partner_quest' request.id %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit">Decline</button>
+                            </form>
+                        {% endif %}
                     </li>
                 {% endfor %}
             </ul>
         {% endif %}
-    </div>
-    <h2>Your Friends</h2>
-    <ul>
-        {% for friend in friends_info %}
-            <li>
-                {{ friend.username }}
-                <span> - Streak: {{ friend.streak }} </span>
-                <span> - Today's Pomodoros: {{ friend.pomodoros_today }} </span>
-            </li>
-        {% endfor %}
-    </ul>
+    {% endif %}
+</div>
 
-{% if friend_requests %}
-    <h2>Friend Requests</h2>
-    <ul>
-        {% for friend_request in friend_requests %}
-            <li>
-                {{ friend_request.from_user.username }}
-                <form action="{% url 'accept_friend_request' friend_request.id %}" method="post">
-                    {% csrf_token %}
-                    <button type="submit">Accept</button>
-                </form>
-            </li>
-        {% endfor %}
-    </ul>
-{% endif %}
 
     <h2>Search Users</h2>
     <form method="get" action="{% url 'common_rooms' %}">
@@ -78,19 +102,19 @@
         <button type="submit">Search</button>
     </form>
 
-{% if users %}
-    <h2>Search Results</h2>
-    <ul>
-        {% for user in users %}
-            <li>
-                {{ user.username }}
-                <form action="{% url 'send_friend_request' user.username %}" method="post">
-                    {% csrf_token %}
-                    <button type="submit">Send Friend Request</button>
-                </form>
-            </li>
-        {% endfor %}
-    </ul>
-{% endif %}
+    {% if users %}
+        <h2>Search Results</h2>
+        <ul>
+            {% for user in users %}
+                <li>
+                    {{ user.username }}
+                    <form action="{% url 'send_friend_request' user.username %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit">Send Friend Request</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
 </body>
 </html>

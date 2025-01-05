@@ -1,5 +1,9 @@
 import json
 from datetime import timedelta
+import logging
+
+# Get an instance of a logger
+logger = logging.getLogger('django')
 
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
@@ -35,6 +39,35 @@ def accept_friend_request(request, request_id):
         friend_request.delete()
     return redirect('common_rooms')
 
+@login_required
+def accept_partner_quest(request, request_id):
+    partner_quest_request = get_object_or_404(PartnerQuestRequest, id=request_id)
+    if partner_quest_request.to_user == request.user:
+        try:
+            PartnerQuest.objects.create(
+                partner1=partner_quest_request.from_user,
+                partner2=partner_quest_request.to_user,
+                size=partner_quest_request.size
+            )
+            partner_quest_request.delete()
+        except Exception as e:
+            logger.error(f"Error creating PartnerQuest: {e}")
+            return redirect('common_rooms', error="Could not create PartnerQuest")
+    return redirect('common_rooms')
+
+@login_required
+def decline_partner_quest(request, request_id):
+    partner_quest_request = get_object_or_404(PartnerQuestRequest, id=request_id)
+    if partner_quest_request.to_user == request.user:
+        partner_quest_request.delete()
+    return redirect('common_rooms')
+
+@login_required
+def send_partner_quest_request(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    partner_quest_request, created = PartnerQuestRequest.objects.get_or_create(from_user=request.user, to_user=user, size=10*25*60)
+    return redirect('common_rooms')
+
 def get_context_partner_quests(user):
     """
     get the context for the partner quests
@@ -56,10 +89,12 @@ def get_context_partner_quests(user):
     request_list = []
     for request in partner_quests_requests:
         request_list.append({
+            'id': request.id,
             'from_user': request.from_user.username,
             'to_user': request.to_user.username,
             'timestamp': request.timestamp,
             'size': request.size //60,
+            'is_receiver': request.to_user == user,
         })
     return {'partner_quests': partner_quest_list, 'partner_quests_requests': request_list}
 
@@ -73,6 +108,7 @@ def common_rooms(request):
     for friend in friends:
         player_state = PlayerState.objects.get(player=friend.user)
         friends_info.append({
+            'id': friend.user.id,
             'username': friend.user.username,
             'streak': player_state.get_streak(),
             'pomodoros_today': player_state.get_total_pomos_today(),

@@ -1,9 +1,15 @@
 from django.urls import path
-from .views import pomodoro_timer, login, signup, logout, timer_complete, game,get_location_info, update_player_state, trophy_room, claim_reward,event_timer, intro, accept_friend_request, send_friend_request, common_rooms
+from .views import pomodoro_timer, login, signup, logout, timer_complete, game,get_location_info, update_player_state
+from .views import trophy_room, claim_reward,event_timer
+from .views import intro, accept_friend_request, send_friend_request, common_rooms
+from .views import accept_partner_quest, decline_partner_quest, send_partner_quest_request
 
 urlpatterns = [
     path('send_friend_request/<str:username>/', send_friend_request, name='send_friend_request'),
+    path('send_partner_quest_request/<int:user_id>/', send_partner_quest_request, name='send_partner_quest_request'),
     path('accept_friend_request/<int:request_id>/', accept_friend_request, name='accept_friend_request'),
+    path('accept_partner_quest/<int:request_id>/', accept_partner_quest, name='accept_partner_quest'),
+    path('decline_partner_quest/<int:request_id>/', decline_partner_quest, name='decline_partner_quest'),
     path('common_rooms/', common_rooms, name='common_rooms'),
     path('library/', pomodoro_timer, name='library'),
     path('', game, name="game"),

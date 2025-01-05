@@ -45,6 +45,8 @@ class PartnerQuest(models.Model):
         return not self.is_completed and timezone.now() < self.end_time
 
     def save(self, *args, **kwargs):
+        if not self.start_time:
+            self.start_time = timezone.now()
         if not self.end_time:
             self.end_time = self.start_time + timedelta(hours=72)
         super().save(*args, **kwargs)
