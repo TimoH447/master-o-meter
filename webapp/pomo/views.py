@@ -94,8 +94,8 @@ def get_context_partner_quests(user):
             'start_time': quest.start_time,
             'end_time': quest.end_time,
             'size': quest.size //60,
-            'progress_partner1': quest.partner1_progress //60,
-            'progress_partner2': quest.partner2_progress //60,
+            'partner1_progress': quest.partner1_progress//60,
+            'partner2_progress': quest.partner2_progress//60,
             'is_open': quest.is_open(),
         })
     request_list = []
