@@ -76,8 +76,21 @@ def decline_partner_quest(request, request_id):
 
 @login_required
 def send_partner_quest_request(request, user_id):
-    user = get_object_or_404(User, id=user_id)
-    partner_quest_request, created = PartnerQuestRequest.objects.get_or_create(from_user=request.user, to_user=user, size=10*25*60)
+    friend = get_object_or_404(User, id=user_id)
+    
+    # Check if either user has an active PartnerQuest
+    active_quests = PartnerQuest.objects.filter(
+        (Q(partner1=request.user) | Q(partner2=request.user) |
+         Q(partner1=friend) | Q(partner2=friend)) &
+        Q(is_completed=False)
+    )
+
+    if any(quest.is_active() for quest in active_quests):
+        messages.error(request, "Both users must finish their current partner quests before starting a new one.")
+        return redirect('common_rooms')
+
+    PartnerQuestRequest.objects.create(from_user=request.user, to_user=friend)
+    messages.success(request, "Partner quest request sent successfully.")
     return redirect('common_rooms')
 
 def get_context_partner_quests(user):
@@ -96,6 +109,7 @@ def get_context_partner_quests(user):
             'size': quest.size //60,
             'partner1_progress': quest.partner1_progress//60,
             'partner2_progress': quest.partner2_progress//60,
+            'total_progress': (quest.partner1_progress + quest.partner2_progress) // 60,
             'is_open': quest.is_open(),
         })
     request_list = []
