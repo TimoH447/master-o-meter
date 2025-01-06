@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import Timers, Location, PlayerState, Event, Profile
 from .models import Reward, Balance, FriendRequest, PartnerQuestRequest, PartnerQuest
+from .models import EventCondition, EventOutcome
 
 
 class TimersAdmin(admin.ModelAdmin):
@@ -23,3 +24,5 @@ admin.site.register(Profile)
 admin.site.register(FriendRequest)
 admin.site.register(PartnerQuestRequest)
 admin.site.register(PartnerQuest)
+admin.site.register(EventCondition)
+admin.site.register(EventOutcome)

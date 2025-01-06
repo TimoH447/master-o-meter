@@ -92,13 +92,55 @@ class Location(models.Model):
     def __str__(self):
         return self.name
 
-"""
-class LocationState(models.Model):
-    player = models.ForeignKey(User, on_delete=models.CASCADE)
-    location = models.ForeignKey(Location, on_delete=models.CASCADE)
-    retrieved_scroll = models.BooleanField(default=False)  # Unlocks story progression in the library
-"""    
 
+class EventCondition(models.Model):
+    CONDITION_TYPES = [
+        ('all_completed', 'All of the specified events must be completed'),
+        ('any_completed', 'Any of the specified events must be completed'),
+        ('none_completed', 'None of the specified events must be completed'),
+        ('time_based', 'Triggered within a specific time span'),
+        ('state_based', 'Triggered based on player state'),
+    ]
+
+    name = models.CharField(max_length=255)
+    condition_type = models.CharField(max_length=50, choices=CONDITION_TYPES)
+    events = models.ManyToManyField('Event', blank=True, related_name='condition_events')
+    required_count = models.IntegerField(default=1)  # Number of required events to be completed (for 'any_completed' type)
+    start_time = models.TimeField(null=True, blank=True)  # Start time for time-based condition
+    end_time = models.TimeField(null=True, blank=True)  # End time for time-based condition
+    required_state = models.CharField(max_length=255, null=True, blank=True)  # Required player state (for 'state_based' type)
+
+    def __str__(self):
+        return f"Condition: {self.name} ({self.condition_type})"
+
+    def is_met(self, player_state):
+        if self.condition_type == 'all_completed':
+            return all(event in player_state.completed_events.all() for event in self.events.all())
+        elif self.condition_type == 'any_completed':
+            return player_state.completed_events.filter(id__in=self.events.all()).count() >= self.required_count
+        elif self.condition_type == 'none_completed':
+            return not player_state.completed_events.filter(id__in=self.events.all()).exists()
+        elif self.condition_type == 'time_based':
+            current_time = timezone.now().time()
+            return self.start_time <= current_time <= self.end_time
+        elif self.condition_type == 'state_based':
+            return self.required_state in player_state.current_state
+        return False
+
+class EventOutcome(models.Model):
+    OUTCOME_TYPES = [
+        ('add_points', 'Add Points'),
+        # more to come
+    ]
+    name  = models.CharField(max_length=255)
+    outcome_type = models.CharField(max_length=50, choices=OUTCOME_TYPES)
+    def __str__(self):
+        return f"Outcome: {self.name} ({self.outcome_type})"
+
+    def apply(self, player_state):
+        if self.outcome_type == 'add_points':
+            pass
+        player_state.save()
 
 class Event(models.Model):
     # Basic Info
@@ -114,55 +156,26 @@ class Event(models.Model):
     completion_type = models.CharField(max_length=50, blank=True, null=True, choices=[('direct','direct'),('25','25')], default='direct')
     repeatable = models.BooleanField(default=False)
     
-    # Conditions
-    related_events_completed = models.ManyToManyField(
-        'self', 
-        blank=True, 
-        symmetrical=False, 
-        related_name='dependent_events'
-    )  # Events that must be completed before this one triggers
-
-    blocking_events = models.ManyToManyField(
-        'self', 
-        blank=True, 
-        symmetrical=False, 
-        related_name='blocked_events'
-    )  # Events that, if completed, block this event
-    
-    # Outcomes
-    unlock_event_id = models.IntegerField(null=True, blank=True)  # ID of an event to unlock
-
-    
-    # Meta
+    conditions = models.ManyToManyField(EventCondition, blank=True, related_name='events_of_condition')
+    outcomes = models.ManyToManyField(EventOutcome, blank = True, related_name='events_with_outcome')
+   
 
     def __str__(self):
         return f"Event: {self.name} at {self.location.name}"
 
         # Add any logic to determine if this event can be triggered
     def can_be_triggered(self, player_state):
-        """
-        Checks if the event can be triggered based on the player's current state.
-        :param player_state: PlayerState instance
-        :return: Boolean indicating if the event can be triggered
-        """
         # Check if the event has been completed by the player
         if not self.repeatable and self in player_state.completed_events.all():
             return False
-        
-        # Check if the related events have been completed by the player
-        if self.related_events_completed.exists():
-            for required_event in self.related_events_completed.all():
-                if required_event not in player_state.completed_events.all():
-                    return False  # Condition not met
-        
-        # Check if any of the blocking events have been completed by the player
-        if self.blocking_events.exists():
-            for blocking_event in self.blocking_events.all():
-                if blocking_event in player_state.completed_events.all():
-                    return False  # Blocked by a completed event
+        for condition in self.conditions.all():
+            if not condition.is_met(player_state):
+                return False
+        return True
 
-
-        return True  # All conditions met
+    def apply_outcomes(self,player_state):
+        for outcome in self.outcomes.all():
+            outcome.apply(player_state)
 
 class PlayerState(models.Model):
     player = models.OneToOneField(User, on_delete=models.CASCADE)
