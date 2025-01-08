@@ -487,23 +487,7 @@ def login(request):
         return render(request, 'pomo/login.html')
 
 def intro(request):
-    if request.method == "POST":
-        email = request.POST['email']
-        password = request.POST['password']
-        if User.objects.filter(username=email).exists():
-            user = auth.authenticate(username=email, password=password)
-            print(user)
-            if user is not None:
-                auth.login(request, user)
-                return redirect('game')
-            else:
-                messages.error(request, 'Invalid credentials')
-                return redirect("intro")
-        else:
-            messages.info(request, "Invalid email or password")
-            return redirect('intro')
-    else:
-        return render(request, 'pomo/intro.html')
+    return render(request, 'pomo/intro.html')
 
 def signup(request):
     if request.method == 'POST':
@@ -523,6 +507,7 @@ def signup(request):
             print(user)
             print("User registered Successfully")
             user.save()
+            auth.login(request,user)
             return redirect('intro')
     else:
         return render(request, 'pomo/signup.html')
