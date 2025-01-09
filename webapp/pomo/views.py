@@ -515,3 +515,6 @@ def signup(request):
 def logout(request):
     auth.logout(request)
     return redirect('game')
+
+def start(request):
+    return render(request,"pomo/start.html")

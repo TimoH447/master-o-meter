@@ -1,7 +1,12 @@
 <section class="navbar--section fw-bold"></section>
 <nav class="navbar navbar-dark navbar-expand-lg bg-dark text-white">
     <div class="container-fluid">
+        {% if user.is_authenticated %}
         <a class="navbar-brand text-white" href="{% url 'game' %}">Arcadia</a>
+        {% else %}
+        <a class="navbar-brand text-white" href="{% url 'start' %}">Arcadia</a>
+        {% endif %}
+
 
         
         <div class="d-flex align-items-center">
@@ -25,11 +30,11 @@
         </div>
         <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
             <div class="navbar-nav align-items-center">
+                {% if user.is_authenticated %}
                 <a class="nav-link" href="{% url 'game' %}">Map</a>
                 <a class="nav-link" href="{% url 'common_rooms' %}">Common Rooms</a>
                 <a class="nav-link" href="{% url 'library' %}">Library</a>
                 <a class="nav-link" href="{% url 'trophy_room' %}">Stats and Rewards</a>
-                {% if user.is_authenticated %}
                 <a class="btn btn-secondary p-2 fw-bold" href="{% url 'logout' %}">Logout</a>
                 {% else %}
                 <a class="nav-link btn-secondary" href="{% url 'login' %}">Login/SignUp</a>
