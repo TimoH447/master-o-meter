@@ -1,3 +1,4 @@
+{% load static %}
 <!doctype html>
 <html lang="en">
   <head>
@@ -8,9 +9,13 @@
           rel="stylesheet" 
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" 
           crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{% static 'pomo/css/start.css' %}">
+
+      
 
   </head>
-  <body>
+  <body class="bg-light">
     {% include 'pomo/includes/navbar.html' %}
 
     <div class="bg-body-danger m-3">
@@ -19,37 +24,150 @@
       {% endfor %}
     </div>
 
-    <section id="start" class="d-flex align-items-center justify-content-center vh-100">
-      <div class="container position-relative">
-        <h1>Pomodoro meets Hogwarts</h1>
-        <h2>Study while being in a Wizard school</h2>
+  <header class="py-rem-3" style="background: linear-gradient(to bottom, #f8f9fa, #e9ecef);">
+    <div class="container">
+      <div class="px-rem-3 row">
+        <div class="col-lg-6 d-flex flex-column align-items-center justify-content-center text-center">
+          <h1 class="fw-bold mb-3">Arcadia: A Study Adventure</h1>
+          <p class="lead">Combine the magic of a wizarding world with the focus of the Pomodoro technique. Transform your study sessions into an epic quest.</p>
+          <p>Explore the school, join a house, and discover your potential—all while staying productive.</p>
+          <div class="mt-4 mb-4">
+            <a href="{% url 'signup' %}" class="btn btn-primary btn-lg px-4 py-2">Join Arcadia Now</a>
+          </div>
+        </div>
+        <div class="col-lg-6 d-flex justify-content-center">
+          <img src="/static/pomo/img/map_desktop.png" class="img-fluid border border-dark border-4 rounded-circle" style="max-height: 700px; overflow: hidden;">
+        </div>
       </div>
-      <hr class="position-absolute bottom-0 start-0 w-50">
+    </div>
+  </header>
 
-    </section>
 
-    <section id="about" class="d-flex align-items-center justify-content-center vh-100">
-      <div class="container">
-        <h2>What is this app about?</h2>
+  <section id="about" class="py-rem-3 bg-light">
+    <div class="container">
+      <div class="row text-center mb-4">
+        <div class="col">
+          <h2 class="fw-bold">About Arcadia</h2>
+          <p class="text-muted">A magical journey to enhance your productivity and focus.</p>
+        </div>
       </div>
+      <div class="row">
+        <div class="col">
+          <h3 class="fw-semibold">What is Pomodoro technique?</h3>
+          <p>
+            The Pomodoro Technique is a time management method developed by Francesco Cirillo in the late 1980s.
+            It uses a kitchen timer to break work into intervals, typically 25 minutes in length, separated by short breaks. 
+            Each interval is known as a pomodoro, from the Italian word for tomato, 
+            after the tomato-shaped kitchen timer Cirillo used as a university student. <a href="https://en.wikipedia.org/wiki/Pomodoro_Technique">[Wikipedia]</a>
+          </p>
+          <h3 class="fw-semibold">What is Arcadia?</h3>
+          <p>
+            Arcadia is a platform that transforms your study routine into a magical adventure. At its core, 
+            it functions like a regular Pomodoro timer: set a timer, and focus. 
+            However, what sets Arcadia apart is the immersive experience—each session is accompanied by a story snippet, 
+            with new events unfolding before and after the timer. 
+            Navigate a map of Arcadia's wizarding school, explore its unique locations, and unlock exciting events as you progress.
+          </p>
+          <h3 class="fw-semibold">Our Mission</h3>
+          <p>
+            Our goal is to make studying engaging, productive, and rewarding. By blending gamification with personal development, 
+            Arcadia helps you stay focused, achieve your goals, 
+            and enjoy the process of learning—one Pomodoro at a time.
+            Our mission is to strike the perfect balance between engagement and focus. 
+            Arcadia is designed to motivate you with an enchanting narrative and gamified elements, 
+            but never to the point where it distracts from your studies. By combining just the right amount of fun with productivity, 
+            we aim to help you stay committed to your goals while enjoying the process.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    </section>
-    <section id="features" class="d-flex align-items-center justify-content-center vh-100">
-      <div class="container">
-        <h2>Features</h2>
-        <ul class="">
-            <li>Pomodoro Timer</li>
-            <li>Visual Reports</li>
-            <li>Team up with your friends</li>
-        </ul>
+  
+
+  <section id="features" class="py-rem-5 bg-light" style="background: linear-gradient(to top, #f8f9fa, #e9ecef);">
+  <div class="container">
+    <div class="row text-center mb-4">
+      <div class="col">
+        <h2 class="fw-bold">Features</h2>
+        <p class="text-muted">Discover the tools that make Arcadia a magical study companion.</p>
       </div>
-    </section>
-    <section id="bottom">
-      <div class="container">
-        <h1>Start your journey</h1>
-        <a class="btn btn-secondary p-2 fw-bold" href="{% url 'signup' %}">Register</a>
+    </div>
+    <div class="row g-4">
+      <!-- Feature 1 -->
+      <div class="col-md-4 d-flex">
+
+
+        <div class="feature-box p-4 shadow rounded d-flex flex-column justify-content-between w-100 bg-light">
+          <div class="icon mb-3">
+            <i class="bi bi-clock-fill fs-1 text-primary"></i>
+          </div>
+          <h3 class="fw-semibold">Pomodoro Timer</h3>
+          <p>Focus on your tasks with Arcadia’s Pomodoro timer, designed to make your study sessions productive and structured.</p>
+        </div>
+
+
       </div>
-    </section>
+      <!-- Feature 2 -->
+      <div class="col-md-4 d-flex">
+        <div class="feature-box p-4 shadow rounded d-flex flex-column justify-content-between w-100 bg-light">
+          <div class="icon mb-3">
+            <i class="bi bi-bar-chart-line-fill fs-1 text-success"></i>
+          </div>
+          <h3 class="fw-semibold">Visual Reports</h3>
+          <p>Track your progress with detailed visual reports that showcase your achievements and study patterns over time.</p>
+        </div>
+      </div>
+      <!-- Feature 3 -->
+      <div class="col-md-4 d-flex">
+        <div class="feature-box p-4 shadow rounded d-flex flex-column justify-content-between w-100 bg-light">
+          <div class="icon mb-3">
+            <i class="bi bi-people-fill fs-1 text-warning"></i>
+          </div>
+          <h3 class="fw-semibold">Team Up with Friends</h3>
+          <p>Collaborate and compete with friends to stay motivated, share progress, and grow together on your journey.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="join-and-feedback" class="py-rem-5 bg-light">
+  <div class="container">
+    <!-- Join Arcadia Now Section -->
+    <div class="row text-center mb-5">
+      <div class="col">
+        <h2 class="fw-bold">Join Arcadia Now</h2>
+        <p class="text-muted">Embark on your magical study journey today!</p>
+        <a href="{% url 'signup' %}" class="btn btn-primary btn-lg">Sign Up Now</a>
+      </div>
+    </div>
+
+    <!-- Contact Section with subtle separation -->
+    <div class="row pt-5" style="background-color: #f8f9fa; border-radius: 10px; padding: 40px 0;">
+      <div class="col-lg-6 mx-auto text-center">
+        <h3 class="fw-bold">Got Feedback or Ideas?</h3>
+        <p class="text-muted">We’d love to hear from you! Share your suggestions or let us know how we can improve Arcadia.</p>
+        <form action="/contact" method="POST">
+          <div class="mb-3">
+            <label for="name" class="form-label">Your Name</label>
+            <input type="text" id="name" name="name" class="form-control" placeholder="John Doe" required>
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Your Email</label>
+            <input type="email" id="email" name="email" class="form-control" placeholder="you@example.com" required>
+          </div>
+          <div class="mb-3">
+            <label for="message" class="form-label">Your Message</label>
+            <textarea id="message" name="message" rows="4" class="form-control" placeholder="Your feedback or ideas..." required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-lg">Send Feedback</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 
             integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" 
