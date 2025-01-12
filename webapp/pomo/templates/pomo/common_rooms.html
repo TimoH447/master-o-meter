@@ -1,108 +1,110 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Common Rooms</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-        rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-        crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
+
 <body>
     {% include "pomo/includes/navbar.html" %}
 
     {% if messages %}
-        <div class="alert alert-danger">
-            {% for message in messages %}
-                <p>{{ message }}</p>
-            {% endfor %}
-        </div>
+    <div class="alert alert-danger">
+        {% for message in messages %}
+        <p>{{ message }}</p>
+        {% endfor %}
+    </div>
     {% endif %}
 
     <h1>Common Rooms</h1>
     <p>{{ location_description }}</p>
 
     <div class="container">
-         {% if partner_quests %}
-         <h2>Your Partner Quests</h2>
-            <ul>
-                {% for quest in partner_quests %}
-                    <li>
-                        <p>Partner 1: {{ quest.partner1 }}</p>
-                        <p>Progress: {{ quest.partner1_progress }} minutes</p>
-                        <p>Partner 2: {{ quest.partner2 }}</p>
-                        <p>Progress: {{ quest.partner2_progress }} minutes</p>
-                        <p>Total: {{ quest.total_progress }} of {{ quest.size }} minutes completed</p>
-                        <p>End Time: {{ quest.end_time }}</p>
-                        <p>Status: {% if quest.is_completed %}Completed{% else %}In Progress{% endif %}</p>
-                    </li>
-                {% endfor %}
-            </ul>
+        {% if partner_quests %}
+        <h2>Your Partner Quests</h2>
+        <ul>
+            {% for quest in partner_quests %}
+            <li>
+                <p>Partner 1: {{ quest.partner1 }}</p>
+                <p>Progress: {{ quest.partner1_progress }} minutes</p>
+                <p>Partner 2: {{ quest.partner2 }}</p>
+                <p>Progress: {{ quest.partner2_progress }} minutes</p>
+                <p>Total: {{ quest.total_progress }} of {{ quest.size }} minutes completed</p>
+                <p>End Time: {{ quest.end_time }}</p>
+                <p>Status: {% if quest.is_completed %}Completed{% else %}In Progress{% endif %}</p>
+            </li>
+            {% endfor %}
+        </ul>
         {% endif %}
 
-        
+
     </div>
 
-    <div class="friends-container"> 
+    <div class="friends-container">
         <h2>Your Friends</h2>
         <ul>
             {% for friend in friends_info %}
-                <li>
-                    {{ friend.username }}
-                    <span> - Streak: {{ friend.streak }} </span>
-                    <span> - Today's Pomodoros: {{ friend.pomodoros_today }} </span>
-                    <form action="{% url 'send_partner_quest_request' friend.id %}" method="post">
-                        {% csrf_token %}
-                        <button type="submit">Send Partner Quest Request</button>
-                    </form>
-                </li>
+            <li>
+                {{ friend.username }}
+                <span> - Streak: {{ friend.streak }} </span>
+                <span> - Today's Pomodoros: {{ friend.pomodoros_today }} </span>
+                <form action="{% url 'send_partner_quest_request' friend.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Send Partner Quest Request</button>
+                </form>
+            </li>
             {% endfor %}
         </ul>
     </div>
 
-<div class="requests-container">
-    {% if friend_requests or partner_quests_requests %}
+    <div class="requests-container">
+        {% if friend_requests or partner_quests_requests %}
         <h2>Requests</h2>
         {% if friend_requests %}
-            <h3>Friend Requests</h3>
-            <ul>
-                {% for friend_request in friend_requests %}
-                    <li>
-                        {{ friend_request.from_user.username }}
-                        <form action="{% url 'accept_friend_request' friend_request.id %}" method="post">
-                            {% csrf_token %}
-                            <button type="submit">Accept</button>
-                        </form>
-                    </li>
-                {% endfor %}
-            </ul>
+        <h3>Friend Requests</h3>
+        <ul>
+            {% for friend_request in friend_requests %}
+            <li>
+                {{ friend_request.from_user.username }}
+                <form action="{% url 'accept_friend_request' friend_request.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Accept</button>
+                </form>
+            </li>
+            {% endfor %}
+        </ul>
         {% endif %}
         {% if partner_quests_requests %}
-            <h3>Partner Quest Requests</h3>
-            
-            <ul>
-                {% for request in partner_quests_requests %}
-                    <li>
-                        <p>From: {{ request.from_user }}</p>
-                        <p>To: {{ request.to_user }}</p>
-                        <p>Quest Size: {{ request.size }} minutes</p>
-                        <p>Requested On: {{ request.timestamp }}</p>
-                        {% if request.is_receiver %}
-                            <form action="{% url 'accept_partner_quest' request.id %}" method="post">
-                                {% csrf_token %}
-                                <button type="submit">Accept</button>
-                            </form>
-                            <form action="{% url 'decline_partner_quest' request.id %}" method="post">
-                                {% csrf_token %}
-                                <button type="submit">Decline</button>
-                            </form>
-                        {% endif %}
-                    </li>
-                {% endfor %}
-            </ul>
+        <h3>Partner Quest Requests</h3>
+
+        <ul>
+            {% for request in partner_quests_requests %}
+            <li>
+                <p>From: {{ request.from_user }}</p>
+                <p>To: {{ request.to_user }}</p>
+                <p>Quest Size: {{ request.size }} minutes</p>
+                <p>Requested On: {{ request.timestamp }}</p>
+                {% if request.is_receiver %}
+                <form action="{% url 'accept_partner_quest' request.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Accept</button>
+                </form>
+                <form action="{% url 'decline_partner_quest' request.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Decline</button>
+                </form>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
         {% endif %}
-    {% endif %}
-</div>
+        {% endif %}
+    </div>
 
 
     <h2>Search Users</h2>
@@ -112,18 +114,22 @@
     </form>
 
     {% if users %}
-        <h2>Search Results</h2>
-        <ul>
-            {% for user in users %}
-                <li>
-                    {{ user.username }}
-                    <form action="{% url 'send_friend_request' user.username %}" method="post">
-                        {% csrf_token %}
-                        <button type="submit">Send Friend Request</button>
-                    </form>
-                </li>
-            {% endfor %}
-        </ul>
+    <h2>Search Results</h2>
+    <ul>
+        {% for user in users %}
+        <li>
+            {{ user.username }}
+            <form action="{% url 'send_friend_request' user.username %}" method="post">
+                {% csrf_token %}
+                <button type="submit">Send Friend Request</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
     {% endif %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
 </body>
+
 </html>

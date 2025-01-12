@@ -13,7 +13,7 @@ urlpatterns = [
     path('decline_partner_quest/<int:request_id>/', decline_partner_quest, name='decline_partner_quest'),
     path('common_rooms/', common_rooms, name='common_rooms'),
     path('library/', pomodoro_timer, name='library'),
-    path('', game, name="game"),
+    path('', hub, name="game"),
     path('event/<int:event_id>/', event_timer, name='event_detail'),
     path('trophy-room/', trophy_room, name="trophy_room"),
     path('login/', login, name='login'),
@@ -25,5 +25,5 @@ urlpatterns = [
     path('api/update_player_state/', update_player_state, name='update_player_state'),
     path('api/claim_reward/<int:reward_id>/', claim_reward, name='claim_reward'),
     path('start/', start, name="start"),
-    path('hub/', hub, name="hub"),
+    path('map/', game, name="map"),
 ]

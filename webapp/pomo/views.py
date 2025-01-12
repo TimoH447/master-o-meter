@@ -520,14 +520,51 @@ def start(request):
     return render(request,"pomo/start.html")
 
 def get_available_events_context(user):
-    pass
+    # Get the player's state
+    player_state = PlayerState.objects.get(player=user)
+    # Get all events
+    all_events = Event.objects.all()
+    # Filter events that can be triggered
+    available_events = [event for event in all_events if event.can_be_triggered(player_state)]
+    return available_events
+
+
+def get_completed_events_context(user):
+    # Get the player's state
+    try:
+        player_state = PlayerState.objects.get(player=user)
+    except PlayerState.DoesNotExist:
+        return []
+
+    # Get the completed events
+    completed_events = player_state.completed_events.all()
+    
+    return completed_events    
+
+
+def get_player_context(user):
+    try:
+        player_state = PlayerState.objects.get(player=user)
+    except PlayerState.DoesNotExist:
+        player_state = None
+
+    context = {
+        'user': user,
+        'player': player_state,
+        'number_of_friends': user.profile.friends.count(),
+        'completed_events_count': player_state.completed_events.count() if player_state else 0,
+    }
+    return context
 
 def get_hub_context(user):
     navbar = get_context_navbar(user)
     open_events = get_available_events_context(user)
+    completed_events= get_completed_events_context(user)
+    player_context = get_player_context(user)
 
-    return {**navbar}
+    return {**navbar, "available_events": open_events, "completed_events": completed_events, **player_context}
 
+@login_required
 def hub(request):
     context = get_hub_context(request.user)
     return render(request,"pomo/hub.html", context)

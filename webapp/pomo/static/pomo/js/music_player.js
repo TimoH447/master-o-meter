@@ -1,12 +1,12 @@
 let isPlaying = false;
 let currentSongIndex = 0;
 const songs = [
+    { title: 'Ways of the wizard', artist: 'Geoffharvey', file: '/static/pomo/audio/ways-of-the-wizard-geoffharvey.m4a' },
     { title: 'Summer rain', artist: 'Xethrocc', file: '/static/pomo/audio/summer-rain-xethrocc.m4a' },
     { title: 'Deep', artist: 'Xethrocc', file: '/static/pomo/audio/deep-xethrocc.mp3' },
     { title: 'For a dream', artist: 'Xethrocc', file: '/static/pomo/audio/for-a-dream-xethrocc.m4a' },
     { title: 'Forest guitar', artist: 'Xethrocc', file: '/static/pomo/audio/forest-guitar-xethrocc.m4a' },
     { title: 'Power of the wind', artist: 'Xethrocc', file: '/static/pomo/audio/power-of-the-wind-xethrocc.m4a' },
-    { title: 'Ways of the wizard', artist: 'Geoffharvey', file: '/static/pomo/audio/ways-of-the-wizard-geoffharvey.m4a' },
     // Add more songs here
 ];
 const music = new Audio(songs[currentSongIndex].file);
