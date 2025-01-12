@@ -1,0 +1,118 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token }}">
+    <title>Arcadia - Hub</title>
+
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+
+    <link rel="stylesheet" href="{% static 'pomo/css/base.css' %}">
+    </link>
+
+
+</head>
+
+<body style="background-color: #f7f3e9; font-family: 'Roboto', sans-serif;">
+    {% include "pomo/includes/navbar.html" %}
+    <div class="container mt-4">
+        <div class="d-flex">
+            <!-- Story Journal -->
+            <div class="card col-lg-7 m-1 shadow-sm border-0">
+                <div class="card-header text-white" style="background-color: #6c4a3f;">
+                    <h3 class="mb-0">Story Journal</h3>
+                </div>
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="available-tab" data-bs-toggle="tab"
+                            data-bs-target="#available-tab-pane" type="button" role="tab"
+                            aria-controls="available-tab-pane" aria-selected="true">
+                            <i class="bi bi-unlock"></i> Available
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="completed-tab" data-bs-toggle="tab"
+                            data-bs-target="#completed-tab-pane" type="button" role="tab"
+                            aria-controls="completed-tab-pane" aria-selected="false">
+                            <i class="bi bi-check-circle"></i> Completed
+                        </button>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="available-tab-pane" role="tabpanel"
+                        aria-labelledby="available-tab" tabindex="0">
+                        <div class="card-body">
+                            <div id="triggerableEvents" class="accordion">
+                                <!-- Example Event -->
+                                <div class="accordion-item border-0 rounded mb-3">
+                                    <h6 class="accordion-header" id="event1Header">
+                                        <button class="accordion-button collapsed bg-light text-dark fw-bold"
+                                            type="button" data-bs-toggle="collapse" data-bs-target="#event1"
+                                            aria-expanded="false" aria-controls="event1">
+                                            <i class="bi bi-geo-alt"></i> [Location Name] Event Title
+                                        </button>
+                                    </h6>
+                                    <div id="event1" class="accordion-collapse collapse" aria-labelledby="event1Header"
+                                        data-bs-parent="#triggerableEvents">
+                                        <div class="accordion-body">
+                                            <p class="text-muted">Event Description: Lorem ipsum dolor sit amet.</p>
+                                            <button class="btn btn-success btn-sm">
+                                                <i class="bi bi-play-circle"></i> Start Event
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="completed-tab-pane" role="tabpanel" aria-labelledby="completed-tab"
+                        tabindex="0">
+                        <div class="card-body">
+                            <div id="lockedEvents" class="accordion">
+                                <!-- Example Locked Event -->
+                                <div class="accordion-item border-0 rounded mb-3">
+                                    <h6 class="accordion-header" id="event2Header">
+                                        <button class="accordion-button collapsed bg-light text-dark fw-bold"
+                                            type="button" data-bs-toggle="collapse" data-bs-target="#event2"
+                                            aria-expanded="false" aria-controls="event2">
+                                            <i class="bi bi-lock"></i> [Location Name] Locked Event Title
+                                        </button>
+                                    </h6>
+                                    <div id="event2" class="accordion-collapse collapse" aria-labelledby="event2Header">
+                                        <div class="accordion-body">
+                                            <p class="text-muted">
+                                                Event Locked: Complete <strong>[Required Event Name]</strong> to unlock.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Player Info -->
+            <div class="card col-lg-4 m-1 shadow-sm border-0">
+                <div class="card-header text-white" style="background-color: #6c4a3f;">
+                    <h3 class="mb-0">Player</h3>
+                </div>
+                <div class="card-body">
+                    <div class="text-center">
+                        <h5 class="fw-bold">Player House: <span class="text-primary">[House Name]</span></h5>
+                        <p class="text-muted mb-1">Level: [Player Level]</p>
+                        <p class="text-muted">Completed Events: [Count]</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+</html>

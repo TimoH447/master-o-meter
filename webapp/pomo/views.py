@@ -518,3 +518,16 @@ def logout(request):
 
 def start(request):
     return render(request,"pomo/start.html")
+
+def get_available_events_context(user):
+    pass
+
+def get_hub_context(user):
+    navbar = get_context_navbar(user)
+    open_events = get_available_events_context(user)
+
+    return {**navbar}
+
+def hub(request):
+    context = get_hub_context(request.user)
+    return render(request,"pomo/hub.html", context)
