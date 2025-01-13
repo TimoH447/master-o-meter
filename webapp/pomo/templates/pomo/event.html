@@ -1,63 +1,81 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ location }}</title>
 
-  {% load bootstrap5 %}
-  {% bootstrap_css %}
-  {% bootstrap_javascript %}
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
 
     <link rel="stylesheet" href="{% static 'pomo/music_player.css' %}">
     <script src="{% static 'pomo/app.js' %}"></script>
     <script src="{% static 'pomo/js/timer.js' %}"></script>
 </head>
-<body>
+
+<body style="background-color: #f7f3e9; font-family: 'Roboto', sans-serif;">
     {% include 'pomo/includes/navbar.html' %}
 
-    <h1>{{ location }} - {{ event_name }}</h1>
-    <p>{{ pre_timer_text }}</p>
-    
-    {% include 'pomo/includes/event_timer.html' %}
-
-    <div id="post-timer-text" style="display: none;">
-        <p>{{ post_timer_text }}</p>
-        
-    </div>
-    <a id="return-to-map-link" href="{% url 'game' %}">Return to Map</a>
-
-
-
-    <div id="music-bar" class="music-player">
-        <button id="collapse-button" onclick="collapseMusicBar()">⬇</button>
-        <div class="music-info">
-            <p id="music-title">Title - Artist</p>
+    <div class="container py-4">
+        <!-- Event Header -->
+        <div class="text-center mb-4">
+            <h1 class="display-5">{{ location }} - {{ event_name }}</h1>
         </div>
-        <div class="music-controls">
-            <div class="music-controls-buttons">
-                <button id="prev-song" onclick="prevSong()">⏮</button>
-                <button id="play-pause" onclick="togglePlay()">⏯</button>
-                <button id="next-song" onclick="nextSong()">⏭</button>
+
+        <!-- Pre-Timer Text -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <p>{{ pre_timer_text }}</p>
+                {% include 'pomo/includes/event_timer.html' %}
             </div>
-            <input id="volume-control" type="range" min="0" max="1" step="0.05" onchange="setVolume(this.value)" />
+
         </div>
+
+
+
+        <!-- Post-Timer Text -->
+        <div id="post-timer-text" class="card mb-4" style="display: none;">
+            <div class="card-body">
+                <p>{{ post_timer_text }}</p>
+                <div class="text-center mt-3">
+                    <a id="return-to-map-link" href="{% url 'game' %}" class="btn btn-primary">Return to Map</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="music-bar" class="music-player">
+            <button id="collapse-button" onclick="collapseMusicBar()">⬇</button>
+            <div class="music-info">
+                <p id="music-title">Title - Artist</p>
+            </div>
+            <div class="music-controls">
+                <div class="music-controls-buttons">
+                    <button id="prev-song" onclick="prevSong()">⏮</button>
+                    <button id="play-pause" onclick="togglePlay()">⏯</button>
+                    <button id="next-song" onclick="nextSong()">⏭</button>
+                </div>
+                <input id="volume-control" type="range" min="0" max="1" step="0.05" onchange="setVolume(this.value)" />
+            </div>
+        </div>
+        <button id="expand-button" onclick="expandMusicBar()" style="display: none;">⬆</button>
     </div>
-    <button id="expand-button" onclick="expandMusicBar()" style="display: none;">⬆</button>
 
     {% include 'pomo/includes/footer.html' %}
 
     <p id="event-id" style="display: none;">{{ event_id }}</p>
-    <script>
-    fetch("{% static 'pomo/version.txt' %}")
-        .then(response => response.text())
-        .then(text => {
-            document.getElementById('version-number').textContent = text;
-        });
-    </script>
-    <!-- Include your JS file before closing the body tag -->
-    <script src="{% static 'pomo/js/music_player.js' %}"></script>
 
+    <!-- Scripts -->
+    <script>
+        fetch("{% static 'pomo/version.txt' %}")
+            .then(response => response.text())
+            .then(text => {
+                document.getElementById('version-number').textContent = text;
+            });
+    </script>
+    <script src="{% static 'pomo/js/music_player.js' %}"></script>
 </body>
+
 </html>
