@@ -1,98 +1,113 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token }}">
     <title>Trophy Room</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-        rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-        crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'pomo/css/trophy_room.css' %}">
     <link rel="stylesheet" href="{% static 'pomo/css/base.css' %}">
     <link rel="stylesheet" href="{% static 'pomo/style.css' %}">
     <script src="{% static 'pomo/app.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body>
+
+<body style="background-color: #f7f3e9; font-family: 'Roboto', sans-serif;">
     {% include "pomo/includes/navbar.html" %}
 
-    <div class="trophy-room-container">
-        <h1>Trophy Room</h1>
-        <!-- Activity Graph Section -->
-        <div class="stats-card">
-            <h2>Activity in Last 7 days</h2>
-            <canvas id="activityGraph"></canvas>
-        </div>
-        <!-- Stats Section -->
-        <div class="stats-card">
-            <h2>Today's Stats</h2>
-            <div class="stat-item">
-                <span class="stat-label">Pomodoros Today:</span>
-                <span class="stat-value">{{ total_pomodoros_today }}</span>
+    <div class="container py-4">
+        <!-- Trophy Room Card -->
+        <div class="card">
+            <div class="card-header text-white text-center" style="background-color: #6c4a3f;">
+                <h1 class="card-title mb-0">Trophy Room</h1>
             </div>
-            <div class="stat-item">
-                <span class="stat-label">Current Streak:</span>
-                <span class="stat-value">{{ streak }} days</span>
-            </div>
-        </div>
+            <div class="card-body">
+                <!-- Tabs Navigation -->
+                <ul class="nav nav-tabs" id="trophyTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="stats-tab" data-bs-toggle="tab" data-bs-target="#stats"
+                            type="button" role="tab" aria-controls="stats" aria-selected="true">
+                            Stats
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="achievements-tab" data-bs-toggle="tab"
+                            data-bs-target="#achievements" type="button" role="tab" aria-controls="achievements"
+                            aria-selected="false">
+                            Achievements
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="rewards-tab" data-bs-toggle="tab" data-bs-target="#rewards"
+                            type="button" role="tab" aria-controls="rewards" aria-selected="false">
+                            Rewards
+                        </button>
+                    </li>
+                </ul>
 
-        <div class="stats-card">
-            <h2>Overall Achievements</h2>
-            <div class="stat-item">
-                <span class="stat-label">Total Pomodoros Completed:</span>
-                <span class="stat-value">{{ total_pomos_alltime }}</span>
-            </div>
-        </div>
+                <!-- Tabs Content -->
+                <div class="tab-content mt-3" id="trophyTabsContent">
+                    <!-- Stats Tab -->
+                    <div class="tab-pane fade show active" id="stats" role="tabpanel" aria-labelledby="stats-tab">
+                        <h2>Today's Stats</h2>
+                        <p><strong>Pomodoros Today:</strong> {{ total_pomodoros_today }}</p>
+                        <p><strong>Current Streak:</strong> {{ streak }} days</p>
 
-        <!-- Rewards Section -->
-        <div class="rewards-section">
-            <div class="rewards-header">
-                <h2>Rewards</h2>
-                <div class="balance-display">
-                    {% if balance_error %}
-                        <span class="error-message">{{ balance_error }}</span>
-                    {% else %}
-                        <span class="balance-label">Points Balance:</span>
-                        <span class="balance-value">{{ balance.points }}</span>
-                    {% endif %}
+                        <h2>Activity in Last 7 Days</h2>
+                        <canvas id="activityGraph"></canvas>
+                    </div>
+
+                    <!-- Achievements Tab -->
+                    <div class="tab-pane fade" id="achievements" role="tabpanel" aria-labelledby="achievements-tab">
+                        <h2>Overall Achievements</h2>
+                        <p><strong>Total Pomodoros Completed:</strong> {{ total_pomos_alltime }}</p>
+                    </div>
+
+                    <!-- Rewards Tab -->
+                    <div class="tab-pane fade" id="rewards" role="tabpanel" aria-labelledby="rewards-tab">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h2>Rewards</h2>
+                            <span class="badge bg-secondary fs-5">{{ balance.points }} Points</span>
+                        </div>
+
+                        <h3>Unclaimed Rewards</h3>
+                        <ul class="list-group mb-4">
+                            {% for reward in unclaimed_rewards %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span>
+                                    <strong>{{ reward.name }}</strong>
+                                    <br>
+                                    Cost: {{ reward.cost }} points
+                                </span>
+                                <button class="btn btn-primary btn-sm"
+                                    onclick="claimReward('{{ reward.id }}')">Claim</button>
+                            </li>
+                            {% empty %}
+                            <li class="list-group-item text-center text-muted">No unclaimed rewards available.</li>
+                            {% endfor %}
+                        </ul>
+
+                        <h3>Claimed Rewards</h3>
+                        <ul class="list-group">
+                            {% for reward in claimed_rewards %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span><strong>{{ reward.name }}</strong></span>
+                                <span class="text-muted">Claimed</span>
+                            </li>
+                            {% empty %}
+                            <li class="list-group-item text-center text-muted">No claimed rewards yet.</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
                 </div>
             </div>
-
-            <!-- Unclaimed Rewards List -->
-            <h3>Unclaimed Rewards</h3>
-            <ul class="rewards-list">
-                {% for reward in unclaimed_rewards %}
-                <li class="reward-item">
-                    <div class="reward-details">
-                        <span class="reward-name">{{ reward.name }}</span>
-                        <span class="reward-cost">Cost: {{ reward.cost }} points</span>
-                    </div>
-                    <button class="btn btn-primary" onclick="claimReward('{{ reward.id }}')">Claim</button>
-                </li>
-                {% empty %}
-                <li>No unclaimed rewards available.</li>
-                {% endfor %}
-            </ul>
-
-            <!-- Claimed Rewards List -->
-            <h3>Claimed Rewards</h3>
-            <ul class="rewards-list">
-                {% for reward in claimed_rewards %}
-                <li class="reward-item">
-                    <div class="reward-details">
-                        <span class="reward-name">{{ reward.name }}</span>
-                        <span class="reward-status">Claimed</span>
-                    </div>
-                </li>
-                {% empty %}
-                <li>No claimed rewards yet.</li>
-                {% endfor %}
-            </ul>
         </div>
     </div>
-    
+
     <script src="{% static 'pomo/js/rewards.js' %}"></script>
     <script>
         const ctx = document.getElementById('activityGraph').getContext('2d');
@@ -120,8 +135,10 @@
             }
         });
     </script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-            crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
 </body>
+
 </html>
