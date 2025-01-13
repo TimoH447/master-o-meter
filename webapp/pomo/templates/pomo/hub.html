@@ -64,7 +64,7 @@
                                         aria-labelledby="event{{ forloop.counter }}Header"
                                         data-bs-parent="#triggerableEvents">
                                         <div class="accordion-body">
-                                            <p class="text-muted">Event Description: {{ event.description }}</p>
+                                            <p class="text-muted">{{ event.description }}</p>
                                             <a href="/pomo/event/{{ event.id }}/" class="btn btn-success btn-sm">
                                                 <i class="bi bi-play-circle"></i> Start Event
                                             </a>
@@ -93,7 +93,7 @@
                                         aria-labelledby="completedEvent{{ forloop.counter }}Header"
                                         data-bs-parent="#completedEvents">
                                         <div class="accordion-body">
-                                            <p class="text-muted">Event Description: {{ event.description }}</p>
+                                            <p class="text-muted">{{ event.description }}</p>
                                         </div>
                                     </div>
                                 </div>
