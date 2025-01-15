@@ -14,6 +14,7 @@ from django.db import models
 from django.http import JsonResponse
 from django.utils import timezone
 from django.shortcuts import get_object_or_404
+from django.http import Http404
 
 from .models import Timers
 from .streak import calculate_streak
@@ -457,10 +458,22 @@ def pomodoro_timer(request):
     # Render the template with the number of Pomodoros completed today
     return render(request, 'pomo/library.html', context)
 
+def get_event_status(user,event):
+    player_state = PlayerState.objects.get(player=user)
+    if event in player_state.completed_events.all():
+        return "completed"
+    if event.can_be_triggered(player_state):
+        return "open"
+    else:
+        return "locked"
+
+@login_required
 def event_timer(request, event_id):
     event = get_object_or_404(Event, id=event_id)
+    user = request.user
 
     context  = {
+        'event_status': get_event_status(user,event),
         'event_id': event_id,
         'location': event.location.title,
         'event_name': event.name,
@@ -469,10 +482,13 @@ def event_timer(request, event_id):
         'repeatable': event.repeatable,
     }
 
-    if request.user.is_authenticated:
-        stats = get_pomo_stats(request.user)
-        timer = get_timer_context(request.user)
-        context = {**context, **stats, **timer}
+    if context['event_status']=="locked":
+        raise Http404("Event does not exist")
+
+    navbar_context = get_context_navbar(request.user)
+
+    timer = get_timer_context(request.user)
+    context = {**context, **navbar_context, **timer}
 
     return render(request, 'pomo/event.html', 
                   context)
