@@ -22,14 +22,16 @@
     <div class="container py-4">
         <!-- Event Header -->
         <div class="text-center mb-4">
-            <h1 class="display-5">{{ location }} - {{ event_name }} - {{ event_status }}</h1>
+            <h1 class="display-5">{{ location }} - {{ event_name }}</h1>
         </div>
 
         <!-- Pre-Timer Text -->
         <div class="card mb-4">
             <div class="card-body">
                 <p>{{ pre_timer_text }}</p>
-                {% include 'pomo/includes/event_timer.html' %}
+                {% if event_status == "open" %}
+                    {% include 'pomo/includes/event_timer.html' %}
+                {% endif %}
             </div>
 
         </div>
@@ -37,11 +39,11 @@
 
 
         <!-- Post-Timer Text -->
-        <div id="post-timer-text" class="card mb-4" style="display: none;">
+        <div id="post-timer-text" class="card mb-4" style="display: {% if event_status == 'open' %}none{% else %}block{% endif %};">
             <div class="card-body">
                 <p>{{ post_timer_text }}</p>
                 <div class="text-center mt-3">
-                    <a id="return-to-map-link" href="{% url 'game' %}" class="btn btn-primary">Return to Map</a>
+                    <a id="return-to-map-link" href="{% url 'game' %}" class="btn btn-primary">Return to Hub</a>
                 </div>
             </div>
         </div>
