@@ -404,18 +404,25 @@ def get_pomo_stats(user):
 def get_pomo_stats_detailed(user):
     today = timezone.now().date()
     # Collect study hours for the last seven days
-    study_hours_last_seven_days = []
-    for i in range(7):
-        day = today - timedelta(days=i)
-        timers_day = Timers.objects.filter(user=user, date_completed=day)
-        total_seconds = sum(timer.duration for timer in timers_day)
-        total_minutes = total_seconds // 60
-        # the amount studied is including the break times, for each 25min one 5min break is added
-        total_minutes += (total_seconds // 1500) * 5
-        study_hours_last_seven_days.append(total_minutes/60)
+    weekly_study = []
+    for k in range(2):
+        weekly_study_time = []
+        week_total_time = 0
+        for i in range(7):
+            j = i+7*k
+            day = today - timedelta(days=j)
+            timers_day = Timers.objects.filter(user=user, date_completed=day)
+            total_seconds = sum(timer.duration for timer in timers_day)
+            total_minutes = total_seconds // 60
+            # the amount studied is including the break times, for each 25min one 5min break is added
+            total_minutes += (total_seconds // 1500) * 5
+            week_total_time += total_minutes/60
+            weekly_study_time.append(total_minutes/60)
+        past_week = {"week": k, "study_time": weekly_study_time, "hours_studied":week_total_time}
+        weekly_study.append(past_week)
 
     stats = get_pomo_stats(user)
-    return {**stats, 'study_hours_last_seven_days': study_hours_last_seven_days}
+    return {**stats, "weeks": weekly_study}
 
 
 
