@@ -173,6 +173,7 @@ def trophy_room(request):
             'total_pomodoros_today': 0,
             'total_pomodoros': 0,
             'streak': 0,
+            'highest_streak': 0,
         }
 
     try:
@@ -297,6 +298,9 @@ def timer_complete(request):
         user = request.user
         today = timezone.now().date()
 
+        player_state = PlayerState.objects.get(player=user)
+        player_state.update_streak()
+
         # Save the timer completion in the database
         Timers.objects.create(
             user=request.user,
@@ -386,10 +390,14 @@ def get_pomo_stats(user):
     # Calculate the user's streak
     streak = calculate_streak(user)
 
+    player_state= PlayerState.objects.get(player=user)
+    highest_streak = player_state.get_highest_streak()
+
     return {
         "total_pomos_alltime": total_pomodoros_alltime,
         "total_pomodoros_today": total_pomodoros_today,
         "streak": streak,
+        "highest_streak": highest_streak,
     }
 
 def get_pomo_stats_detailed(user):
@@ -414,8 +422,10 @@ def get_context_navbar(user):
     """
     get the context for the base template 
     """
-    stats = get_pomo_stats(user)
-    return stats
+    player_state = PlayerState.objects.get(player=user)
+    context = {"streak": player_state.get_streak(),
+               "total_pomodoros_today": player_state.get_total_pomos_today()}
+    return context
 
 def get_timer_context(user):
     """
