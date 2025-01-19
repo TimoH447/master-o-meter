@@ -12,8 +12,10 @@
     <link rel="stylesheet" href="{% static 'pomo/css/trophy_room.css' %}">
     <link rel="stylesheet" href="{% static 'pomo/css/base.css' %}">
     <link rel="stylesheet" href="{% static 'pomo/style.css' %}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{% static 'pomo/app.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{% static 'pomo/js/trophy_room.js' %}"></script>
 </head>
 
 <body style="background-color: #f7f3e9; font-family: 'Roboto', sans-serif;">
@@ -110,6 +112,12 @@
                             {% empty %}
                             <li class="list-group-item text-center text-muted">No unclaimed rewards available.</li>
                             {% endfor %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span>
+                                    <strong>Create your custom reward</strong>
+                                </span>
+                                <button class="btn btn-primary btn-sm" onclick="createNewReward()">New</button>
+                            </li>
                         </ul>
 
                         <h3>Claimed Rewards</h3>
@@ -152,15 +160,15 @@
         },
             options: {
             scales: {
-            y: {
-                beginAtZero: true,
-                ticks: {
-                    min: 0, // Ensures the y-axis starts at 0
-                    max: 12 // Ensures the y-axis goes at least up to 12
-                },
-                suggestedMax: 12 // Adjusts automatically if values exceed 12
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        min: 0, // Ensures the y-axis starts at 0
+                        max: 12 // Ensures the y-axis goes at least up to 12
+                    },
+                    suggestedMax: 12 // Adjusts automatically if values exceed 12
+                }
             }
-        }
         }
     });
         {% endfor %}

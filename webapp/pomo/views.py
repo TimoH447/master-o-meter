@@ -200,6 +200,25 @@ def trophy_room(request):
     return render(request, 'pomo/trophy_room.html', context)
 
 @login_required
+def create_reward(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        description = request.POST.get('description')
+        cost = request.POST.get('cost')
+
+        # Create the reward
+        Reward.objects.create(
+            name=name,
+            description=description,
+            cost=cost,
+            player=request.user
+        )
+
+        return JsonResponse({'success': True})
+
+    return JsonResponse({'success': False, 'error': 'Invalid request'})
+
+@login_required
 def claim_reward(request, reward_id):
     if request.method == "POST":
         # Get the reward object, or return a 404 if not found
