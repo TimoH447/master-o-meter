@@ -66,7 +66,7 @@
                                 <div class="carousel-item {% if forloop.first %}active{% endif %}">
                                     <p><strong>Hours studied in week {{ week.week }}:</strong> {{ week.hours_studied }}h
                                     </p>
-                                    <canvas id="activityGraph{{ week.week }}"></canvas>
+                                    <canvas id="activityGraph{{ week.week }}" style="min-height: 250px;"></canvas>
                                 </div>
                                 {% endfor %}
                             </div>
@@ -164,9 +164,9 @@
                     beginAtZero: true,
                     ticks: {
                         min: 0, // Ensures the y-axis starts at 0
-                        max: 12 // Ensures the y-axis goes at least up to 12
+                        max: 8 // Ensures the y-axis goes at least up to 12
                     },
-                    suggestedMax: 12 // Adjusts automatically if values exceed 12
+                    suggestedMax: 8 // Adjusts automatically if values exceed 12
                 }
             }
         }

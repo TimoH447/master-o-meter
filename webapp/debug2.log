@@ -18673,3 +18673,563 @@ Not Found: /robots.txt
 Not Found: /favicon.ico
 Not Found: /favicon.ico
 Not Found: /favicon.ico
+Not Found: /favicon.ico
+Exception while resolving variable 'streak' in template 'pomo/start.html'.
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 880, in _resolve_lookup
+    current = current[bit]
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/context.py", line 83, in __getitem__
+    raise KeyError(key)
+KeyError: 'streak'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 886, in _resolve_lookup
+    if isinstance(current, BaseContext) and getattr(
+AttributeError: type object 'RequestContext' has no attribute 'streak'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 896, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'streak'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 903, in _resolve_lookup
+    raise VariableDoesNotExist(
+django.template.base.VariableDoesNotExist: Failed lookup for key [streak] in [{'True': True, 'False': False, 'None': None}, {'csrf_token': <SimpleLazyObject: <function csrf.<locals>._get_val at 0xecd4ca48>>, 'request': <WSGIRequest: GET '/pomo/start/'>, 'user': <SimpleLazyObject: <User: timoh>>, 'perms': PermWrapper(<SimpleLazyObject: <User: timoh>>), 'messages': <FallbackStorage: request=<WSGIRequest: GET '/pomo/start/'>>, 'DEFAULT_MESSAGE_LEVELS': {'DEBUG': 10, 'INFO': 20, 'SUCCESS': 25, 'WARNING': 30, 'ERROR': 40}}, {}, {}]
+Exception while resolving variable 'total_pomodoros_today' in template 'pomo/start.html'.
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 880, in _resolve_lookup
+    current = current[bit]
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/context.py", line 83, in __getitem__
+    raise KeyError(key)
+KeyError: 'total_pomodoros_today'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 886, in _resolve_lookup
+    if isinstance(current, BaseContext) and getattr(
+AttributeError: type object 'RequestContext' has no attribute 'total_pomodoros_today'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 896, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'total_pomodoros_today'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 903, in _resolve_lookup
+    raise VariableDoesNotExist(
+django.template.base.VariableDoesNotExist: Failed lookup for key [total_pomodoros_today] in [{'True': True, 'False': False, 'None': None}, {'csrf_token': <SimpleLazyObject: <function csrf.<locals>._get_val at 0xecd4ca48>>, 'request': <WSGIRequest: GET '/pomo/start/'>, 'user': <SimpleLazyObject: <User: timoh>>, 'perms': PermWrapper(<SimpleLazyObject: <User: timoh>>), 'messages': <FallbackStorage: request=<WSGIRequest: GET '/pomo/start/'>>, 'DEFAULT_MESSAGE_LEVELS': {'DEBUG': 10, 'INFO': 20, 'SUCCESS': 25, 'WARNING': 30, 'ERROR': 40}}, {}, {}]
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Not Found: /pomo/event/9/static/pomo/audio/alarm1.mp3
+Exception while resolving variable 'player_state_json' in template 'pomo/map.html'.
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 880, in _resolve_lookup
+    current = current[bit]
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/context.py", line 83, in __getitem__
+    raise KeyError(key)
+KeyError: 'player_state_json'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 886, in _resolve_lookup
+    if isinstance(current, BaseContext) and getattr(
+AttributeError: type object 'RequestContext' has no attribute 'player_state_json'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 896, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'player_state_json'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 903, in _resolve_lookup
+    raise VariableDoesNotExist(
+django.template.base.VariableDoesNotExist: Failed lookup for key [player_state_json] in [{'True': True, 'False': False, 'None': None}, {'csrf_token': <SimpleLazyObject: '6yUGf3VBKezu0dh1Iq0zjzXvXYqubLjNRmwmGK8VIIiLklc4iZ65G1xV2LNdfPPg'>, 'request': <WSGIRequest: GET '/pomo/map/'>, 'user': <SimpleLazyObject: <User: timoh>>, 'perms': PermWrapper(<SimpleLazyObject: <User: timoh>>), 'messages': <FallbackStorage: request=<WSGIRequest: GET '/pomo/map/'>>, 'DEFAULT_MESSAGE_LEVELS': {'DEBUG': 10, 'INFO': 20, 'SUCCESS': 25, 'WARNING': 30, 'ERROR': 40}}, {}, {'total_pomos_alltime': 144, 'total_pomodoros_today': 0, 'streak': 6, 'highest_streak': 6, 'is_developer': False, 'username': 'timoh'}]
+Exception while resolving variable 'location_states_json' in template 'pomo/map.html'.
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 880, in _resolve_lookup
+    current = current[bit]
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/context.py", line 83, in __getitem__
+    raise KeyError(key)
+KeyError: 'location_states_json'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 886, in _resolve_lookup
+    if isinstance(current, BaseContext) and getattr(
+AttributeError: type object 'RequestContext' has no attribute 'location_states_json'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 896, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'location_states_json'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 903, in _resolve_lookup
+    raise VariableDoesNotExist(
+django.template.base.VariableDoesNotExist: Failed lookup for key [location_states_json] in [{'True': True, 'False': False, 'None': None}, {'csrf_token': <SimpleLazyObject: '6yUGf3VBKezu0dh1Iq0zjzXvXYqubLjNRmwmGK8VIIiLklc4iZ65G1xV2LNdfPPg'>, 'request': <WSGIRequest: GET '/pomo/map/'>, 'user': <SimpleLazyObject: <User: timoh>>, 'perms': PermWrapper(<SimpleLazyObject: <User: timoh>>), 'messages': <FallbackStorage: request=<WSGIRequest: GET '/pomo/map/'>>, 'DEFAULT_MESSAGE_LEVELS': {'DEBUG': 10, 'INFO': 20, 'SUCCESS': 25, 'WARNING': 30, 'ERROR': 40}}, {}, {'total_pomos_alltime': 144, 'total_pomodoros_today': 0, 'streak': 6, 'highest_streak': 6, 'is_developer': False, 'username': 'timoh'}]
+Invalid HTTP_HOST header: '[2001:4dd6:a0b8:0:8db3:764:fd94:f474]'. You may need to add '[2001:4dd6:a0b8:0:8db3:764:fd94:f474]' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/http/request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '[2001:4dd6:a0b8:0:8db3:764:fd94:f474]'. You may need to add '[2001:4dd6:a0b8:0:8db3:764:fd94:f474]' to ALLOWED_HOSTS.
+Bad Request: /
+Invalid HTTP_HOST header: '[2001:4dd6:a0b8:0:8db3:764:fd94:f474]:443'. You may need to add '[2001:4dd6:a0b8:0:8db3:764:fd94:f474]' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/http/request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '[2001:4dd6:a0b8:0:8db3:764:fd94:f474]:443'. You may need to add '[2001:4dd6:a0b8:0:8db3:764:fd94:f474]' to ALLOWED_HOSTS.
+Bad Request: /
+Invalid HTTP_HOST header: '[2001:4dd6:a0b8:0:8db3:764:fd94:f474]'. You may need to add '[2001:4dd6:a0b8:0:8db3:764:fd94:f474]' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/http/request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '[2001:4dd6:a0b8:0:8db3:764:fd94:f474]'. You may need to add '[2001:4dd6:a0b8:0:8db3:764:fd94:f474]' to ALLOWED_HOSTS.
+Bad Request: /
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Exception while resolving variable 'streak' in template 'pomo/start.html'.
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 880, in _resolve_lookup
+    current = current[bit]
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/context.py", line 83, in __getitem__
+    raise KeyError(key)
+KeyError: 'streak'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 886, in _resolve_lookup
+    if isinstance(current, BaseContext) and getattr(
+AttributeError: type object 'RequestContext' has no attribute 'streak'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 896, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'streak'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 903, in _resolve_lookup
+    raise VariableDoesNotExist(
+django.template.base.VariableDoesNotExist: Failed lookup for key [streak] in [{'True': True, 'False': False, 'None': None}, {'csrf_token': <SimpleLazyObject: <function csrf.<locals>._get_val at 0xecdb8c88>>, 'request': <WSGIRequest: GET '/pomo/start/'>, 'user': <SimpleLazyObject: <User: timoh>>, 'perms': PermWrapper(<SimpleLazyObject: <User: timoh>>), 'messages': <FallbackStorage: request=<WSGIRequest: GET '/pomo/start/'>>, 'DEFAULT_MESSAGE_LEVELS': {'DEBUG': 10, 'INFO': 20, 'SUCCESS': 25, 'WARNING': 30, 'ERROR': 40}}, {}, {}]
+Exception while resolving variable 'total_pomodoros_today' in template 'pomo/start.html'.
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 880, in _resolve_lookup
+    current = current[bit]
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/context.py", line 83, in __getitem__
+    raise KeyError(key)
+KeyError: 'total_pomodoros_today'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 886, in _resolve_lookup
+    if isinstance(current, BaseContext) and getattr(
+AttributeError: type object 'RequestContext' has no attribute 'total_pomodoros_today'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 896, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'total_pomodoros_today'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 903, in _resolve_lookup
+    raise VariableDoesNotExist(
+django.template.base.VariableDoesNotExist: Failed lookup for key [total_pomodoros_today] in [{'True': True, 'False': False, 'None': None}, {'csrf_token': <SimpleLazyObject: <function csrf.<locals>._get_val at 0xecdb8c88>>, 'request': <WSGIRequest: GET '/pomo/start/'>, 'user': <SimpleLazyObject: <User: timoh>>, 'perms': PermWrapper(<SimpleLazyObject: <User: timoh>>), 'messages': <FallbackStorage: request=<WSGIRequest: GET '/pomo/start/'>>, 'DEFAULT_MESSAGE_LEVELS': {'DEBUG': 10, 'INFO': 20, 'SUCCESS': 25, 'WARNING': 30, 'ERROR': 40}}, {}, {}]
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Exception while resolving variable 'streak' in template 'pomo/start.html'.
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 880, in _resolve_lookup
+    current = current[bit]
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/context.py", line 83, in __getitem__
+    raise KeyError(key)
+KeyError: 'streak'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 886, in _resolve_lookup
+    if isinstance(current, BaseContext) and getattr(
+AttributeError: type object 'RequestContext' has no attribute 'streak'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 896, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'streak'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 903, in _resolve_lookup
+    raise VariableDoesNotExist(
+django.template.base.VariableDoesNotExist: Failed lookup for key [streak] in [{'True': True, 'False': False, 'None': None}, {'csrf_token': <SimpleLazyObject: <function csrf.<locals>._get_val at 0xecbe81d8>>, 'request': <WSGIRequest: GET '/pomo/start/'>, 'user': <SimpleLazyObject: <User: timoh>>, 'perms': PermWrapper(<SimpleLazyObject: <User: timoh>>), 'messages': <FallbackStorage: request=<WSGIRequest: GET '/pomo/start/'>>, 'DEFAULT_MESSAGE_LEVELS': {'DEBUG': 10, 'INFO': 20, 'SUCCESS': 25, 'WARNING': 30, 'ERROR': 40}}, {}, {}]
+Exception while resolving variable 'total_pomodoros_today' in template 'pomo/start.html'.
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 880, in _resolve_lookup
+    current = current[bit]
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/context.py", line 83, in __getitem__
+    raise KeyError(key)
+KeyError: 'total_pomodoros_today'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 886, in _resolve_lookup
+    if isinstance(current, BaseContext) and getattr(
+AttributeError: type object 'RequestContext' has no attribute 'total_pomodoros_today'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 896, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'total_pomodoros_today'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 903, in _resolve_lookup
+    raise VariableDoesNotExist(
+django.template.base.VariableDoesNotExist: Failed lookup for key [total_pomodoros_today] in [{'True': True, 'False': False, 'None': None}, {'csrf_token': <SimpleLazyObject: <function csrf.<locals>._get_val at 0xecbe81d8>>, 'request': <WSGIRequest: GET '/pomo/start/'>, 'user': <SimpleLazyObject: <User: timoh>>, 'perms': PermWrapper(<SimpleLazyObject: <User: timoh>>), 'messages': <FallbackStorage: request=<WSGIRequest: GET '/pomo/start/'>>, 'DEFAULT_MESSAGE_LEVELS': {'DEBUG': 10, 'INFO': 20, 'SUCCESS': 25, 'WARNING': 30, 'ERROR': 40}}, {}, {}]
+Exception while resolving variable 'streak' in template 'pomo/signup.html'.
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 880, in _resolve_lookup
+    current = current[bit]
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/context.py", line 83, in __getitem__
+    raise KeyError(key)
+KeyError: 'streak'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 886, in _resolve_lookup
+    if isinstance(current, BaseContext) and getattr(
+AttributeError: type object 'RequestContext' has no attribute 'streak'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 896, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'streak'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 903, in _resolve_lookup
+    raise VariableDoesNotExist(
+django.template.base.VariableDoesNotExist: Failed lookup for key [streak] in [{'True': True, 'False': False, 'None': None}, {'csrf_token': <SimpleLazyObject: <function csrf.<locals>._get_val at 0xecd3abb0>>, 'request': <WSGIRequest: GET '/pomo/signup/'>, 'user': <SimpleLazyObject: <User: timoh>>, 'perms': PermWrapper(<SimpleLazyObject: <User: timoh>>), 'messages': <FallbackStorage: request=<WSGIRequest: GET '/pomo/signup/'>>, 'DEFAULT_MESSAGE_LEVELS': {'DEBUG': 10, 'INFO': 20, 'SUCCESS': 25, 'WARNING': 30, 'ERROR': 40}}, {}, {}]
+Exception while resolving variable 'total_pomodoros_today' in template 'pomo/signup.html'.
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 880, in _resolve_lookup
+    current = current[bit]
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/context.py", line 83, in __getitem__
+    raise KeyError(key)
+KeyError: 'total_pomodoros_today'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 886, in _resolve_lookup
+    if isinstance(current, BaseContext) and getattr(
+AttributeError: type object 'RequestContext' has no attribute 'total_pomodoros_today'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 896, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'total_pomodoros_today'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 903, in _resolve_lookup
+    raise VariableDoesNotExist(
+django.template.base.VariableDoesNotExist: Failed lookup for key [total_pomodoros_today] in [{'True': True, 'False': False, 'None': None}, {'csrf_token': <SimpleLazyObject: <function csrf.<locals>._get_val at 0xecd3abb0>>, 'request': <WSGIRequest: GET '/pomo/signup/'>, 'user': <SimpleLazyObject: <User: timoh>>, 'perms': PermWrapper(<SimpleLazyObject: <User: timoh>>), 'messages': <FallbackStorage: request=<WSGIRequest: GET '/pomo/signup/'>>, 'DEFAULT_MESSAGE_LEVELS': {'DEBUG': 10, 'INFO': 20, 'SUCCESS': 25, 'WARNING': 30, 'ERROR': 40}}, {}, {}]
+Exception while resolving variable 'streak' in template 'pomo/start.html'.
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 880, in _resolve_lookup
+    current = current[bit]
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/context.py", line 83, in __getitem__
+    raise KeyError(key)
+KeyError: 'streak'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 886, in _resolve_lookup
+    if isinstance(current, BaseContext) and getattr(
+AttributeError: type object 'RequestContext' has no attribute 'streak'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 896, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'streak'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 903, in _resolve_lookup
+    raise VariableDoesNotExist(
+django.template.base.VariableDoesNotExist: Failed lookup for key [streak] in [{'True': True, 'False': False, 'None': None}, {'csrf_token': <SimpleLazyObject: <function csrf.<locals>._get_val at 0xecd3abb0>>, 'request': <WSGIRequest: GET '/pomo/start/'>, 'user': <SimpleLazyObject: <User: timoh>>, 'perms': PermWrapper(<SimpleLazyObject: <User: timoh>>), 'messages': <FallbackStorage: request=<WSGIRequest: GET '/pomo/start/'>>, 'DEFAULT_MESSAGE_LEVELS': {'DEBUG': 10, 'INFO': 20, 'SUCCESS': 25, 'WARNING': 30, 'ERROR': 40}}, {}, {}]
+Exception while resolving variable 'total_pomodoros_today' in template 'pomo/start.html'.
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 880, in _resolve_lookup
+    current = current[bit]
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/context.py", line 83, in __getitem__
+    raise KeyError(key)
+KeyError: 'total_pomodoros_today'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 886, in _resolve_lookup
+    if isinstance(current, BaseContext) and getattr(
+AttributeError: type object 'RequestContext' has no attribute 'total_pomodoros_today'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 896, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'total_pomodoros_today'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 903, in _resolve_lookup
+    raise VariableDoesNotExist(
+django.template.base.VariableDoesNotExist: Failed lookup for key [total_pomodoros_today] in [{'True': True, 'False': False, 'None': None}, {'csrf_token': <SimpleLazyObject: <function csrf.<locals>._get_val at 0xecd3abb0>>, 'request': <WSGIRequest: GET '/pomo/start/'>, 'user': <SimpleLazyObject: <User: timoh>>, 'perms': PermWrapper(<SimpleLazyObject: <User: timoh>>), 'messages': <FallbackStorage: request=<WSGIRequest: GET '/pomo/start/'>>, 'DEFAULT_MESSAGE_LEVELS': {'DEBUG': 10, 'INFO': 20, 'SUCCESS': 25, 'WARNING': 30, 'ERROR': 40}}, {}, {}]
+Not Found: /pomo/event/9/static/pomo/audio/alarm1.mp3
+Exception while resolving variable 'player_state_json' in template 'pomo/map.html'.
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 880, in _resolve_lookup
+    current = current[bit]
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/context.py", line 83, in __getitem__
+    raise KeyError(key)
+KeyError: 'player_state_json'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 886, in _resolve_lookup
+    if isinstance(current, BaseContext) and getattr(
+AttributeError: type object 'RequestContext' has no attribute 'player_state_json'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 896, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'player_state_json'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 903, in _resolve_lookup
+    raise VariableDoesNotExist(
+django.template.base.VariableDoesNotExist: Failed lookup for key [player_state_json] in [{'True': True, 'False': False, 'None': None}, {'csrf_token': <SimpleLazyObject: 'tQmiEHc3QP6ra268jGFsGSNjFefV52theEYY5opnOjPIua1bTfLY3knJK1CE96ZK'>, 'request': <WSGIRequest: GET '/pomo/map/'>, 'user': <SimpleLazyObject: <User: timoh>>, 'perms': PermWrapper(<SimpleLazyObject: <User: timoh>>), 'messages': <FallbackStorage: request=<WSGIRequest: GET '/pomo/map/'>>, 'DEFAULT_MESSAGE_LEVELS': {'DEBUG': 10, 'INFO': 20, 'SUCCESS': 25, 'WARNING': 30, 'ERROR': 40}}, {}, {'total_pomos_alltime': 150, 'total_pomodoros_today': 4, 'streak': 8, 'highest_streak': 8, 'is_developer': False, 'username': 'timoh'}]
+Exception while resolving variable 'location_states_json' in template 'pomo/map.html'.
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 880, in _resolve_lookup
+    current = current[bit]
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/context.py", line 83, in __getitem__
+    raise KeyError(key)
+KeyError: 'location_states_json'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 886, in _resolve_lookup
+    if isinstance(current, BaseContext) and getattr(
+AttributeError: type object 'RequestContext' has no attribute 'location_states_json'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 896, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'location_states_json'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 903, in _resolve_lookup
+    raise VariableDoesNotExist(
+django.template.base.VariableDoesNotExist: Failed lookup for key [location_states_json] in [{'True': True, 'False': False, 'None': None}, {'csrf_token': <SimpleLazyObject: 'tQmiEHc3QP6ra268jGFsGSNjFefV52theEYY5opnOjPIua1bTfLY3knJK1CE96ZK'>, 'request': <WSGIRequest: GET '/pomo/map/'>, 'user': <SimpleLazyObject: <User: timoh>>, 'perms': PermWrapper(<SimpleLazyObject: <User: timoh>>), 'messages': <FallbackStorage: request=<WSGIRequest: GET '/pomo/map/'>>, 'DEFAULT_MESSAGE_LEVELS': {'DEBUG': 10, 'INFO': 20, 'SUCCESS': 25, 'WARNING': 30, 'ERROR': 40}}, {}, {'total_pomos_alltime': 150, 'total_pomodoros_today': 4, 'streak': 8, 'highest_streak': 8, 'is_developer': False, 'username': 'timoh'}]
+Not Found: /pomo/event/9/static/pomo/audio/alarm1.mp3
+Exception while resolving variable 'streak' in template 'pomo/start.html'.
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 880, in _resolve_lookup
+    current = current[bit]
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/context.py", line 83, in __getitem__
+    raise KeyError(key)
+KeyError: 'streak'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 886, in _resolve_lookup
+    if isinstance(current, BaseContext) and getattr(
+AttributeError: type object 'RequestContext' has no attribute 'streak'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 896, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'streak'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 903, in _resolve_lookup
+    raise VariableDoesNotExist(
+django.template.base.VariableDoesNotExist: Failed lookup for key [streak] in [{'True': True, 'False': False, 'None': None}, {'csrf_token': <SimpleLazyObject: <function csrf.<locals>._get_val at 0xecbe8a00>>, 'request': <WSGIRequest: GET '/pomo/start/'>, 'user': <SimpleLazyObject: <User: timoh>>, 'perms': PermWrapper(<SimpleLazyObject: <User: timoh>>), 'messages': <FallbackStorage: request=<WSGIRequest: GET '/pomo/start/'>>, 'DEFAULT_MESSAGE_LEVELS': {'DEBUG': 10, 'INFO': 20, 'SUCCESS': 25, 'WARNING': 30, 'ERROR': 40}}, {}, {}]
+Exception while resolving variable 'total_pomodoros_today' in template 'pomo/start.html'.
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 880, in _resolve_lookup
+    current = current[bit]
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/context.py", line 83, in __getitem__
+    raise KeyError(key)
+KeyError: 'total_pomodoros_today'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 886, in _resolve_lookup
+    if isinstance(current, BaseContext) and getattr(
+AttributeError: type object 'RequestContext' has no attribute 'total_pomodoros_today'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 896, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'total_pomodoros_today'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 903, in _resolve_lookup
+    raise VariableDoesNotExist(
+django.template.base.VariableDoesNotExist: Failed lookup for key [total_pomodoros_today] in [{'True': True, 'False': False, 'None': None}, {'csrf_token': <SimpleLazyObject: <function csrf.<locals>._get_val at 0xecbe8a00>>, 'request': <WSGIRequest: GET '/pomo/start/'>, 'user': <SimpleLazyObject: <User: timoh>>, 'perms': PermWrapper(<SimpleLazyObject: <User: timoh>>), 'messages': <FallbackStorage: request=<WSGIRequest: GET '/pomo/start/'>>, 'DEFAULT_MESSAGE_LEVELS': {'DEBUG': 10, 'INFO': 20, 'SUCCESS': 25, 'WARNING': 30, 'ERROR': 40}}, {}, {}]
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Exception while resolving variable 'player_state_json' in template 'pomo/map.html'.
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 880, in _resolve_lookup
+    current = current[bit]
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/context.py", line 83, in __getitem__
+    raise KeyError(key)
+KeyError: 'player_state_json'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 886, in _resolve_lookup
+    if isinstance(current, BaseContext) and getattr(
+AttributeError: type object 'RequestContext' has no attribute 'player_state_json'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 896, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'player_state_json'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 903, in _resolve_lookup
+    raise VariableDoesNotExist(
+django.template.base.VariableDoesNotExist: Failed lookup for key [player_state_json] in [{'True': True, 'False': False, 'None': None}, {'csrf_token': <SimpleLazyObject: 'Czcmh9omKd6CrwRLh0z9HtTOFoFIy9DWfAjCPEupmA22DCn5USWh1maYqHxrEk0r'>, 'request': <WSGIRequest: GET '/pomo/map/'>, 'user': <SimpleLazyObject: <User: timoh>>, 'perms': PermWrapper(<SimpleLazyObject: <User: timoh>>), 'messages': <FallbackStorage: request=<WSGIRequest: GET '/pomo/map/'>>, 'DEFAULT_MESSAGE_LEVELS': {'DEBUG': 10, 'INFO': 20, 'SUCCESS': 25, 'WARNING': 30, 'ERROR': 40}}, {}, {'total_pomos_alltime': 165, 'total_pomodoros_today': 8, 'streak': 10, 'highest_streak': 10, 'is_developer': False, 'username': 'timoh'}]
+Exception while resolving variable 'location_states_json' in template 'pomo/map.html'.
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 880, in _resolve_lookup
+    current = current[bit]
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/context.py", line 83, in __getitem__
+    raise KeyError(key)
+KeyError: 'location_states_json'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 886, in _resolve_lookup
+    if isinstance(current, BaseContext) and getattr(
+AttributeError: type object 'RequestContext' has no attribute 'location_states_json'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 896, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'location_states_json'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 903, in _resolve_lookup
+    raise VariableDoesNotExist(
+django.template.base.VariableDoesNotExist: Failed lookup for key [location_states_json] in [{'True': True, 'False': False, 'None': None}, {'csrf_token': <SimpleLazyObject: 'Czcmh9omKd6CrwRLh0z9HtTOFoFIy9DWfAjCPEupmA22DCn5USWh1maYqHxrEk0r'>, 'request': <WSGIRequest: GET '/pomo/map/'>, 'user': <SimpleLazyObject: <User: timoh>>, 'perms': PermWrapper(<SimpleLazyObject: <User: timoh>>), 'messages': <FallbackStorage: request=<WSGIRequest: GET '/pomo/map/'>>, 'DEFAULT_MESSAGE_LEVELS': {'DEBUG': 10, 'INFO': 20, 'SUCCESS': 25, 'WARNING': 30, 'ERROR': 40}}, {}, {'total_pomos_alltime': 165, 'total_pomodoros_today': 8, 'streak': 10, 'highest_streak': 10, 'is_developer': False, 'username': 'timoh'}]
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Not Found: /favicon.ico

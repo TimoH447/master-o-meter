@@ -248,6 +248,14 @@ class PlayerState(models.Model):
         total_pomodoros_alltime = len(timers_alltime)
         return total_pomodoros_alltime
 
+class AchievementCondition(models.Model):
+    CONDITION_TYPES = [
+        
+    ]
+
+    def is_met(self,player_state):
+        return True
+
 class Achievement(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
