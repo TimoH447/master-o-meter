@@ -177,6 +177,31 @@ class Event(models.Model):
         for outcome in self.outcomes.all():
             outcome.apply(player_state)
 
+class Quest(models.Model):
+    name = models.CharField(max_length=255)
+    description = models.TextField()
+
+    def __str__(self):
+        return self.name
+    
+class PlayerQuestProgress(models.Model):
+    player = models.ForeignKey(User, on_delete=models.CASCADE)
+    quest = models.ForeignKey(Quest, on_delete=models.CASCADE)
+    current_step = models.IntegerField(default=0)
+
+    def __str__(self):
+        return f"{self.player.username} - {self.quest.name} - Step {self.current_step}"
+
+class QuestStep(models.Model):
+    quest = models.ForeignKey(Quest, on_delete=models.CASCADE, related_name='steps')
+    step_number=models.IntegerField()
+    pre_timer_text = models.TextField(blank=True, null=True)
+    post_timer_text = models.TextField(blank=True, null=True)
+    timer_duration = models.IntegerField(default=25*60)  # Duration in seconds
+
+    def __str__(self):
+        return f"{self.quest.name} - Step {self.step_number}"
+
 class PlayerState(models.Model):
     player = models.OneToOneField(User, on_delete=models.CASCADE)
 
