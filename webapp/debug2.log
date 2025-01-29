@@ -1,1 +1,66 @@
 
+Not Found: /favicon.ico
+Not Found: /pomo/library/timerWorker.js
+Not Found: /pomo/library/timerWorker.js
+Not Found: /pomo/library/pomo/timerWorker.js
+Not Found: /favicon.ico
+Not Found: /pomo/library/pomo/js/timerWorker.js
+Not Found: /favicon.ico
+Not Found: /pomo/library/js/timerWorker.js
+Not Found: /favicon.ico
+Exception while resolving variable 'streak' in template 'pomo/start.html'.
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 880, in _resolve_lookup
+    current = current[bit]
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/context.py", line 83, in __getitem__
+    raise KeyError(key)
+KeyError: 'streak'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 886, in _resolve_lookup
+    if isinstance(current, BaseContext) and getattr(
+AttributeError: type object 'RequestContext' has no attribute 'streak'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 896, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'streak'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 903, in _resolve_lookup
+    raise VariableDoesNotExist(
+django.template.base.VariableDoesNotExist: Failed lookup for key [streak] in [{'True': True, 'False': False, 'None': None}, {'csrf_token': <SimpleLazyObject: <function csrf.<locals>._get_val at 0xece0ba00>>, 'request': <WSGIRequest: GET '/pomo/start/'>, 'user': <SimpleLazyObject: <User: timoh>>, 'perms': PermWrapper(<SimpleLazyObject: <User: timoh>>), 'messages': <FallbackStorage: request=<WSGIRequest: GET '/pomo/start/'>>, 'DEFAULT_MESSAGE_LEVELS': {'DEBUG': 10, 'INFO': 20, 'SUCCESS': 25, 'WARNING': 30, 'ERROR': 40}}, {}, {}]
+Exception while resolving variable 'total_pomodoros_today' in template 'pomo/start.html'.
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 880, in _resolve_lookup
+    current = current[bit]
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/context.py", line 83, in __getitem__
+    raise KeyError(key)
+KeyError: 'total_pomodoros_today'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 886, in _resolve_lookup
+    if isinstance(current, BaseContext) and getattr(
+AttributeError: type object 'RequestContext' has no attribute 'total_pomodoros_today'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 896, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'total_pomodoros_today'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 903, in _resolve_lookup
+    raise VariableDoesNotExist(
+django.template.base.VariableDoesNotExist: Failed lookup for key [total_pomodoros_today] in [{'True': True, 'False': False, 'None': None}, {'csrf_token': <SimpleLazyObject: <function csrf.<locals>._get_val at 0xece0ba00>>, 'request': <WSGIRequest: GET '/pomo/start/'>, 'user': <SimpleLazyObject: <User: timoh>>, 'perms': PermWrapper(<SimpleLazyObject: <User: timoh>>), 'messages': <FallbackStorage: request=<WSGIRequest: GET '/pomo/start/'>>, 'DEFAULT_MESSAGE_LEVELS': {'DEBUG': 10, 'INFO': 20, 'SUCCESS': 25, 'WARNING': 30, 'ERROR': 40}}, {}, {}]
