@@ -185,12 +185,20 @@ class Quest(models.Model):
         return self.name
     
 class PlayerQuestProgress(models.Model):
-    player = models.ForeignKey(User, on_delete=models.CASCADE)
+    player = models.ForeignKey(User, on_delete=models.CASCADE, related_name='quests')
     quest = models.ForeignKey(Quest, on_delete=models.CASCADE)
     current_step = models.IntegerField(default=0)
 
+    is_completed = models.BooleanField(default=False)
+
     def __str__(self):
         return f"{self.player.username} - {self.quest.name} - Step {self.current_step}"
+
+    def complete_step(self):
+        self.current_step += 1
+        if self.current_step == self.quest.steps.count():
+            self.is_completed = True
+        self.save()
 
 class QuestStep(models.Model):
     quest = models.ForeignKey(Quest, on_delete=models.CASCADE, related_name='steps')
@@ -207,9 +215,6 @@ class PlayerState(models.Model):
 
     current_streak = models.IntegerField(default=0)
     highest_streak = models.IntegerField(default=0)
-    
-
-
     
     # Many-to-many field for tracking which events the player has completed
     completed_events = models.ManyToManyField(Event, blank=True, null=True)  # Events the player has completed

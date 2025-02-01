@@ -22,7 +22,8 @@ from .streak import calculate_streak
 from django.contrib.auth.decorators import login_required
 from .models import PlayerState, Location, Event
 from .models import Reward, Balance
-from .models import Profile, FriendRequest, PartnerQuest, PartnerQuestRequest
+from .models import Profile, FriendRequest, PartnerQuest, PartnerQuestRequest 
+from .models import PlayerQuestProgress, Quest, QuestStep
 from django.db.models import Q
 
 @login_required
@@ -613,10 +614,42 @@ def get_hub_context(user):
     open_events = get_available_events_context(user)
     completed_events= get_completed_events_context(user)
     player_context = get_player_context(user)
+    player_state = PlayerState.objects.get(player=user)
+    player_quests = PlayerQuestProgress.objects.filter(player=user)
 
-    return {**navbar, "available_events": open_events, "completed_events": completed_events, **player_context}
+    # Calculate total steps and current steps for each quest
+    for quest_progress in player_quests:
+        quest_progress.total_steps = QuestStep.objects.filter(quest=quest_progress.quest).count()
+        quest_progress.current_step = quest_progress.current_step
+
+    return {**navbar, 
+            "available_events": open_events, 
+            "completed_events": completed_events, 
+            "player_quests": player_quests,
+            **player_context}
 
 @login_required
 def hub(request):
     context = get_hub_context(request.user)
     return render(request,"pomo/hub.html", context)
+
+@login_required
+def quest_detail(request, quest_id):
+    quest = get_object_or_404(Quest, id=quest_id)
+    player_progress = PlayerQuestProgress.objects.filter(player=request.user, quest=quest).first()
+
+    if not player_progress:
+        # Redirect to hub or show an error message if the quest is not attached to the player
+        return redirect('game')
+
+    # Get the current step
+    current_step = player_progress.current_step
+    steps = QuestStep.objects.filter(quest=quest).order_by('step_number')
+
+    context = {
+        'quest_name': quest.name,
+        'current_step': current_step,
+        'total_steps': quest.steps.count(),
+        'steps': steps,
+    }
+    return render(request, 'pomo/quests/base_quest.html', context)

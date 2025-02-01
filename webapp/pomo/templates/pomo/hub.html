@@ -49,6 +49,19 @@
                     <div class="tab-pane fade show active" id="available-tab-pane" role="tabpanel"
                         aria-labelledby="available-tab" tabindex="0">
                         <div class="card-body">
+                            <div id="playerQuests" class="mt-4">
+                                {% for quest in player_quests %}
+                                <a href="{% url 'quest_detail' quest.quest.id %}" class="text-decoration-none">
+                                    <div class="card mb-3 border-0 shadow-sm" style="cursor: pointer;">
+                                        <div class="card-body">
+                                            <h5 class="card-title"><i class="bi bi-book"></i> {{ quest.quest.name }}</h5>
+                                            <p class="card-text">Step {{ quest.current_step }}/{{ quest.total_steps }}</p>
+                                        </div>
+                                    </div>
+                                </a>
+                                {% endfor %}
+                            </div>
+
                             <div id="triggerableEvents" class="accordion">
                                 {% for event in available_events %}
                                 <div class="accordion-item border-0 rounded mb-3">
@@ -86,7 +99,8 @@
                                             type="button" data-bs-toggle="collapse"
                                             data-bs-target="#completedEvent{{ forloop.counter }}" aria-expanded="false"
                                             aria-controls="completedEvent{{ forloop.counter }}">
-                                            <i class="bi bi-check-circle"></i> {{ event.location.title }}: {{ event.name }}
+                                            <i class="bi bi-check-circle"></i> {{ event.location.title }}: {{ event.name
+                                            }}
                                         </button>
                                     </h6>
                                     <div id="completedEvent{{ forloop.counter }}" class="accordion-collapse collapse"

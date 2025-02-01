@@ -3,7 +3,7 @@ from .views import pomodoro_timer, login, signup, logout, timer_complete, game,g
 from .views import trophy_room, claim_reward,event_timer
 from .views import intro, accept_friend_request, send_friend_request, common_rooms
 from .views import accept_partner_quest, decline_partner_quest, send_partner_quest_request
-from .views import start, hub, create_reward
+from .views import start, hub, create_reward, quest_detail
 
 urlpatterns = [
     path('send_friend_request/<str:username>/', send_friend_request, name='send_friend_request'),
@@ -15,6 +15,7 @@ urlpatterns = [
     path('library/', pomodoro_timer, name='library'),
     path('', hub, name="game"),
     path('event/<int:event_id>/', event_timer, name='event_detail'),
+    path('quest/<int:quest_id>/',quest_detail, name='quest_detail'),
     path('trophy-room/', trophy_room, name="trophy_room"),
     path('login/', login, name='login'),
     path('intro/', intro, name='intro'),
