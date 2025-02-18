@@ -2,6 +2,9 @@ let isPlaying = false;
 let currentSongIndex = 0;
 const songs = [
     { title: 'Ways of the wizard', artist: 'Geoffharvey', file: '/static/pomo/audio/ways-of-the-wizard-geoffharvey.m4a' },
+    { title: 'Aquarium', artist: 'Saint Saens', file: '/static/pomo/audio/aquarium-by-saint-saens.mp3' },
+    { title: 'School of magic', artist: 'Luis Humanoide', file: '/static/pomo/audio/school-of-magic-inspired-by-harry-potter.mp3' },
+    { title: 'Dance of the sugar plum fairy', artist: 'Tchaikovsky', file: '/static/pomo/audio/dance-of-the-sugar-plum-fairy-tchaikovsky.mp3' },
     { title: 'Summer rain', artist: 'Xethrocc', file: '/static/pomo/audio/summer-rain-xethrocc.m4a' },
     { title: 'Deep', artist: 'Xethrocc', file: '/static/pomo/audio/deep-xethrocc.mp3' },
     { title: 'For a dream', artist: 'Xethrocc', file: '/static/pomo/audio/for-a-dream-xethrocc.m4a' },

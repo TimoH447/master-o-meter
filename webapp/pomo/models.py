@@ -193,6 +193,12 @@ class PlayerQuestProgress(models.Model):
 
     def __str__(self):
         return f"{self.player.username} - {self.quest.name} - Step {self.current_step}"
+    
+    def get_steps_completed(self):
+        return self.current_step
+
+    def get_next_step(self):
+        return self.current_step +1
 
     def complete_step(self):
         self.current_step += 1

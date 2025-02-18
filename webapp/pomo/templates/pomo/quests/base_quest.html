@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,69 +12,78 @@
     <link rel="stylesheet" href="{% static 'pomo/music_player.css' %}">
     <script src="{% static 'pomo/app.js' %}"></script>
     <script src="{% static 'pomo/js/timer.js' %}"></script>
-</head>
-<body style="background-color: #f7f3e9; font-family: 'Roboto', sans-serif;">
-    {% include 'pomo/includes/navbar.html' %}
+    <script src="{% static 'pomo/js/quest.js' %}"></script>
+    <style>
+        body {
+            background-color: #f7f3e9;
+            font-family: 'Roboto', sans-serif;
+        }
 
+        .quest-step {
+            display: none;
+        }
+
+        .quest-step.active {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    {% include 'pomo/includes/navbar.html' %}
     <div class="container py-4">
         <!-- Quest Header -->
         <div class="text-center mb-4">
-            <h1 class="display-5">{{ quest_name }} - Step {{ current_step }}/{{ total_steps }}</h1>
+            <h1 class="display-5">{{ quest_name }} - Step {{ quest.get_next_step }}/{{ total_steps }}</h1>
         </div>
 
-        <!-- Carousel for Quest Steps -->
-        <div id="questCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="false">
-            <div class="carousel-inner">
-                {% for step in steps %}
-                <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                    <!-- Pre-Timer Text -->
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <p>{{ step.pre_timer_text }}</p>
-                            {% if forloop.last and event_status == 'open' %}
-                                {% include 'pomo/includes/event_timer.html' %}
-                            {% endif %}
-                        </div>
+        <!-- Quest Steps -->
+        <div class="quest-steps">
+            {% for step in steps %}
+            {% if step.step_number <= current_step %} <div
+                class="quest-step {% if step.step_number == current_step %}active{% endif %}">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <p>{{ step.pre_timer_text }}</p>
+                        {% if step.step_number == current_step %}
+                        {% include 'pomo/includes/event_timer.html' %}
+                        {% endif %}
                     </div>
-
-                    <!-- Post-Timer Text -->
-                    {% if not forloop.last %}
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <p>{{ step.post_timer_text }}</p>
-                        </div>
-                    </div>
-                    {% endif %}
                 </div>
-                {% endfor %}
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#questCarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#questCarousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
+                {% if step.step_number < current_step %} <div class="card mb-4">
+                    <div class="card-body bg-light">
+                        <p>{{ step.post_timer_text }}</p>
+                    </div>
         </div>
+        {% endif %}
+    </div>
+    {% endif %}
+    {% endfor %}
+    </div>
 
-        <div class="text-center mt-3">
-            <a id="return-to-map-link" href="{% url 'game' %}" class="btn btn-primary">Return to Hub</a>
-        </div>
+    <div class="text-center mt-3">
+        <a href="{% url 'game' %}" class="btn btn-primary">Return to Hub</a>
+    </div>
     </div>
 
     <div id="music-bar" class="music-player">
-        <button id="collapse-button" onclick="collapseMusicBar()">⬇</button>
-        <div class="music-info">
-            <p id="music-title">Title - Artist</p>
-        </div>
-        <div class="music-controls">
-            <div class="music-controls-buttons">
-                <button id="prev-song" onclick="prevSong()">⏮</button>
-                <button id="play-pause" onclick="togglePlay()">⏯</button>
-                <button id="next-song" onclick="nextSong()">⏭</button>
+            <button id="collapse-button" onclick="collapseMusicBar()">⬇</button>
+            <div class="music-info">
+                <p id="music-title">Title - Artist</p>
+            </div>
+            <div class="music-controls">
+                <div class="music-controls-buttons">
+                    <button id="prev-song" onclick="prevSong()">⏮</button>
+                    <button id="play-pause" onclick="togglePlay()">⏯</button>
+                    <button id="next-song" onclick="nextSong()">⏭</button>
+                </div>
+                <input id="volume-control" type="range" min="0" max="1" step="0.05" onchange="setVolume(this.value)" />
             </div>
         </div>
-    </div>
+        <button id="expand-button" onclick="expandMusicBar()" style="display: none;">⬆</button>
+
+
+    <script src="{% static 'pomo/js/music_player.js' %}"></script>
 </body>
+
 </html>

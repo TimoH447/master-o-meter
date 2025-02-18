@@ -621,6 +621,7 @@ def get_hub_context(user):
     for quest_progress in player_quests:
         quest_progress.total_steps = QuestStep.objects.filter(quest=quest_progress.quest).count()
         quest_progress.current_step = quest_progress.current_step
+        quest_progress.steps_completed  = quest_progress.current_step - 1
 
     return {**navbar, 
             "available_events": open_events, 
@@ -645,11 +646,18 @@ def quest_detail(request, quest_id):
     # Get the current step
     current_step = player_progress.current_step
     steps = QuestStep.objects.filter(quest=quest).order_by('step_number')
+    timer_context = get_timer_context(request.user)
+    nav_context = get_context_navbar(request.user)
 
     context = {
+        'quest': player_progress,
         'quest_name': quest.name,
         'current_step': current_step,
+        'steps_completed': current_step - 1,
         'total_steps': quest.steps.count(),
         'steps': steps,
+        **timer_context,
+        **nav_context,
+
     }
     return render(request, 'pomo/quests/base_quest.html', context)
