@@ -26,64 +26,104 @@
         .quest-step.active {
             display: block;
         }
+
+        .step-number {
+            display: inline-block;
+            margin: 0 5px;
+            padding: 5px 10px;
+            border-radius: 50%;
+            background-color: #ccc;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .step-number.active {
+            background-color: #007bff;
+        }
+
+        .step-number.disabled {
+            background-color: #ddd;
+            cursor: not-allowed;
+        }
+
+        .card-header {
+            background-color: #6c4a3f;
+            color: #fff;
+        }
     </style>
 </head>
 
 <body>
     {% include 'pomo/includes/navbar.html' %}
     <div class="container py-4">
-        <!-- Quest Header -->
+        <!-- Step Numbers -->
         <div class="text-center mb-4">
-            <h1 class="display-5">{{ quest_name }} - Step {{ quest.get_next_step }}/{{ total_steps }}</h1>
+            {% for step in steps %}
+            <span class="step-number {% if step.step_number == current_step %}active{% elif step.step_number > current_step %}disabled{% endif %}" onclick="showStep({{ step.step_number }})">{{ step.step_number }}</span>
+            {% endfor %}
         </div>
 
         <!-- Quest Steps -->
         <div class="quest-steps">
             {% for step in steps %}
-            {% if step.step_number <= current_step %} <div
-                class="quest-step {% if step.step_number == current_step %}active{% endif %}">
+            <div class="quest-step {% if step.step_number == current_step %}active{% endif %}" id="step-{{ step.step_number }}">
                 <div class="card mb-4">
+                    <div class="card-header">
+                        <h5>{{ quest_name }}</h5>
+                    </div>
                     <div class="card-body">
                         <p>{{ step.pre_timer_text }}</p>
                         {% if step.step_number == current_step %}
                         {% include 'pomo/includes/event_timer.html' %}
                         {% endif %}
+                        {% if step.step_number < current_step %}
+                        <div class="card mt-4">
+                            <div class="card-body bg-light">
+                                <p>{{ step.post_timer_text }}</p>
+                            </div>
+                        </div>
+                        {% endif %}
                     </div>
                 </div>
-                {% if step.step_number < current_step %} <div class="card mb-4">
-                    <div class="card-body bg-light">
-                        <p>{{ step.post_timer_text }}</p>
-                    </div>
+            </div>
+            {% endfor %}
         </div>
-        {% endif %}
-    </div>
-    {% endif %}
-    {% endfor %}
-    </div>
 
-    <div class="text-center mt-3">
-        <a href="{% url 'game' %}" class="btn btn-primary">Return to Hub</a>
-    </div>
+        <div class="text-center mt-3">
+            <a href="{% url 'game' %}" class="btn btn-primary">Return to Hub</a>
+        </div>
     </div>
 
     <div id="music-bar" class="music-player">
-            <button id="collapse-button" onclick="collapseMusicBar()">⬇</button>
-            <div class="music-info">
-                <p id="music-title">Title - Artist</p>
-            </div>
-            <div class="music-controls">
-                <div class="music-controls-buttons">
-                    <button id="prev-song" onclick="prevSong()">⏮</button>
-                    <button id="play-pause" onclick="togglePlay()">⏯</button>
-                    <button id="next-song" onclick="nextSong()">⏭</button>
-                </div>
-                <input id="volume-control" type="range" min="0" max="1" step="0.05" onchange="setVolume(this.value)" />
-            </div>
+        <button id="collapse-button" onclick="collapseMusicBar()">⬇</button>
+        <div class="music-info">
+            <p id="music-title">Title - Artist</p>
         </div>
-        <button id="expand-button" onclick="expandMusicBar()" style="display: none;">⬆</button>
-
+        <div class="music-controls">
+            <div class="music-controls-buttons">
+                <button id="prev-song" onclick="prevSong()">⏮</button>
+                <button id="play-pause" onclick="togglePlay()">⏯</button>
+                <button id="next-song" onclick="nextSong()">⏭</button>
+            </div>
+            <input id="volume-control" type="range" min="0" max="1" step="0.05" onchange="setVolume(this.value)" />
+        </div>
+    </div>
+    <button id="expand-button" onclick="expandMusicBar()" style="display: none;">⬆</button>
 
     <script src="{% static 'pomo/js/music_player.js' %}"></script>
+    <script>
+        function showStep(stepNumber) {
+            const currentStep = {{ current_step }};
+            if (stepNumber > currentStep) {
+                return; // Do nothing if the step number is higher than the current step
+            }
+            const steps = document.querySelectorAll('.quest-step');
+            steps.forEach(step => {
+                step.classList.remove('active');
+            });
+            document.getElementById('step-' + stepNumber).classList.add('active');
+        }
+    </script>
 </body>
 
 </html>
