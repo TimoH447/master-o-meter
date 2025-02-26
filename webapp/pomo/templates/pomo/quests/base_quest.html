@@ -59,24 +59,24 @@
         <!-- Step Numbers -->
         <div class="text-center mb-4">
             {% for step in steps %}
-            <span class="step-number {% if step.step_number == current_step %}active{% elif step.step_number > current_step %}disabled{% endif %}" onclick="showStep({{ step.step_number }})">{{ step.step_number }}</span>
+            <span class="step-number {% if step.step_number == quest.get_next_step %}active{% elif step.step_number > current_step %}disabled{% endif %}" id="number-step-{{ step.step_number }}" onclick="showStep({{ step.step_number }})">{{ step.step_number }}</span>
             {% endfor %}
         </div>
 
         <!-- Quest Steps -->
         <div class="quest-steps">
             {% for step in steps %}
-            <div class="quest-step {% if step.step_number == current_step %}active{% endif %}" id="step-{{ step.step_number }}">
+            <div class="quest-step {% if step.step_number == quest.get_next_step %}active{% endif %}" id="step-{{ step.step_number }}">
                 <div class="card mb-4">
                     <div class="card-header">
                         <h5>{{ quest_name }}</h5>
                     </div>
                     <div class="card-body">
                         <p>{{ step.pre_timer_text }}</p>
-                        {% if step.step_number == current_step %}
+                        {% if step.step_number == quest.get_next_step %}
                         {% include 'pomo/includes/event_timer.html' %}
                         {% endif %}
-                        {% if step.step_number < current_step %}
+                        {% if step.step_number < quest.get_next_step %}
                         <div class="card mt-4">
                             <div class="card-body bg-light">
                                 <p>{{ step.post_timer_text }}</p>
@@ -113,7 +113,7 @@
     <script src="{% static 'pomo/js/music_player.js' %}"></script>
     <script>
         function showStep(stepNumber) {
-            const currentStep = {{ current_step }};
+            const currentStep = {{ quest.get_next_step}};
             if (stepNumber > currentStep) {
                 return; // Do nothing if the step number is higher than the current step
             }
@@ -122,6 +122,12 @@
                 step.classList.remove('active');
             });
             document.getElementById('step-' + stepNumber).classList.add('active');
+
+            const step_numbers = document.querySelectorAll(".step-number");
+            step_numbers.forEach(step_number => {
+                step_number.classList.remove("active");
+            });
+            document.getElementById("number-step-"+stepNumber).classList.add("active");
         }
     </script>
 </body>

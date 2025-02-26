@@ -57,7 +57,7 @@
                                         <div class="card-body">
                                             <h5 class="card-title d-flex justify-content-between align-items-center">
                                                 <span><i class="bi bi-book"></i> {{ quest.quest.name }}</span>
-                                                <span>{{ quest.steps_completed }}/{{ quest.total_steps }}</span>
+                                                <span>{{ quest.get_steps_completed }}/{{ quest.total_steps }}</span>
                                             </h5>
                                             <div class="progress">
                                                 <div class="progress-bar" role="progressbar"
