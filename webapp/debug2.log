@@ -4875,3 +4875,291 @@ Not Found: /pomo/quest/1/static/pomo/audio/alarm1.mp3
 Not Found: /favicon.ico
 Not Found: /pomo/quest/1/static/pomo/audio/alarm1.mp3
 Not Found: /pomo/quest/1/static/pomo/audio/alarm1.mp3
+Exception while resolving variable 'streak' in template 'pomo/start.html'.
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 880, in _resolve_lookup
+    current = current[bit]
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/context.py", line 83, in __getitem__
+    raise KeyError(key)
+KeyError: 'streak'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 886, in _resolve_lookup
+    if isinstance(current, BaseContext) and getattr(
+AttributeError: type object 'RequestContext' has no attribute 'streak'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 896, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'streak'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 903, in _resolve_lookup
+    raise VariableDoesNotExist(
+django.template.base.VariableDoesNotExist: Failed lookup for key [streak] in [{'True': True, 'False': False, 'None': None}, {'csrf_token': <SimpleLazyObject: <function csrf.<locals>._get_val at 0xecdfe730>>, 'request': <WSGIRequest: GET '/pomo/start/'>, 'user': <SimpleLazyObject: <User: timoh>>, 'perms': PermWrapper(<SimpleLazyObject: <User: timoh>>), 'messages': <FallbackStorage: request=<WSGIRequest: GET '/pomo/start/'>>, 'DEFAULT_MESSAGE_LEVELS': {'DEBUG': 10, 'INFO': 20, 'SUCCESS': 25, 'WARNING': 30, 'ERROR': 40}}, {}, {}]
+Exception while resolving variable 'total_pomodoros_today' in template 'pomo/start.html'.
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 880, in _resolve_lookup
+    current = current[bit]
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/context.py", line 83, in __getitem__
+    raise KeyError(key)
+KeyError: 'total_pomodoros_today'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 886, in _resolve_lookup
+    if isinstance(current, BaseContext) and getattr(
+AttributeError: type object 'RequestContext' has no attribute 'total_pomodoros_today'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 896, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'total_pomodoros_today'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 903, in _resolve_lookup
+    raise VariableDoesNotExist(
+django.template.base.VariableDoesNotExist: Failed lookup for key [total_pomodoros_today] in [{'True': True, 'False': False, 'None': None}, {'csrf_token': <SimpleLazyObject: <function csrf.<locals>._get_val at 0xecdfe730>>, 'request': <WSGIRequest: GET '/pomo/start/'>, 'user': <SimpleLazyObject: <User: timoh>>, 'perms': PermWrapper(<SimpleLazyObject: <User: timoh>>), 'messages': <FallbackStorage: request=<WSGIRequest: GET '/pomo/start/'>>, 'DEFAULT_MESSAGE_LEVELS': {'DEBUG': 10, 'INFO': 20, 'SUCCESS': 25, 'WARNING': 30, 'ERROR': 40}}, {}, {}]
+Exception while resolving variable 'streak' in template 'pomo/start.html'.
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 880, in _resolve_lookup
+    current = current[bit]
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/context.py", line 83, in __getitem__
+    raise KeyError(key)
+KeyError: 'streak'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 886, in _resolve_lookup
+    if isinstance(current, BaseContext) and getattr(
+AttributeError: type object 'RequestContext' has no attribute 'streak'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 896, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'streak'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 903, in _resolve_lookup
+    raise VariableDoesNotExist(
+django.template.base.VariableDoesNotExist: Failed lookup for key [streak] in [{'True': True, 'False': False, 'None': None}, {'csrf_token': <SimpleLazyObject: <function csrf.<locals>._get_val at 0xecdb95c8>>, 'request': <WSGIRequest: GET '/pomo/start/'>, 'user': <SimpleLazyObject: <User: timoh>>, 'perms': PermWrapper(<SimpleLazyObject: <User: timoh>>), 'messages': <FallbackStorage: request=<WSGIRequest: GET '/pomo/start/'>>, 'DEFAULT_MESSAGE_LEVELS': {'DEBUG': 10, 'INFO': 20, 'SUCCESS': 25, 'WARNING': 30, 'ERROR': 40}}, {}, {}]
+Exception while resolving variable 'total_pomodoros_today' in template 'pomo/start.html'.
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 880, in _resolve_lookup
+    current = current[bit]
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/context.py", line 83, in __getitem__
+    raise KeyError(key)
+KeyError: 'total_pomodoros_today'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 886, in _resolve_lookup
+    if isinstance(current, BaseContext) and getattr(
+AttributeError: type object 'RequestContext' has no attribute 'total_pomodoros_today'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 896, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'total_pomodoros_today'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 903, in _resolve_lookup
+    raise VariableDoesNotExist(
+django.template.base.VariableDoesNotExist: Failed lookup for key [total_pomodoros_today] in [{'True': True, 'False': False, 'None': None}, {'csrf_token': <SimpleLazyObject: <function csrf.<locals>._get_val at 0xecdb95c8>>, 'request': <WSGIRequest: GET '/pomo/start/'>, 'user': <SimpleLazyObject: <User: timoh>>, 'perms': PermWrapper(<SimpleLazyObject: <User: timoh>>), 'messages': <FallbackStorage: request=<WSGIRequest: GET '/pomo/start/'>>, 'DEFAULT_MESSAGE_LEVELS': {'DEBUG': 10, 'INFO': 20, 'SUCCESS': 25, 'WARNING': 30, 'ERROR': 40}}, {}, {}]
+Not Found: /pomo/quest/1/static/pomo/audio/alarm1.mp3
+Not Found: /robots.txt
+Not Found: /pomo/timer/
+Not Found: /pomo/quest/1/static/pomo/audio/alarm1.mp3
+Not Found: /pomo/t
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Internal Server Error: /pomo/signup/
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/timoh/projects/master-o-meter/webapp/pomo/views.py", line 557, in signup
+    user = User.objects.create_user(first_name=name,
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/contrib/auth/models.py", line 161, in create_user
+    return self._create_user(username, email, password, **extra_fields)
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/contrib/auth/models.py", line 155, in _create_user
+    user.save(using=self._db)
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/contrib/auth/base_user.py", line 76, in save
+    super().save(*args, **kwargs)
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/db/models/base.py", line 814, in save
+    self.save_base(
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/db/models/base.py", line 892, in save_base
+    post_save.send(
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/dispatch/dispatcher.py", line 176, in send
+    return [
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/dispatch/dispatcher.py", line 177, in <listcomp>
+    (receiver, receiver(signal=self, sender=sender, **named))
+  File "/home/timoh/projects/master-o-meter/webapp/pomo/models.py", line 16, in create_player_state
+    PlayerQuestProgress.create(player=instance,quest=start_quest)
+AttributeError: type object 'PlayerQuestProgress' has no attribute 'create'
+Not Found: /favicon.ico
+Internal Server Error: /pomo/signup/
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/timoh/projects/master-o-meter/webapp/pomo/views.py", line 557, in signup
+    user = User.objects.create_user(first_name=name,
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/contrib/auth/models.py", line 161, in create_user
+    return self._create_user(username, email, password, **extra_fields)
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/contrib/auth/models.py", line 155, in _create_user
+    user.save(using=self._db)
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/contrib/auth/base_user.py", line 76, in save
+    super().save(*args, **kwargs)
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/db/models/base.py", line 814, in save
+    self.save_base(
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/db/models/base.py", line 892, in save_base
+    post_save.send(
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/dispatch/dispatcher.py", line 176, in send
+    return [
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/dispatch/dispatcher.py", line 177, in <listcomp>
+    (receiver, receiver(signal=self, sender=sender, **named))
+  File "/home/timoh/projects/master-o-meter/webapp/pomo/models.py", line 16, in create_player_state
+    PlayerQuestProgress.create(player=instance,quest=start_quest)
+AttributeError: type object 'PlayerQuestProgress' has no attribute 'create'
+Not Found: /favicon.ico
+Exception while resolving variable 'streak' in template 'pomo/intro.html'.
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 880, in _resolve_lookup
+    current = current[bit]
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/context.py", line 83, in __getitem__
+    raise KeyError(key)
+KeyError: 'streak'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 886, in _resolve_lookup
+    if isinstance(current, BaseContext) and getattr(
+AttributeError: type object 'RequestContext' has no attribute 'streak'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 896, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'streak'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 903, in _resolve_lookup
+    raise VariableDoesNotExist(
+django.template.base.VariableDoesNotExist: Failed lookup for key [streak] in [{'True': True, 'False': False, 'None': None}, {'csrf_token': <SimpleLazyObject: <function csrf.<locals>._get_val at 0xeca45cd0>>, 'request': <WSGIRequest: GET '/pomo/intro/'>, 'user': <SimpleLazyObject: <User: dev3mail>>, 'perms': PermWrapper(<SimpleLazyObject: <User: dev3mail>>), 'messages': <FallbackStorage: request=<WSGIRequest: GET '/pomo/intro/'>>, 'DEFAULT_MESSAGE_LEVELS': {'DEBUG': 10, 'INFO': 20, 'SUCCESS': 25, 'WARNING': 30, 'ERROR': 40}}, {}, {}]
+Exception while resolving variable 'total_pomodoros_today' in template 'pomo/intro.html'.
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 880, in _resolve_lookup
+    current = current[bit]
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/context.py", line 83, in __getitem__
+    raise KeyError(key)
+KeyError: 'total_pomodoros_today'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 886, in _resolve_lookup
+    if isinstance(current, BaseContext) and getattr(
+AttributeError: type object 'RequestContext' has no attribute 'total_pomodoros_today'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 896, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'total_pomodoros_today'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 903, in _resolve_lookup
+    raise VariableDoesNotExist(
+django.template.base.VariableDoesNotExist: Failed lookup for key [total_pomodoros_today] in [{'True': True, 'False': False, 'None': None}, {'csrf_token': <SimpleLazyObject: <function csrf.<locals>._get_val at 0xeca45cd0>>, 'request': <WSGIRequest: GET '/pomo/intro/'>, 'user': <SimpleLazyObject: <User: dev3mail>>, 'perms': PermWrapper(<SimpleLazyObject: <User: dev3mail>>), 'messages': <FallbackStorage: request=<WSGIRequest: GET '/pomo/intro/'>>, 'DEFAULT_MESSAGE_LEVELS': {'DEBUG': 10, 'INFO': 20, 'SUCCESS': 25, 'WARNING': 30, 'ERROR': 40}}, {}, {}]
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Exception while resolving variable 'streak' in template 'pomo/intro.html'.
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 880, in _resolve_lookup
+    current = current[bit]
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/context.py", line 83, in __getitem__
+    raise KeyError(key)
+KeyError: 'streak'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 886, in _resolve_lookup
+    if isinstance(current, BaseContext) and getattr(
+AttributeError: type object 'RequestContext' has no attribute 'streak'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 896, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'streak'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 903, in _resolve_lookup
+    raise VariableDoesNotExist(
+django.template.base.VariableDoesNotExist: Failed lookup for key [streak] in [{'True': True, 'False': False, 'None': None}, {'csrf_token': <SimpleLazyObject: <function csrf.<locals>._get_val at 0xeca7ba00>>, 'request': <WSGIRequest: GET '/pomo/intro/'>, 'user': <SimpleLazyObject: <User: dev69mail>>, 'perms': PermWrapper(<SimpleLazyObject: <User: dev69mail>>), 'messages': <FallbackStorage: request=<WSGIRequest: GET '/pomo/intro/'>>, 'DEFAULT_MESSAGE_LEVELS': {'DEBUG': 10, 'INFO': 20, 'SUCCESS': 25, 'WARNING': 30, 'ERROR': 40}}, {}, {}]
+Exception while resolving variable 'total_pomodoros_today' in template 'pomo/intro.html'.
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 880, in _resolve_lookup
+    current = current[bit]
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/context.py", line 83, in __getitem__
+    raise KeyError(key)
+KeyError: 'total_pomodoros_today'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 886, in _resolve_lookup
+    if isinstance(current, BaseContext) and getattr(
+AttributeError: type object 'RequestContext' has no attribute 'total_pomodoros_today'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 896, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'total_pomodoros_today'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 903, in _resolve_lookup
+    raise VariableDoesNotExist(
+django.template.base.VariableDoesNotExist: Failed lookup for key [total_pomodoros_today] in [{'True': True, 'False': False, 'None': None}, {'csrf_token': <SimpleLazyObject: <function csrf.<locals>._get_val at 0xeca7ba00>>, 'request': <WSGIRequest: GET '/pomo/intro/'>, 'user': <SimpleLazyObject: <User: dev69mail>>, 'perms': PermWrapper(<SimpleLazyObject: <User: dev69mail>>), 'messages': <FallbackStorage: request=<WSGIRequest: GET '/pomo/intro/'>>, 'DEFAULT_MESSAGE_LEVELS': {'DEBUG': 10, 'INFO': 20, 'SUCCESS': 25, 'WARNING': 30, 'ERROR': 40}}, {}, {}]
+Not Found: /pomo/quest/1/static/pomo/audio/alarm1.mp3
+Not Found: /favicon.ico

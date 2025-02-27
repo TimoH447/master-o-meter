@@ -12,6 +12,11 @@ def create_player_state(sender, instance, created, **kwargs):
     if created:
         PlayerState.objects.create(player=instance)
         Profile.objects.create(user=instance)
+        try:
+            start_quest = Quest.objects.get(id=1)
+            PlayerQuestProgress.objects.create(player=instance,quest=start_quest)
+        except Quest.DoesNotExist:
+            pass
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)

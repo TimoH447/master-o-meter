@@ -522,10 +522,10 @@ def event_timer(request, event_id):
 
 def login(request):
     if request.method == "POST":
-        email = request.POST['email']
+        username = request.POST['username']
         password = request.POST['password']
-        if User.objects.filter(username=email).exists():
-            user = auth.authenticate(username=email, password=password)
+        if User.objects.filter(username=username).exists():
+            user = auth.authenticate(username=username, password=password)
             print(user)
             if user is not None:
                 auth.login(request, user)
@@ -534,7 +534,7 @@ def login(request):
                 messages.error(request, 'Invalid credentials')
                 return redirect("login")
         else:
-            messages.info(request, "Invalid email or password")
+            messages.info(request, "Invalid username or password")
             return redirect('login')
     else:
         return render(request, 'pomo/login.html')
@@ -554,8 +554,8 @@ def signup(request):
             messages.info(request, "Email already taken")
             return redirect('signup')
         else:
-            user = User.objects.create_user(first_name=name,
-                                            username=email,
+            user = User.objects.create_user(username=name,
+                                            email=email,
                                             password=password)
             print(user)
             print("User registered Successfully")
