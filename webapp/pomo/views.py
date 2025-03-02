@@ -310,6 +310,25 @@ def update_player_state(request):
 
     return JsonResponse({'error': 'Invalid request method'}, status=405)
 
+def quest_step_complete(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        quest_id = data.get('quest_id')
+        step_number = data.get('step_number')
+        
+        if not quest_id or not step_number:
+            return JsonResponse({'error': 'Invalid data yes'}, status=400)
+        
+        quest = get_object_or_404(Quest, id=quest_id)
+        player_progress = get_object_or_404(PlayerQuestProgress, player=request.user, quest=quest)
+        
+        try:
+            player_progress.complete_step()
+            player_progress.save()
+        except:
+            return JsonResponse({'error': "WW"}, status=400)
+        return JsonResponse({'success': True, 'current_step': player_progress.get_current_step()})
+
 def timer_complete(request):
     if request.method == "POST":
         data = json.loads(request.body)

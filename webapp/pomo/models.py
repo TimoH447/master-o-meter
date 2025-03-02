@@ -198,8 +198,17 @@ class PlayerQuestProgress(models.Model):
 
     def __str__(self):
         return f"{self.player.username} - {self.quest.name} - Step {self.current_step}"
+
+    def get_completion_percentage(self):
+        """Returns the completion percentage as a float between 0 and 100."""
+        if self.total_steps > 0:
+            return (self.get_current_step() / self.total_steps) * 100
+        return 0  # If total_steps is 0, return 0% to avoid division error
+
+    def get_number_of_steps(self):
+        return self.quest.steps.count()
     
-    def get_steps_completed(self):
+    def get_current_step(self):
         return self.current_step
 
     def get_next_step(self):

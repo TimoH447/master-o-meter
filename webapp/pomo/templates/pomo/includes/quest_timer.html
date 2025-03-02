@@ -1,0 +1,25 @@
+<section class="timer--section">
+    <div class="container" id="timer-container">
+        <div class="row">
+            <div class="col-lg-12 mt-1 h4 text-center">
+
+                <div class="timer">
+                    <span id="minutes">25</span>:<span id="seconds">00</span>
+                </div>
+
+                <!-- Pause/Start Button (changes dynamically) -->
+                <button id="startPauseBtn" class="btn btn-primary" onclick="toggleTimer()">Start</button>
+
+                {% if is_developer %}
+                    <!-- Developer features for tester users -->
+                    <button class="btn btn-warning" onclick="questTimerComplete({{quest.id}},{{quest.get_next_step}})">Complete Timer Now</button>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div id="break-timer" style="display: none;">
+        <span id="break-minutes">5</span>:<span id="break-seconds">00</span>
+        <button id="stop-break-btn" onclick="stopBreakTimer()">Stop Break</button>
+    </div>
+        
+</section>

@@ -11,7 +11,7 @@
     {% bootstrap_javascript %}
     <link rel="stylesheet" href="{% static 'pomo/music_player.css' %}">
     <script src="{% static 'pomo/app.js' %}"></script>
-    <script src="{% static 'pomo/js/timer.js' %}"></script>
+    <script src="{% static 'pomo/js/pomo_timer2.js' %}"></script>
     <script src="{% static 'pomo/js/quest.js' %}"></script>
     <style>
         body {
@@ -74,7 +74,7 @@
                     <div class="card-body">
                         <p>{{ step.pre_timer_text }}</p>
                         {% if step.step_number == quest.get_next_step %}
-                        {% include 'pomo/includes/event_timer.html' %}
+                        {% include 'pomo/includes/quest_timer.html' %}
                         {% endif %}
                         {% if step.step_number < quest.get_next_step %}
                         <div class="card mt-4">
@@ -112,8 +112,8 @@
 
     <script src="{% static 'pomo/js/music_player.js' %}"></script>
     <script>
+        let currentStep = {{ quest.get_next_step}};
         function showStep(stepNumber) {
-            const currentStep = {{ quest.get_next_step}};
             if (stepNumber > currentStep) {
                 return; // Do nothing if the step number is higher than the current step
             }

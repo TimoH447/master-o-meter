@@ -57,12 +57,12 @@
                                         <div class="card-body">
                                             <h5 class="card-title d-flex justify-content-between align-items-center">
                                                 <span><i class="bi bi-book"></i> {{ quest.quest.name }}</span>
-                                                <span>{{ quest.get_steps_completed }}/{{ quest.total_steps }}</span>
+                                                <span>{{ quest.get_current_step }}/{{ quest.total_steps }}</span>
                                             </h5>
                                             <div class="progress">
                                                 <div class="progress-bar" role="progressbar"
-                                                    style="width: {{ quest.current_step|divisibleby:quest.total_steps|floatformat:2 }}%;"
-                                                    aria-valuenow="{{ quest.current_step }}" aria-valuemin="0"
+                                                    style="width: {{ quest.get_completion_percentage }}%"
+                                                    aria-valuenow="{{ quest.get_current_step }}" aria-valuemin="0"
                                                     aria-valuemax="{{ quest.total_steps }}"></div>
                                             </div>
                                         </div>
