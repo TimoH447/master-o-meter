@@ -5657,3 +5657,127 @@ Traceback (most recent call last):
 django.template.exceptions.TemplateSyntaxError: Invalid filter: 'div'
 Not Found: /favicon.ico
 Not Found: /favicon.ico
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Not Found: /pomo/api/quest_step_complete/
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Exception while resolving variable 'quests' in template 'pomo/quests/base_quest.html'.
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 880, in _resolve_lookup
+    current = current[bit]
+TypeError: 'PlayerQuestProgress' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 890, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'PlayerQuestProgress' object has no attribute 'quests'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 896, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'quests'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 903, in _resolve_lookup
+    raise VariableDoesNotExist(
+django.template.base.VariableDoesNotExist: Failed lookup for key [quests] in <PlayerQuestProgress: dev69mail - Welcome Ceremony - Step 0>
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Not Found: /robots.txt
+Not Found: /favicon.ico
+Not Found: /pomo/timer/
+Exception while resolving variable 'player_state_json' in template 'pomo/map.html'.
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 880, in _resolve_lookup
+    current = current[bit]
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/context.py", line 83, in __getitem__
+    raise KeyError(key)
+KeyError: 'player_state_json'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 886, in _resolve_lookup
+    if isinstance(current, BaseContext) and getattr(
+AttributeError: type object 'RequestContext' has no attribute 'player_state_json'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 896, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'player_state_json'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 903, in _resolve_lookup
+    raise VariableDoesNotExist(
+django.template.base.VariableDoesNotExist: Failed lookup for key [player_state_json] in [{'True': True, 'False': False, 'None': None}, {'csrf_token': <SimpleLazyObject: 'mQnsW2KfaRuloMXOcj0xQkZ05amIg2zNLBdf5V6tOWLhgO0YCvoHuoFUZ5s1Po4l'>, 'request': <WSGIRequest: GET '/pomo/map/'>, 'user': <SimpleLazyObject: <User: timoh>>, 'perms': PermWrapper(<SimpleLazyObject: <User: timoh>>), 'messages': <FallbackStorage: request=<WSGIRequest: GET '/pomo/map/'>>, 'DEFAULT_MESSAGE_LEVELS': {'DEBUG': 10, 'INFO': 20, 'SUCCESS': 25, 'WARNING': 30, 'ERROR': 40}}, {}, {'total_pomos_alltime': 346, 'total_pomodoros_today': 4, 'streak': 48, 'highest_streak': 48, 'is_developer': False, 'username': 'timoh'}]
+Exception while resolving variable 'location_states_json' in template 'pomo/map.html'.
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 880, in _resolve_lookup
+    current = current[bit]
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/context.py", line 83, in __getitem__
+    raise KeyError(key)
+KeyError: 'location_states_json'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 886, in _resolve_lookup
+    if isinstance(current, BaseContext) and getattr(
+AttributeError: type object 'RequestContext' has no attribute 'location_states_json'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 896, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'location_states_json'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/template/base.py", line 903, in _resolve_lookup
+    raise VariableDoesNotExist(
+django.template.base.VariableDoesNotExist: Failed lookup for key [location_states_json] in [{'True': True, 'False': False, 'None': None}, {'csrf_token': <SimpleLazyObject: 'mQnsW2KfaRuloMXOcj0xQkZ05amIg2zNLBdf5V6tOWLhgO0YCvoHuoFUZ5s1Po4l'>, 'request': <WSGIRequest: GET '/pomo/map/'>, 'user': <SimpleLazyObject: <User: timoh>>, 'perms': PermWrapper(<SimpleLazyObject: <User: timoh>>), 'messages': <FallbackStorage: request=<WSGIRequest: GET '/pomo/map/'>>, 'DEFAULT_MESSAGE_LEVELS': {'DEBUG': 10, 'INFO': 20, 'SUCCESS': 25, 'WARNING': 30, 'ERROR': 40}}, {}, {'total_pomos_alltime': 346, 'total_pomodoros_today': 4, 'streak': 48, 'highest_streak': 48, 'is_developer': False, 'username': 'timoh'}]
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Internal Server Error: /pomo/
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/contrib/auth/decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "/home/timoh/projects/master-o-meter/webapp/pomo/views.py", line 655, in hub
+    context = get_hub_context(request.user)
+  File "/home/timoh/projects/master-o-meter/webapp/pomo/views.py", line 645, in get_hub_context
+    player_quests.remove(quest_progress)
+AttributeError: 'QuerySet' object has no attribute 'remove'
+Internal Server Error: /pomo/
+Traceback (most recent call last):
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/timoh/projects/master-o-meter/.venv/lib/python3.9/site-packages/django/contrib/auth/decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "/home/timoh/projects/master-o-meter/webapp/pomo/views.py", line 655, in hub
+    context = get_hub_context(request.user)
+  File "/home/timoh/projects/master-o-meter/webapp/pomo/views.py", line 645, in get_hub_context
+    player_quests.remove(quest_progress)
+AttributeError: 'QuerySet' object has no attribute 'remove'
+Not Found: /favicon.ico

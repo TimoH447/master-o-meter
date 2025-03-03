@@ -12,7 +12,7 @@
 
                 {% if is_developer %}
                     <!-- Developer features for tester users -->
-                    <button class="btn btn-warning" onclick="questTimerComplete({{quest.id}},{{quest.get_next_step}})">Complete Timer Now</button>
+                    <button class="btn btn-warning" onclick="questTimerComplete({{quest.quest.id}},{{quest.get_next_step}})">Complete Timer Now</button>
                 {% endif %}
             </div>
         </div>

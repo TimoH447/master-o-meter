@@ -641,6 +641,11 @@ def get_hub_context(user):
         quest_progress.total_steps = QuestStep.objects.filter(quest=quest_progress.quest).count()
         quest_progress.current_step = quest_progress.current_step
         quest_progress.steps_completed  = quest_progress.current_step - 1
+        if quest_progress.is_completed:
+            player_quests = player_quests.exclude(id=quest_progress.id)
+            
+            
+            
 
     return {**navbar, 
             "available_events": open_events, 

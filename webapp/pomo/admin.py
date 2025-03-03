@@ -5,6 +5,9 @@ from .models import EventCondition, EventOutcome
 from .models import Quest, PlayerQuestProgress, QuestStep
 
 
+class QuestAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'description')
+
 class TimersAdmin(admin.ModelAdmin):
     readonly_fields = ('time_completed',)
 
@@ -27,6 +30,6 @@ admin.site.register(PartnerQuestRequest)
 admin.site.register(PartnerQuest)
 admin.site.register(EventCondition)
 admin.site.register(EventOutcome)
-admin.site.register(Quest)
+admin.site.register(Quest, QuestAdmin)
 admin.site.register(PlayerQuestProgress)
 admin.site.register(QuestStep)
